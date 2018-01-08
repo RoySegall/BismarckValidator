@@ -10,7 +10,6 @@ def test_welcome():
     assert data == {'message': 'Not supported for now but will be :).'}
 
 
-
 def test_http_request():
     """
     Testing a view, using the test client.
