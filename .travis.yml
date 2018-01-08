@@ -1,5 +1,5 @@
 language: python
-version: 3.6
+python: 3.6
 
 install:
   - pip install pycodestyle flake8 isort apistar
