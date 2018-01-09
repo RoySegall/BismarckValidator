@@ -1,6 +1,6 @@
-# OpenPension data validator
+# Bismarck Validator
 
-Welcome to the open pension data validator :confetti_ball: :sparkles:
+Welcome to Bismarck Validator :confetti_ball: :sparkles:
 
 The project validates pension xsl files and prints out the errors(if
 any).
