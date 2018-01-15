@@ -4,6 +4,32 @@ import datetime
 
 class Validations(object):
 
+    # The header size.
+    header_size = 0
+
+    # The columns.
+    columns_count = 0
+
+    # The number of rows.
+    rows_count = 0
+
+    # The instrument name.
+    instrument = ''
+
+    # Field name.
+    field = ''
+
+    # Define if the current value is context or not.
+    is_context = False
+
+    # The context name.
+    context_name = ''
+
+    # The name of sub spreadsheet.
+    instrument_dict_validations = {
+        'CASH': 'cash_validation',
+    }
+
     # Keep list of currency.
     currencies_list = [
         'דולר אוסטרליה',
@@ -33,6 +59,9 @@ class Validations(object):
         'רנד דרא"פ',
         'UNKNOWN',
     ]
+
+    # List of errors.
+    errors = []
 
     def not_null(self, val):
         """
