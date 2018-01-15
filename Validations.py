@@ -27,7 +27,7 @@ class Validations(object):
 
     # The name of sub spreadsheet.
     instrument_dict_validations = {
-        'CASH': 'cash_validation',
+        'cash': 'מזומנים',
     }
 
     # Keep list of currency.
