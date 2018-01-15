@@ -116,8 +116,10 @@ class Validations(object):
 
     def is_positive(self, val):
         """
+        Checking if the number is validate.
 
         :param val:
+            The number to validate.
         :return:
         """
         number = float(val)
@@ -128,8 +130,10 @@ class Validations(object):
 
     def is_float(self, val):
         """
+        Checking if the number is float.
 
         :param val:
+            The number we need to validate.
         :return:
         """
         try:
@@ -140,8 +144,11 @@ class Validations(object):
 
     def valid_currency(self, val):
         """
+        Validating currency from a list.
 
         :param val:
+            The currency to validate.
+
         :return:
         """
 
@@ -151,24 +158,35 @@ class Validations(object):
         print("currency %s not recognized" % val)
         return False
 
-    def date_format(self, val):
+    def date_format(self, val, format_to_validate='%d/%m/%Y', format_to_display='DD/MM/YYYY'):
         """
+        Checking the date format.
 
         :param val:
+            The date we need to check.
+        :param format_to_validate:
+            The format which we will validate.
+        :param format_to_display:
+            The format to display when the validation failed.
+
         :return:
         """
         try:
-            datetime.datetime.strptime(val, '%d/%m/%Y')
+            datetime.datetime.strptime(val, format_to_validate)
             return {'result': True}
         except ValueError:
-            return {'result': False, 'msg': "Incorrect date format, should be DD/MM/YYYY"}
+            return {'result': False, 'msg': "Incorrect date format, should be %s" % format_to_display}
 
     def digits_amount(self, val, min_digits, max_digits=0):
         """
-        
+        Check the amount of digits in the number.
+
         :param val:
+            The number we need to check.
         :param min_digits:
+            The min number of digits the number can hold.
         :param max_digits:
+            The max number of the digits the number can hold. Optional;
         :return:
         """
         if val.lenght > min_digits & max_digits == 0:
