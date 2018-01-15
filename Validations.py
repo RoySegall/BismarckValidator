@@ -5,19 +5,23 @@ import datetime
 class Validations(object):
 
     def not_null(self, val):
-        """ check if the value is none or not defined """
+        """
+        Check if the value is none or not defined.
+        """
         try:
-            if val is None:  # The variable
+            if val is None:
                 print("Invalid 'None' value")
                 return False
         except NameError:
             print("undefined value")
-            return False  # This variable is not defined
+            return False
 
         return True
 
     def asset_type(self, val):
-        """ check if value is one of the asset types"""
+        """
+        Check if value is one of the asset types.
+        """
         asset_types = ['הלוואות', 'ניירות ערך סחירים', 'ניירות ערך לא סחירים', 'מזומנים', 'זכויות', 'השקעות אחרות']
 
         if val in asset_types:
@@ -27,14 +31,34 @@ class Validations(object):
         return False
 
     def decimal_positive(self, val):
-        """ check if value is decimal positive with 2 positions after floating point"""
+        """
+        Check if value is decimal positive with 2 positions after floating point.
+        """
         return self.__decimal(val, True)
 
     def decimal_negative(self, val):
-        """ check if value is decimal positive with 2 positions after floating point"""
+        """
+        Check if value is decimal positive with 2 positions after floating point.
+        """
         return self.__decimal(val, False)
 
     def __decimal(self, val, is_positive=True):
+        """
+        Check if the variable is decimal or not.
+
+        :param val:
+            The value to check.
+        :param is_positive:
+            Determine if we allowed that the value can be positive or not.
+
+        :return:
+        """
+
+        # The object with the results of the functions.
+        results = {
+            'result': True,
+            'msg': '',
+        }
 
         try:
             d = decimal.Decimal(val)
@@ -46,18 +70,24 @@ class Validations(object):
                     d = d * -1
 
                 if d > 0:
-                    return True
+                    return results
                 else:
-                    print("The value %s must be %s decimal" % (val, sign))
+                    return {
+                        'result': False,
+                        'msg': "The value %s must be %s decimal" % (val, sign)
+                    }
 
             else:
-                print("The value %s must have 2 numbers after decimal point" % val)
-
-            return False
+                return {
+                    'result': False,
+                    'msg': "The value %s must have 2 numbers after decimal point" % val
+                }
 
         except ValueError:
-            print("The value %s not a decimal or not defined" % val)
-            return False
+            return {
+                'result': False,
+                'msg': "The value %s not a decimal or not defined" % val
+            }
 
     def is_positive(self, val):
         number = float(val)
