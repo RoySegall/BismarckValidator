@@ -3,6 +3,8 @@ import datetime
 
 
 class Validations(object):
+
+    # Keep list of currency.
     currencies_list = [
         'דולר אוסטרליה',
         'ריאל ברזילאי',
@@ -101,7 +103,6 @@ class Validations(object):
                         'result': False,
                         'msg': "The value %s must be %s decimal" % (val, sign)
                     }
-
             else:
                 return {
                     'result': False,
