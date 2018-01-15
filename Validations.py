@@ -226,3 +226,19 @@ class Validations(object):
             return {'result': True}
 
         return {'result': False, 'msg': "Value exceeded digits boundary"}
+
+    def number_in_range(self, val, min_range=0, max_range=0):
+        """
+        Checking the number is in the range.
+
+        :param val:
+            The number to validate.
+        :param min_range:
+            The min range for the number.
+        :param max_range:
+            The max range for the number.
+
+        :return:
+        """
+
+        return (min_range != 0 and min_range >= val and max) and max_range != 0 and max_range <= val
