@@ -197,4 +197,3 @@ class Validations(object):
             return {'result': True}
 
         return {'result': False, 'msg': "Value exceeded digits boundary"}
-
