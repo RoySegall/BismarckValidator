@@ -60,6 +60,20 @@ class Validations(object):
         'UNKNOWN',
     ]
 
+    _instrument_sub_type = [
+        "תעודות התחייבות ממשלתיות",
+        "תעודות חוב מסחריות",
+        'אג"ח קונצרני'
+        "מניות",
+        "תעודות סל",
+        "קרנות נאמנות",
+        "קרנות מחקות",
+        "כתבי אופציה",
+        "אופציות",
+        "חוזים עתידים",
+        "מוצרים מובנים"
+    ]
+
     # List of errors.
     errors = []
 
@@ -242,3 +256,11 @@ class Validations(object):
         """
 
         return (min_range != 0 and min_range >= val and max) and max_range != 0 and max_range <= val
+
+    def instrument_sub_type(self, val):
+        """
+        Checking the value is a instrument sub type.
+        :param val:
+        :return:
+        """
+        return val in self._instrument_sub_type
