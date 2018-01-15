@@ -3,6 +3,34 @@ import datetime
 
 
 class Validations(object):
+    currencies_list = [
+        'דולר אוסטרליה',
+        'ריאל ברזילאי',
+        'דולר קנדי',
+        'פרנק שוויצרי',
+        'פסו ציליאני',
+        'יואן סיני',
+        'כתר דני',
+        'אירו',
+        'ליש"ט',
+        'דולר הונג קונג',
+        'פורינט הונגרי',
+        'רופי הודי',
+        'יין יפני',
+        'פזו מכסיקני',
+        'שקל חדש ישראלי',
+        'כתר נורווגי',
+        'ניו זילנד דולר',
+        'זלוטי פולני',
+        'רובל רוסי',
+        'כתר שוודי',
+        'דולר סינגפורי',
+        'לירה טורקית',
+        'דולר טיוואני',
+        'דולר ארהב',
+        'רנד דרא"פ',
+        'UNKNOWN',
+    ]
 
     def not_null(self, val):
         """
@@ -105,37 +133,9 @@ class Validations(object):
 
 
     def valid_currency(self, val):
-        currencies_list = [
-            'דולר אוסטרליה',
-            'ריאל ברזילאי',
-            'דולר קנדי',
-            'פרנק שוויצרי',
-            'פסו ציליאני',
-            'יואן סיני',
-            'כתר דני',
-            'אירו',
-            'ליש"ט',
-            'דולר הונג קונג',
-            'פורינט הונגרי',
-            'רופי הודי',
-            'יין יפני',
-            'פזו מכסיקני',
-            'שקל חדש ישראלי',
-            'כתר נורווגי',
-            'ניו זילנד דולר',
-            'זלוטי פולני',
-            'רובל רוסי',
-            'כתר שוודי',
-            'דולר סינגפורי',
-            'לירה טורקית',
-            'דולר טיוואני',
-            'דולר ארהב',
-            'רנד דרא"פ',
-            'UNKNOWN',
-        ]
 
-        if val in currencies_list:
-            return True
+        if val in self.currencies_list:
+            return {'result': True}
 
         print("currency %s not recognized" % val)
         return False
@@ -146,3 +146,13 @@ class Validations(object):
         except ValueError:
             print("Incorrect date format, should be DD/MM/YYYY")
             return False
+
+
+    def digits_amount(self, val, min_digits, max_digits = 0):
+        if val.lenght > min_digits & max_digits == 0:
+            return {'result': True}
+        if val.lenght > min_digits & val.lenght < max_digits:
+            return {'result': True}
+
+        return {'result': False, 'msg': "Value exceeded digits boundary"}
+
