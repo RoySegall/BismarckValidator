@@ -10,13 +10,11 @@ class Validations(object):
         """
         try:
             if val is None:
-                print("Invalid 'None' value")
-                return False
+                return {'result': False, 'msg': "Invalid 'None' value"}
         except NameError:
-            print("undefined value")
-            return False
+            return {'result': False, 'msg': "undefined value"}
 
-        return True
+        return {'result': True}
 
     def asset_type(self, val):
         """
@@ -25,10 +23,9 @@ class Validations(object):
         asset_types = ['הלוואות', 'ניירות ערך סחירים', 'ניירות ערך לא סחירים', 'מזומנים', 'זכויות', 'השקעות אחרות']
 
         if val in asset_types:
-            return True
+            return {'result': True}
 
-        print("unrecognized asset type")
-        return False
+        return {'result': False, 'msg': "unrecognized asset type"}
 
     def decimal_positive(self, val):
         """
@@ -92,17 +89,16 @@ class Validations(object):
     def is_positive(self, val):
         number = float(val)
         if number > 0:
-            return True
+            return {'result': True}
         else:
-            print("Not a positive number")
-            return False
+            return {'result': False, 'msg': "Not a positive number"}
 
     def is_float(self, val):
         try:
-            number = float(val)
+            float(val)
+            return {'result': True}
         except ValueError:
-            print("Not a float")
-
+            return {'result': False, 'msg': "Not a float"}
 
     def valid_currency(self, val):
         currencies_list = [
@@ -143,6 +139,6 @@ class Validations(object):
     def date_format(self, val):
         try:
             datetime.datetime.strptime(val, '%d/%m/%Y')
+            return {'result': True}
         except ValueError:
-            print("Incorrect date format, should be DD/MM/YYYY")
-            return False
+            return {'result': False, 'msg': "Incorrect date format, should be DD/MM/YYYY"}
