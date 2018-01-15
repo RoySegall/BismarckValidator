@@ -115,6 +115,11 @@ class Validations(object):
             }
 
     def is_positive(self, val):
+        """
+
+        :param val:
+        :return:
+        """
         number = float(val)
         if number > 0:
             return {'result': True}
@@ -122,6 +127,11 @@ class Validations(object):
             return {'result': False, 'msg': "Not a positive number"}
 
     def is_float(self, val):
+        """
+
+        :param val:
+        :return:
+        """
         try:
             float(val)
             return {'result': True}
@@ -129,6 +139,11 @@ class Validations(object):
             return {'result': False, 'msg': "Not a float"}
 
     def valid_currency(self, val):
+        """
+
+        :param val:
+        :return:
+        """
 
         if val in self.currencies_list:
             return {'result': True}
@@ -137,6 +152,11 @@ class Validations(object):
         return False
 
     def date_format(self, val):
+        """
+
+        :param val:
+        :return:
+        """
         try:
             datetime.datetime.strptime(val, '%d/%m/%Y')
             return {'result': True}
@@ -144,6 +164,13 @@ class Validations(object):
             return {'result': False, 'msg': "Incorrect date format, should be DD/MM/YYYY"}
 
     def digits_amount(self, val, min_digits, max_digits=0):
+        """
+        
+        :param val:
+        :param min_digits:
+        :param max_digits:
+        :return:
+        """
         if val.lenght > min_digits & max_digits == 0:
             return {'result': True}
 
