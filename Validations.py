@@ -4,6 +4,32 @@ import datetime
 
 class Validations(object):
 
+    # The header size.
+    header_size = 0
+
+    # The columns.
+    columns_count = 0
+
+    # The number of rows.
+    rows_count = 0
+
+    # The instrument name.
+    instrument = ''
+
+    # Field name.
+    field = ''
+
+    # Define if the current value is context or not.
+    is_context = False
+
+    # The context name.
+    context_name = ''
+
+    # The name of sub spreadsheet.
+    instrument_dict_validations = {
+        'cash': 'מזומנים',
+    }
+
     # Keep list of currency.
     currencies_list = [
         'דולר אוסטרליה',
@@ -33,6 +59,23 @@ class Validations(object):
         'רנד דרא"פ',
         'UNKNOWN',
     ]
+
+    _instrument_sub_type = [
+        "תעודות התחייבות ממשלתיות",
+        "תעודות חוב מסחריות",
+        'אג"ח קונצרני'
+        "מניות",
+        "תעודות סל",
+        "קרנות נאמנות",
+        "קרנות מחקות",
+        "כתבי אופציה",
+        "אופציות",
+        "חוזים עתידים",
+        "מוצרים מובנים"
+    ]
+
+    # List of errors.
+    errors = []
 
     def not_null(self, val):
         """
@@ -200,3 +243,26 @@ class Validations(object):
 
         return {'result': False, 'msg': "Value exceeded digits boundary"}
 
+    def number_in_range(self, val, min_range=0, max_range=0):
+        """
+        Checking the number is in the range.
+
+        :param val:
+            The number to validate.
+        :param min_range:
+            The min range for the number.
+        :param max_range:
+            The max range for the number.
+
+        :return:
+        """
+
+        return (min_range != 0 and min_range >= val and max) and max_range != 0 and max_range <= val
+
+    def instrument_sub_type(self, val):
+        """
+        Checking the value is a instrument sub type.
+        :param val:
+        :return:
+        """
+        return val in self._instrument_sub_type

@@ -1,0 +1,29 @@
+# Listing the list of fields.
+fields:
+  # Field name.
+
+  - instrument_id:
+
+    # Context.
+    - in_isrel:
+
+      # Callbacks.
+      - number_in_range:
+
+        # Args to function.
+        min_range: 1000
+        max_range: 9999990
+
+      - date_format:
+        format_to_validate: "%d/%m/%Y"
+        format_to_display: "DD/MM/YYYY"
+
+      # Regex pattern.
+      - patterns: "[a-z]"
+
+    # Context.
+    - no_in_israel:
+
+      - date_format:
+        format_to_validate: "%d/%m/%Y"
+        format_to_display: "DD/MM/YYYY"
