@@ -41,6 +41,8 @@ class Validations(object):
         try:
             if val is None:
                 return {'result': False, 'msg': "Invalid 'None' value"}
+            if val == '':
+                return {'result': False, 'msg': "Invalid empty string value"}
         except NameError:
             return {'result': False, 'msg': "undefined value"}
 
