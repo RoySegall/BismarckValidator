@@ -1,4 +1,4 @@
-import decimal
+from decimal import Decimal, DecimalException
 import datetime
 
 
@@ -133,7 +133,7 @@ class Validations(object):
         }
 
         try:
-            d = decimal.Decimal(val)
+            d = Decimal(str(val))
 
             if d.as_tuple().exponent == -2:
                 sign = "positive"
@@ -154,7 +154,7 @@ class Validations(object):
                     'msg': "The value %s must have 2 numbers after decimal point" % val
                 }
 
-        except ValueError:
+        except (ValueError, DecimalException):
             return {
                 'result': False,
                 'msg': "The value %s not a decimal or not defined" % val
@@ -183,8 +183,10 @@ class Validations(object):
         :return:
         """
         try:
-            float(val)
-            return {'result': True}
+            if val % 1 == 0:
+                return {'result': False, 'msg': "Not a float"}
+            else:
+                return {'result': True}
         except ValueError:
             return {'result': False, 'msg': "Not a float"}
 
@@ -201,8 +203,7 @@ class Validations(object):
         if val in self.currencies_list:
             return {'result': True}
 
-        print("currency %s not recognized" % val)
-        return False
+        return {'result': False, 'msg': "currency %s not recognized" % val}
 
     def date_format(self, val, format_to_validate='%d/%m/%Y', format_to_display='DD/MM/YYYY'):
         """
