@@ -237,12 +237,12 @@ class Validations(object):
             The max number of the digits the number can hold. Optional;
         :return:
         """
-        if val.lenght > min_digits & max_digits == 0:
+        if val.length > min_digits & max_digits == 0:
             return {'result': True}
 
-        if val.lenght > min_digits & val.lenght < max_digits:
+        if val.length > min_digits & val.length < max_digits:
             return {'result': True}
-
+        # todo: better limitation handling.
         return {'result': False, 'msg': "Value exceeded digits boundary"}
 
     def number_in_range(self, val, min_range=0, max_range=0):
