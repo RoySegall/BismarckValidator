@@ -102,12 +102,16 @@ class TestsPlugins(object):
         validators = Validations()
         assert validators.digits_amount(1000, 5).items() <= (
             {'result': False, 'msg': "Value exceeded digits boundary"}).items()
-        pass
 
     def test_number_in_range(self):
         validators = Validations()
-        pass
+
+        assert validators.number_in_range(50, 20, 60)
+
+        assert validators.number_in_range(20, 50, 60).items() == False
 
     def test_instrument_sub_type(self):
         validators = Validations()
-        pass
+
+        assert validators.instrument_sub_type("תעודות התחייבות ממשלתיות")
+        assert validators.instrument_sub_type("Pizza") == False
