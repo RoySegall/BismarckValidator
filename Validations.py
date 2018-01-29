@@ -1,3 +1,4 @@
+from decimal import Decimal, DecimalException
 import decimal
 import datetime
 
@@ -84,6 +85,8 @@ class Validations(object):
         try:
             if val is None:
                 return {'result': False, 'msg': "Invalid 'None' value"}
+            if val == '':
+                return {'result': False, 'msg': "Invalid empty string value"}
         except NameError:
             return {'result': False, 'msg': "undefined value"}
 
@@ -131,7 +134,7 @@ class Validations(object):
         }
 
         try:
-            d = decimal.Decimal(val)
+            d = Decimal(str(val))
 
             if d.as_tuple().exponent == -2:
                 sign = "positive"
@@ -152,7 +155,7 @@ class Validations(object):
                     'msg': "The value %s must have 2 numbers after decimal point" % val
                 }
 
-        except ValueError:
+        except (ValueError, DecimalException):
             return {
                 'result': False,
                 'msg': "The value %s not a decimal or not defined" % val
@@ -181,8 +184,10 @@ class Validations(object):
         :return:
         """
         try:
-            float(val)
-            return {'result': True}
+            if val % 1 == 0:
+                return {'result': False, 'msg': "Not a float"}
+            else:
+                return {'result': True}
         except ValueError:
             return {'result': False, 'msg': "Not a float"}
 
@@ -199,8 +204,7 @@ class Validations(object):
         if val in self.currencies_list:
             return {'result': True}
 
-        print("currency %s not recognized" % val)
-        return False
+        return {'result': False, 'msg': "currency %s not recognized" % val}
 
     def date_format(self, val, format_to_validate='%d/%m/%Y', format_to_display='DD/MM/YYYY'):
         """
@@ -233,10 +237,12 @@ class Validations(object):
             The max number of the digits the number can hold. Optional;
         :return:
         """
-        if val.lenght > min_digits & max_digits == 0:
+        sval = len(str(val))
+
+        if (sval >= min_digits) and (max_digits == 0):
             return {'result': True}
 
-        if val.lenght > min_digits & val.lenght < max_digits:
+        if (sval >= min_digits) and (sval <= max_digits):
             return {'result': True}
 
         return {'result': False, 'msg': "Value exceeded digits boundary"}
@@ -254,8 +260,18 @@ class Validations(object):
 
         :return:
         """
+        min_range_test = max_range_test = True
 
-        return (min_range != 0 and min_range >= val and max) and max_range != 0 and max_range <= val
+        if min_range is not 0:
+            min_range_test = val >= min_range
+
+        if max_range is not 0:
+            max_range_test = val <= max_range
+
+        if max_range_test & min_range_test:
+            return {'result': True}
+
+        return {'result': False, 'msg': "Value is not in the correct range."}
 
     def instrument_sub_type(self, val):
         """
@@ -263,4 +279,8 @@ class Validations(object):
         :param val:
         :return:
         """
-        return val in self._instrument_sub_type
+
+        if val in self._instrument_sub_type:
+            return {'result': True}
+
+        return {'result': False, 'msg': "unrecognized asset type"}
