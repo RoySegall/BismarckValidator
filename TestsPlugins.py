@@ -106,9 +106,10 @@ class TestsPlugins(object):
     def test_number_in_range(self):
         validators = Validations()
 
-        assert validators.number_in_range(50, 20, 60)
-
-        assert validators.number_in_range(20, 50, 60).items() == False
+        assert validators.number_in_range(50, 20, 60).items() <= ({'result': True}).items()
+        assert validators.number_in_range(20, 50, 60).items() <= (
+            {'result': False, 'msg': "Value is not in the correct range."}
+        ).items()
 
     def test_instrument_sub_type(self):
         validators = Validations()
