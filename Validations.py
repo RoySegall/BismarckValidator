@@ -260,8 +260,18 @@ class Validations(object):
 
         :return:
         """
+        min_range_test = max_range_test = True
 
-        return (min_range != 0 and min_range >= val and max) and max_range != 0 and max_range <= val
+        if min_range is not 0:
+            min_range_test = val >= min_range
+
+        if max_range is not 0:
+            max_range_test = val <= max_range
+
+        if max_range_test & min_range_test:
+            return {'result': True}
+
+        return {'result': False, 'msg': "Value is not in the correct range."}
 
     def instrument_sub_type(self, val):
         """
