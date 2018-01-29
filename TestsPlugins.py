@@ -13,11 +13,11 @@ class TestsPlugins(object):
         validators = Validations()
         asset_types = ['הלוואות', 'ניירות ערך סחירים', 'ניירות ערך לא סחירים', 'מזומנים', 'זכויות', 'השקעות אחרות']
 
-        # positive value tests
+        # Positive value tests.
         for asset in asset_types:
             assert validators.asset_type(asset).items() <= ({'result': True}).items()
 
-        # negative value tests
+        # Negative value tests.
         assert validators.asset_type(val='junk value').items() <= (
             {'result': False, 'msg': "unrecognized asset type"}).items()
 
@@ -75,11 +75,11 @@ class TestsPlugins(object):
                            'לירה טורקית', 'דולר טיוואני', 'דולר ארהב', 'רנד דרא"פ', 'UNKNOWN',
                            ]
 
-        # positive value tests
+        # Positive value tests.
         for currency in currencies_list:
             assert validators.valid_currency(currency).items() <= ({'result': True}).items()
 
-        # negative value tests
+        # Negative value tests.
         assert validators.valid_currency(val='junk value').items() <= (
             {'result': False, 'msg': "currency junk value not recognized"}).items()
 
