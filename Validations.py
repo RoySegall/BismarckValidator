@@ -239,10 +239,10 @@ class Validations(object):
         """
         sval = len(str(val))
 
-        if (sval > min_digits) and (max_digits == 0):
+        if (sval >= min_digits) and (max_digits == 0):
             return {'result': True}
 
-        if (sval > min_digits) and (sval <= max_digits):
+        if (sval >= min_digits) and (sval <= max_digits):
             return {'result': True}
 
         return {'result': False, 'msg': "Value exceeded digits boundary"}

@@ -100,12 +100,13 @@ class TestsPlugins(object):
 
     def test_digits_amount(self):
         validators = Validations()
+
         # Positive value tests.
-        assert validators.digits_amount(1000, 5).items() <= (
+        assert validators.digits_amount(1000, 2).items() <= (
             {'result': True}).items()
 
         # Negative value tests.
-        assert validators.digits_amount(1000000, 5).items() <= (
+        assert validators.digits_amount(10000, 10).items() <= (
             {'result': False, 'msg': "Value exceeded digits boundary"}).items()
 
     def test_number_in_range(self):
