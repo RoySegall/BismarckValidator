@@ -100,7 +100,12 @@ class TestsPlugins(object):
 
     def test_digits_amount(self):
         validators = Validations()
+        # Positive value tests.
         assert validators.digits_amount(1000, 5).items() <= (
+            {'result': True}).items()
+
+        # Negative value tests.
+        assert validators.digits_amount(1000000, 5).items() <= (
             {'result': False, 'msg': "Value exceeded digits boundary"}).items()
 
     def test_number_in_range(self):
@@ -108,10 +113,15 @@ class TestsPlugins(object):
 
         assert validators.number_in_range(50, 20, 60)
 
-        assert validators.number_in_range(20, 50, 60).items() == False
+        assert validators.number_in_range(20, 50, 60).items() is False
 
     def test_instrument_sub_type(self):
         validators = Validations()
 
-        assert validators.instrument_sub_type("תעודות התחייבות ממשלתיות")
-        assert validators.instrument_sub_type("Pizza") == False
+        # Positive value tests.
+        assert validators.instrument_sub_type("תעודות התחייבות ממשלתיות").items() <= (
+            {'result': True}).items()
+
+        # Negative value tests.
+        assert validators.instrument_sub_type("Pizza").items() <= (
+            {'result': False, 'msg': "unrecognized asset type"}).items()

@@ -237,12 +237,14 @@ class Validations(object):
             The max number of the digits the number can hold. Optional;
         :return:
         """
-        if val.length > min_digits & max_digits == 0:
+        sval = len(str(val))
+
+        if (sval > min_digits) and (max_digits == 0):
             return {'result': True}
 
-        if val.length > min_digits & val.length < max_digits:
+        if (sval > min_digits) and (sval <= max_digits):
             return {'result': True}
-        # todo: better limitation handling.
+
         return {'result': False, 'msg': "Value exceeded digits boundary"}
 
     def number_in_range(self, val, min_range=0, max_range=0):
@@ -267,4 +269,8 @@ class Validations(object):
         :param val:
         :return:
         """
-        return val in self._instrument_sub_type
+
+        if val in self._instrument_sub_type:
+            return {'result': True}
+
+        return {'result': False, 'msg': "unrecognized asset type"}
