@@ -1,4 +1,7 @@
 # Listing the list of fields.
+meta:
+  tab: "מזומנים"
+
 fields:
   # Field name.
 
