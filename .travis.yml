@@ -12,4 +12,5 @@ script:
 
   # Running some tests.
   - apistar test
-  - pytest
+  - pytest tests/TestsPlugins.py
+  - pytest tests/TestsRosetta.py
