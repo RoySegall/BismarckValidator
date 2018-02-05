@@ -62,4 +62,4 @@ class Rosetta(object):
 
         :return:
         """
-        pass
+        return {}

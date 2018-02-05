@@ -35,5 +35,5 @@ class TestsRosetta(object):
 
     def test_validate_object(self):
         asset = open(os.getcwd() + "/pytest_assets/cash_object_1.json")
-        self._get_rosetta().validate_object(json.load(asset))
-        assert False
+        results = self._get_rosetta().validate_object(json.load(asset))
+        assert results == {}
