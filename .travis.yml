@@ -10,7 +10,7 @@ script:
   # todo: use flake8
   - pycodestyle --show-source --max-line-length=120 --show-pep8 .
 
-  # Running some tests.
+  # Running some pytest_tests.
   - apistar test
-  - pytest tests/TestsPlugins.py
-  - pytest tests/TestsRosetta.py
+  - pytest TestsPlugins.py
+  - pytest TestsRosetta.py

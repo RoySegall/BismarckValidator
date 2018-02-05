@@ -13,11 +13,11 @@ class TestsPlugins(object):
         validators = Validations()
         asset_types = ['הלוואות', 'ניירות ערך סחירים', 'ניירות ערך לא סחירים', 'מזומנים', 'זכויות', 'השקעות אחרות']
 
-        # Positive value tests.
+        # Positive value pytest_tests.
         for asset in asset_types:
             assert validators.asset_type(asset).items() <= ({'result': True}).items()
 
-        # Negative value tests.
+        # Negative value pytest_tests.
         assert validators.asset_type(val='junk value').items() <= (
             {'result': False, 'msg': "unrecognized asset type"}).items()
 
@@ -75,11 +75,11 @@ class TestsPlugins(object):
                            'לירה טורקית', 'דולר טיוואני', 'דולר ארהב', 'רנד דרא"פ', 'UNKNOWN',
                            ]
 
-        # Positive value tests.
+        # Positive value pytest_tests.
         for currency in currencies_list:
             assert validators.valid_currency(currency).items() <= ({'result': True}).items()
 
-        # Negative value tests.
+        # Negative value pytest_tests.
         assert validators.valid_currency(val='junk value').items() <= (
             {'result': False, 'msg': "currency junk value not recognized"}).items()
 
@@ -100,11 +100,11 @@ class TestsPlugins(object):
     def test_digits_amount(self):
         validators = Validations()
 
-        # Positive value tests.
+        # Positive value pytest_tests.
         assert validators.digits_amount(1000, 2).items() <= (
             {'result': True}).items()
 
-        # Negative value tests.
+        # Negative value pytest_tests.
         assert validators.digits_amount(10000, 10).items() <= (
             {'result': False, 'msg': "Value exceeded digits boundary"}).items()
 
@@ -119,10 +119,10 @@ class TestsPlugins(object):
     def test_instrument_sub_type(self):
         validators = Validations()
 
-        # Positive value tests.
+        # Positive value pytest_tests.
         assert validators.instrument_sub_type("תעודות התחייבות ממשלתיות").items() <= (
             {'result': True}).items()
 
-        # Negative value tests.
+        # Negative value pytest_tests.
         assert validators.instrument_sub_type("Pizza").items() <= (
             {'result': False, 'msg': "unrecognized asset type"}).items()
