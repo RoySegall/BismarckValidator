@@ -1,3 +1,5 @@
+import json
+
 from Rosetta import Rosetta
 import os
 
@@ -30,3 +32,8 @@ class TestsRosetta(object):
         tab = self._get_rosetta().get_tab('cash')
         assert 'instrument_id' in tab.keys()
         assert list(tab['instrument_id'].keys()) == self._get_rosetta().contexts
+
+    def test_validate_object(self):
+        asset = open(os.getcwd() + "/pytest_assets/cash_object_1.json")
+        self._get_rosetta().validate_object(json.load(asset))
+        assert False

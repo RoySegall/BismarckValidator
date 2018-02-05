@@ -52,3 +52,14 @@ class Rosetta(object):
             self.get_constraints()
 
         return self.rosetta[tab]
+
+    def validate_object(self, _object):
+        """
+        Get an object and validate with the rosetta constraints.
+
+        :param _object:
+            The object to validate.
+
+        :return:
+        """
+        pass

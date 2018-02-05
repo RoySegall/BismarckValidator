@@ -17,13 +17,6 @@ fields:
         min_range: 1000
         max_range: 9999990
 
-      - date_format:
-        format_to_validate: "%d/%m/%Y"
-        format_to_display: "DD/MM/YYYY"
-
-      # Regex pattern.
-      - patterns: "[a-z]"
-
     # Context.
     not_in_israel:
 
