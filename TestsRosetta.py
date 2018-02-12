@@ -37,8 +37,6 @@ class TestsRosetta(object):
         asset = open(os.getcwd() + "/pytest_assets/cash_object_1.json")
         errors = self._get_rosetta().validate_object('cash', json.load(asset))
 
-        print(errors)
-
         instrument = errors['instrument_id']
         assert {'result': False, 'msg': 'Value is not in the correct range.', 'value': 50} in instrument
         assert {'result': True, 'value': 1001} in instrument
