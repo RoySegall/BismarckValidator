@@ -79,7 +79,7 @@ class Rosetta(object):
                     for value in obj[field][context]:
 
                         # Init the key if not exists.
-                        if not field in errors.keys():
+                        if field not in errors.keys():
                             errors[field] = []
 
                         # Setting up the val in the callbacks and pass it to the callback function.
