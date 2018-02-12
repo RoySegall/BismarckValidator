@@ -13,3 +13,4 @@ script:
   # Running some tests.
   - apistar test
   - pytest TestsPlugins.py
+  - pytest TestsRosetta.py
