@@ -53,13 +53,25 @@ class Rosetta(object):
 
         return self.rosetta[tab]
 
-    def validate_object(self, _object):
+    def validate_object(self, tab, _object):
         """
         Get an object and validate with the rosetta constraints.
 
+        :param tab:
+            The tab we need to validate.
         :param _object:
             The object to validate.
 
         :return:
         """
+        obj = _object[tab]
+        rosetta = self.get_tab(tab)
+
+        errors = []
+
+        for context, fields in rosetta.items():
+            for field, callbacks in fields.items():
+                for callback in callbacks:
+                    # for value in obj[context][field]:
+                        print(callback['args'])
         return {}
