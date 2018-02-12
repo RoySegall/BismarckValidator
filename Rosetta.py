@@ -1,6 +1,8 @@
 import yaml
 import os
 
+from Validations import Validations
+
 
 class Rosetta(object):
 
@@ -67,11 +69,25 @@ class Rosetta(object):
         obj = _object[tab]
         rosetta = self.get_tab(tab)
 
-        errors = []
+        errors = {}
 
-        for context, fields in rosetta.items():
-            for field, callbacks in fields.items():
+        validations = Validations()
+
+        for field, contexts in rosetta.items():
+            for context, callbacks in contexts.items():
                 for callback in callbacks:
-                    # for value in obj[context][field]:
-                        print(callback['args'])
-        return {}
+                    for value in obj[field][context]:
+
+                        # Init the key if not exists.
+                        if not field in errors.keys():
+                            errors[field] = []
+
+                        # Setting up the val in the callbacks and pass it to the callback function.
+                        callback['args']['val'] = value
+
+                        results = getattr(validations, callback['func'])(**callback['args'])
+                        results['value'] = value
+
+                        # Appending the results.
+                        errors[field].append(results)
+        return errors
