@@ -10,7 +10,7 @@ any).
 ### Backend
 
 ```
-pip3 install apistar
+pip3 install -r requirements.txt
 apistar run
 ```
 
