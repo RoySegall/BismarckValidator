@@ -10,7 +10,53 @@ class ReportProcessor(BismarckReport):
     def __init__(self):
         pass
 
-    def calculate_rows_to_skip(self, xls_file, sheet_name):
+    def get_report(self, report_file_name):
+        b_report = BismarckReport
+        pandas_excel = pd.ExcelFile(report_file_name)
+
+        b_report.data['metadata'] = self.get_report_metadata(report_file_name, pandas_excel)
+
+        # Loop over all the sheets in the file
+        for sheet_name in pandas_excel.sheet_names:
+            if sheet_name not in ('סכום נכסי הקרן'):
+                self.get_sheet_data(pandas_excel, sheet_name)
+
+        return BismarckReport
+
+    def get_report_metadata(self, report_file_name, pandas_excel):
+        """
+        example for metadata dict structure:
+        {
+            'file_name': '',
+            'managing_body': '',
+            'year': '',
+            'month': '',
+            'quarter': '',
+            'file_level_results': []
+        }
+        :param pandas_excel:
+        :return: dict of above structure
+        """
+
+        meta_data = {}
+        meta_data['file_name'] = os.path.basename(report_file_name)
+
+        return {
+            'file_name': '',
+            'managing_body': '',
+            'year': '',
+            'month': '',
+            'quarter': '',
+            'file_level_results': []
+        }
+
+    """ 
+    private functions 
+    """
+    def get_sheet_data(self, pandas_excel, sheet_name):
+        pass
+
+    def _calculate_rows_to_skip(self, xls_file, sheet_name):
         """ ToDo - refactor the function for current class """
         rows_to_skip_calculated = 0
 
@@ -36,28 +82,16 @@ class ReportProcessor(BismarckReport):
 
         return rows_to_skip_calculated
 
-    def read_xls_file(self, filename):
+
+
+    # ----------------------------------
+    # ----------------------------------
+    # ----------------------------------
+    def read_sheet(self, xls_file, sheet_name):
         """ ToDo - refactor the function for current class """
-        print('filename', filename)
-        xls_file = pd.ExcelFile('/Users/nirgalon/Downloads/{filename}'.format(filename=filename))
-        split_filename = filename.split('.')[0].split('_')
-
-        quarter = Quarter.objects.get_or_create(
-            year=split_filename[1],
-            month=split_filename[2],
-        )
-
-        # Loop over all the sheets in the file
-        for sheet_name in xls_file.sheet_names:
-            if sheet_name not in ('סכום נכסי הקרן'):
-                read_sheet(xls_file, sheet_name, split_filename[0], quarter)
-
-        print('Finish with {filename}'.format(filename=filename))
-
-
-    def read_sheet(self, xls_file, sheet_name, managing_body, quarter):
-        """ ToDo - refactor the function for current class """
-        rows_to_skip = calculate_rows_to_skip(xls_file, sheet_name)
+        managing_body = ''
+        quarter = ''
+        rows_to_skip = self._calculate_rows_to_skip(xls_file, sheet_name)
         sheet = xls_file.parse(sheet_name, skiprows=rows_to_skip, parse_cols=40)
         sheet.columns = sheet.columns.str.strip()
 
@@ -386,39 +420,7 @@ class ReportProcessor(BismarckReport):
                 print('created', instrument, created)
 
             except ValueError as e:
-                print('index', index)
-                print('issuer_id', issuer_id)
-                print('rating', rating)
-                print('rating_agency', rating_agency)
-                print('currency', currency)
-                print('interest_rate', interest_rate)
-                print('yield_to_maturity', yield_to_maturity)
-                print('market_cap', market_cap)
-                print('rate_of_investment_channel', rate_of_investment_channel)
-                print('rate_of_fund', rate_of_fund)
-                print('trading_floor', trading_floor)
-                print('date_of_purchase', date_of_purchase)
-                print('average_of_duration', average_of_duration)
-                print('rate', rate)
-                print('rate_of_ipo', rate_of_ipo)
-                print('informer', informer)
-                print('fair_value', fair_value)
-                print('activity_industry', activity_industry)
-                print('date_of_revaluation', date_of_revaluation)
-                print('type_of_asset', type_of_asset)
-                print('return_on_equity', return_on_equity)
-                print('liabilities', liabilities)
-                print('expiry_date_of_liabilities', expiry_date_of_liabilities)
-                print('effective_rate', effective_rate)
-                print('coordinated_cost', coordinated_cost)
-                print('underlying_asset', underlying_asset)
-                print('consortium', consortium)
-                print('average_rate', average_rate)
-                print('par_value', par_value)
-                print('managing_body', managing_body_dict[managing_body])
-                print('geographical_location', context)
-                print('instrument_sub_type', instrument_dict[sheet_name])
-                print('--------------------')
+
                 raise(ValueError)
 
         print('Finish with {sheet_name}'.format(sheet_name=sheet_name))

@@ -60,3 +60,22 @@ class BismarckReport(object):
             },
         ],
     }
+
+    def get_file_metadata(self):
+        pass
+
+    def append_file_metadata(self):
+        pass
+
+    def get_sheet(self):
+        pass
+
+    def append_sheet(self):
+        pass
+
+    def get_validation_results(self):
+        pass
+
+    def append_validation_results(self):
+        pass
+
