@@ -9,6 +9,7 @@ class BismarckReport(object):
         'metadata': {
             'file_name': '',
             'managing_body': '',
+            'checksum': '',
             'year': '',
             'month': '',
             'quarter': '',
