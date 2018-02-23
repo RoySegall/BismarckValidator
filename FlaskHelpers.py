@@ -9,8 +9,13 @@ class FlaskHelpers(object):
     def response(self, response, response_code=200):
         """
         Return a response code with a custom response code.
+
         :param response:
+            The response object.
+
         :param response_code:
+            The response code for the page.
+
         :return:
         """
         return flask.jsonify(response), response_code
@@ -18,8 +23,12 @@ class FlaskHelpers(object):
     def message(self, message, response_code=200):
         """
         A function to return a response with a simple message. If you need a more complex response use self.response()
+
         :param message:
+            The message of the request.
         :param response_code:
+            The response code for the page.
+
         :return:
         """
         return self.response({'message': message}, response_code)

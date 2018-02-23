@@ -23,4 +23,4 @@ class TestsFlask(object):
         :return:
         """
         r = requests.get('http://localhost:8080/upload')
-        assert r.json() == {'message': 'Not supported kkfor now but will be :).'}
+        assert r.json() == {'message': 'Not supported for now but will be :).'}
