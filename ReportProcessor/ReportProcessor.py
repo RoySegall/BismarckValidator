@@ -82,10 +82,8 @@ class ReportProcessor(BismarckReport):
 
         return rows_to_skip_calculated
 
-    # --------------------------------
-    # ------ Old Code to be remove ---
-    # --------------------------------
-    def old_read_sheet(self, xls_file, sheet_name):
+
+    def read_sheet(self, xls_file, sheet_name):
         # Loop over all the sheets in the file
         for sheet_name in xls_file.sheet_names:
             if sheet_name not in ('סכום נכסי הקרן'):
@@ -93,6 +91,9 @@ class ReportProcessor(BismarckReport):
 
         print('Finish with {filename}'.format(filename=filename))
 
+    # --------------------------------
+    # ------ Old Code to be remove ---
+    # --------------------------------
     def read_sheet(self, xls_file, sheet_name, managing_body, quarter):
 
         """ ToDo - refactor the function for current class """
