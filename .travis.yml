@@ -10,7 +10,10 @@ script:
   # todo: use flake8
   - pycodestyle --show-source --max-line-length=120 --show-pep8 .
 
+  # Running flask in the background.
+  - FLASK_APP=app.py FLASK_DEBUG=1 flask run --port 8080 > /dev/null 2>&1 &
+
   # Running some tests.
-  - apistar test
+  - pytest TestsFlask.py
   - pytest TestsPlugins.py
   - pytest TestsRosetta.py
