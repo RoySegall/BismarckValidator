@@ -82,12 +82,19 @@ class ReportProcessor(BismarckReport):
 
         return rows_to_skip_calculated
 
+    # --------------------------------
+    # ------ Old Code to be remove ---
+    # --------------------------------
+    def old_read_sheet(self, xls_file, sheet_name):
+        # Loop over all the sheets in the file
+        for sheet_name in xls_file.sheet_names:
+            if sheet_name not in ('סכום נכסי הקרן'):
+                read_sheet(xls_file, sheet_name, split_filename[0], quarter)
 
+        print('Finish with {filename}'.format(filename=filename))
 
-    # ----------------------------------
-    # ----------------------------------
-    # ----------------------------------
-    def read_sheet(self, xls_file, sheet_name):
+    def read_sheet(self, xls_file, sheet_name, managing_body, quarter):
+
         """ ToDo - refactor the function for current class """
         managing_body = ''
         quarter = ''
@@ -151,12 +158,12 @@ class ReportProcessor(BismarckReport):
 
                 issuer_id = sheet['מספר ני"ע'][index]
                 if str(issuer_id) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 try:
                     issuer_id = sheet['מספר הנייר'][index]
                     if str(issuer_id) == 'nan':
-                        raise(KeyError)
+                        raise (KeyError)
                 except KeyError as e:
                     issuer_id = sheet_name
 
@@ -165,112 +172,112 @@ class ReportProcessor(BismarckReport):
             try:
                 rating = sheet['דירוג'][index]
                 if str(rating) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 rating = ''
 
             try:
                 rating_agency = sheet['שם מדרג'][index]
                 if str(rating_agency) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 rating_agency = ''
 
             try:
                 currency = sheet['סוג מטבע'][index]
                 if str(currency) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 currency = ''
 
             try:
                 interest_rate = sheet['שיעור ריבית'][index]
                 if str(interest_rate) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 interest_rate = 0.0
 
             try:
                 yield_to_maturity = sheet['תשואה לפידיון'][index]
                 if str(yield_to_maturity) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 yield_to_maturity = 0.0
 
             try:
                 market_cap = sheet['שווי שוק'][index]
                 if str(market_cap) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 market_cap = 0.0
 
             try:
                 rate_of_investment_channel = sheet['שעור מנכסי אפיק ההשקעה'][index]
                 if str(rate_of_investment_channel) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 rate_of_investment_channel = 0.0
 
             try:
                 rate_of_fund = sheet['שעור מסך נכסי השקעה'][index]
                 if str(rate_of_fund) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 rate_of_fund = 0.0
 
             try:
                 trading_floor = sheet['זירת מסחר'][index]
                 if str(trading_floor) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 trading_floor = ''
 
             try:
                 date_of_purchase = sheet['תאריך רכישה'][index]
                 if str(date_of_purchase) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 date_of_purchase = ''
 
             try:
                 average_of_duration = sheet['מח"מ'][index]
                 if str(average_of_duration) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 average_of_duration = 0.0
 
             try:
                 rate = sheet['שער'][index]
                 if str(rate) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 rate = 0.0
 
             try:
                 rate_of_ipo = sheet['שעור מערך נקוב מונפק'][index]
                 if str(rate_of_ipo) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 rate_of_ipo = 0.0
 
             try:
                 informer = sheet['ספק מידע'][index]
                 if str(informer) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 informer = ''
 
             try:
                 fair_value = sheet['שווי הוגן'][index]
                 if str(fair_value) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 fair_value = 0.0
 
             try:
                 activity_industry = sheet['ענף מסחר'][index]
                 if str(activity_industry) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 activity_industry = ''
 
@@ -284,28 +291,28 @@ class ReportProcessor(BismarckReport):
                     date_of_revaluation = sheet['תאריך שערוך אחרון'][index]
 
                 if str(date_of_revaluation) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 date_of_revaluation = timezone.now()
 
             try:
                 type_of_asset = sheet['אופי הנכס'][index]
                 if str(type_of_asset) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 type_of_asset = ''
 
             try:
                 return_on_equity = sheet[''][index]
                 if str(return_on_equity) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 return_on_equity = 0.0
 
             try:
                 liabilities = sheet['סכום ההתחייבות'][index]
                 if str(liabilities) == 'nan':
-                    raise(KeyError)
+                    raise KeyError
             except KeyError as e:
                 liabilities = 0.0
 
@@ -329,35 +336,35 @@ class ReportProcessor(BismarckReport):
 
                 expiry_date_of_liabilities = expiry_date_of_liabilities_pre
                 if str(expiry_date_of_liabilities) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 expiry_date_of_liabilities = timezone.now()
 
             try:
                 effective_rate = sheet['ריבית אפקטיבית'][index]
                 if str(effective_rate) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 effective_rate = 0.0
 
             try:
                 coordinated_cost = sheet['עלות מתואמת'][index]
                 if str(coordinated_cost) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 coordinated_cost = 0.0
 
             try:
                 underlying_asset = sheet['נכס הבסיס'][index]
                 if str(underlying_asset) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 underlying_asset = 0.0
 
             try:
                 consortium = sheet['קונסורציום כן/לא'][index]
                 if str(consortium) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
                 elif str(consortium).strip() == 'כן':
                     consortium = True
                 elif str(consortium).strip() == 'לא':
@@ -368,14 +375,14 @@ class ReportProcessor(BismarckReport):
             try:
                 average_rate = sheet['שיעור ריבית ממוצע'][index]
                 if str(average_rate) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 average_rate = 0.0
 
             try:
                 par_value = sheet['שווי משוערך'][index]
                 if str(par_value) == 'nan':
-                    raise(KeyError)
+                    raise (KeyError)
             except KeyError as e:
                 par_value = 0.0
 
@@ -421,7 +428,40 @@ class ReportProcessor(BismarckReport):
 
             except ValueError as e:
 
-                raise(ValueError)
+                print('index', index)
+                print('issuer_id', issuer_id)
+                print('rating', rating)
+                print('rating_agency', rating_agency)
+                print('currency', currency)
+                print('interest_rate', interest_rate)
+                print('yield_to_maturity', yield_to_maturity)
+                print('market_cap', market_cap)
+                print('rate_of_investment_channel', rate_of_investment_channel)
+                print('rate_of_fund', rate_of_fund)
+                print('trading_floor', trading_floor)
+                print('date_of_purchase', date_of_purchase)
+                print('average_of_duration', average_of_duration)
+                print('rate', rate)
+                print('rate_of_ipo', rate_of_ipo)
+                print('informer', informer)
+                print('fair_value', fair_value)
+                print('activity_industry', activity_industry)
+                print('date_of_revaluation', date_of_revaluation)
+                print('type_of_asset', type_of_asset)
+                print('return_on_equity', return_on_equity)
+                print('liabilities', liabilities)
+                print('expiry_date_of_liabilities', expiry_date_of_liabilities)
+                print('effective_rate', effective_rate)
+                print('coordinated_cost', coordinated_cost)
+                print('underlying_asset', underlying_asset)
+                print('consortium', consortium)
+                print('average_rate', average_rate)
+                print('par_value', par_value)
+                print('managing_body', managing_body_dict[managing_body])
+                print('geographical_location', context)
+                print('instrument_sub_type', instrument_dict[sheet_name])
+                print('--------------------')
+                raise (ValueError)
+
 
         print('Finish with {sheet_name}'.format(sheet_name=sheet_name))
-

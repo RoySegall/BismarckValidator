@@ -10,12 +10,9 @@ any).
 ### Backend
 
 ```
-pip3 install apistar
-apistar run
+pip3 install -r requirements.txt
+FLASK_APP=app.py FLASK_DEBUG=1 flask run --port 8080
 ```
-
-Once it run you can go to `http://127.0.0.1:8080/docs` to see docs about
-the backend.
 
 ### Front end
 TBD. Eat a :pizza: for now.
