@@ -1,20 +1,15 @@
-from apistar import Include, Route
-from apistar.frameworks.wsgi import WSGIApp as App
-from apistar.handlers import docs_urls, static_urls
+from FlaskHelpers import FlaskHelpers
+from flask import Flask
+
+app = Flask(__name__)
+flask_helpers = FlaskHelpers()
 
 
+@app.route("/")
+def index():
+    return flask_helpers.message('woops... It seems that you got the wrong place', 404)
+
+
+@app.route("/upload")
 def upload():
-    return {'message': 'Not supported for now but will be :).'}
-
-
-routes = [
-    Route('/upload', 'POST', upload),
-    Include('/docs', docs_urls),
-    Include('/static', static_urls)
-]
-
-app = App(routes=routes)
-
-
-if __name__ == '__main__':
-    app.main()
+    return flask_helpers.message('Not supported for now but will be :).')

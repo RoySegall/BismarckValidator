@@ -1,2 +1,6 @@
-apistar
+requests
+Flask
 PyYAML
+pusher
+pytest
+HTTPretty
