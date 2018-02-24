@@ -1,4 +1,4 @@
-class NewBismarkReport(object):
+class BismarkReport(object):
 
     # Hold the list of the sheets and their code.
     instrument_dict = {

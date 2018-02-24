@@ -2,7 +2,7 @@ import os
 import glob
 import pandas as pd
 import dateutil.parser
-from .BismarckReport import BismarckReport
+from ._BismarckReport import BismarckReport
 
 
 class ReportProcessor(BismarckReport):
