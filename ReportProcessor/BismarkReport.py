@@ -97,17 +97,17 @@ class BismarkReport(object):
         self.pandas_sheets = pandas_sheets
 
     def process_file(self):
-        for sheet in self.pandas_sheets.sheet_names:
-            if sheet not in ('סכום נכסי הקרן'):
-                self.get_sheet_data(sheet)
+        for sheet_name in self.pandas_sheets.sheet_names:
+            if sheet_name not in ('סכום נכסי הקרן'):
+                self.get_sheet_data(self.pandas_sheets, sheet_name)
 
-    def get_sheet_data(self, sheet):
+    def get_sheet_data(self, xsl_object, sheet_name):
         """
         Process the sheet.
 
-        :param sheet:
+        :param xsl_object:
+            The xsl object,
+        :param sheet_name:
             The name of the sheet.
         """
-        # for index, row in df.iterrows():
-    # Get the table fields.
-    # Start to the values of the table.
+        sheet = xsl_object.parse(sheet_name, 7)
