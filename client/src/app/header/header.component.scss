@@ -1,0 +1,57 @@
+@import "../../assets/sass/vars.scss";
+
+/deep/ nav {
+  background-color: $header-background;
+  height: 120px;
+
+  .container {
+    height: 120px;
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: inline-block;
+    list-style-type: none;
+    color: $header-text-color;
+
+    a {
+      margin: 0;
+    }
+  }
+}
+
+#logo {
+  align-self: center;
+  font-size: 5em;
+  color: $header-text-color;
+
+  img {
+    max-width: 100%;
+  }
+}
+
+.links {
+  margin: 10px 0;
+
+  a {
+    margin: 0 10px;
+    float: left;
+    color: $header-text-color;
+    cursor: pointer;
+    font-size: 18px;
+
+    i {
+      vertical-align:middle;
+    }
+  }
+}
+
+op-search {
+  justify-content: flex-start;
+}
