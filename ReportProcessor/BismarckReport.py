@@ -62,6 +62,10 @@ class BismarckReport(object):
         ],
     }
 
+    def set_data(self, pd_data):
+
+        pass
+
     def get_file_metadata(self):
         pass
 
