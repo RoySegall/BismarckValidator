@@ -1,4 +1,5 @@
-class NewBismarkRepost(object):
+class NewBismarkReport(object):
+
     # Hold the list of the sheets and their code.
     instrument_dict = {
         'מזומנים': 'CASH',
@@ -57,12 +58,6 @@ class NewBismarkRepost(object):
         'תאריך שערוך אחרון': 'date_of_revaluation',
         'אופי הנכס': 'type_of_asset',
         'שעור תשואה במהלך התקופה': 'tmp_name',
-        'ספק המידע': 'informer',
-        'שווי הוגן': 'fair_value',
-        'ענף מסחר': 'activity_industry',
-        'תאריך שערוך אחרון': 'date_of_Revaluation',
-        'אופי הנכס': 'type_of_asset',
-        'שעור תשואה במהלך התקופה': 'tmp_name',
         'סכום ההתחייבות': 'liabilities',
         'תאריך סיום ההתחייבות': 'expiry_date_of_liabilities',
         'שער ריבית': 'rate',
@@ -97,12 +92,12 @@ class NewBismarkRepost(object):
         Init the objct.
 
         :param pandas_sheets:
-            The panadas object of the file.
+            The pandas object of the file.
         """
         self.pandas_sheets = pandas_sheets
 
     def process_file(self):
-        for sheet in pandas_excel.sheet_names:
+        for sheet in self.pandas_sheets.sheet_names:
             if sheet not in ('סכום נכסי הקרן'):
                 self.get_sheet_data(sheet)
 
@@ -113,7 +108,6 @@ class NewBismarkRepost(object):
         :param sheet:
             The name of the sheet.
         """
-        for index, row in df.iterrows():
+        # for index, row in df.iterrows():
     # Get the table fields.
     # Start to the values of the table.
-
