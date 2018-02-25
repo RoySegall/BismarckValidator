@@ -30,7 +30,9 @@
     "@ngx-share/buttons": "^5.0.0",
     "@ngx-share/core": "^5.0.0",
     "core-js": "^2.4.1",
+    "dropzone": "^5.3.0",
     "font-awesome": "^4.7.0",
+    "ngx-dropzone-wrapper": "^5.3.3",
     "rxjs": "^5.5.6"
   },
   "devDependencies": {
