@@ -1,6 +1,5 @@
-<form id="upload">
-  <div class="upload-btn-wrapper">
-    <button class="btn">Upload a file</button>
-    <input type="file" name="myfile" />
-  </div>
+<form id="upload" (ngSubmit)="submit()">
+  <dropzone class="testing" [config]="config" [message]="'לחץ פה או גרור קבצים על מנת להעלות'" (error)="onUploadError($event)" (success)="onUploadSuccess($event)"></dropzone>
+
+  <button>בדוק את הקבצים</button>
 </form>

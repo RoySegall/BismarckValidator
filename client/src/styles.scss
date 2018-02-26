@@ -27,7 +27,7 @@ $op-app-theme: mat-light-theme($op-app-primary, $op-app-accent, $op-app-warn);
 @include angular-material-theme($op-app-theme);
 
 body {
-  font-family: 'Alef', sans-serif;;
+  font-family: 'Alef', sans-serif;
   direction: rtl;
   margin: 0;
   box-sizing: border-box;
@@ -35,4 +35,16 @@ body {
 
 a {
   text-decoration: none !important;
+}
+
+.dz-hidden-input {
+  width: auto !important;
+}
+
+.dz-message {
+  height: 5em;
+}
+
+.dropzone.dz-wrapper {
+  overflow: initial !important;
 }

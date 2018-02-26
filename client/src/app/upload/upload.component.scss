@@ -1,28 +1,15 @@
 @import "../../assets/sass/vars";
+
 #upload {
+  text-align: center;
 
-  .upload-btn-wrapper {
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
-
-    input[type=file] {
-      font-size: 100px;
-      position: absolute;
-      left: 0;
-      top: 0;
-      opacity: 0;
-    }
+  button {
+    background-color: $header-background;
+    color: $header-text-color;
+    font-family: 'Alef', sans-serif;
+    border: white;
+    padding: .5em;
+    font-size: 1.5em;
+    margin-top: 5em;
   }
-
-  .btn {
-    border: 2px solid gray;
-    color: gray;
-    background-color: white;
-    padding: 8px 20px;
-    border-radius: 8px;
-    font-size: 20px;
-    font-weight: bold;
-  }
-
 }

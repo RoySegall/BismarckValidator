@@ -25,7 +25,10 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
   url: 'https://httpbin.org/post',
   maxFilesize: 50,
-  acceptedFiles: 'image/*'
+  acceptedFiles: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  addRemoveLinks: true,
+  dictRemoveFile: 'הסר קובץ זה',
+  dictCancelUpload: 'בטל העלאה',
 };
 
 @NgModule({
