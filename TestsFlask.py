@@ -1,4 +1,5 @@
 import requests
+import os
 
 
 class TestsFlask(object):
@@ -22,5 +23,6 @@ class TestsFlask(object):
 
         :return:
         """
-        r = requests.get('http://localhost:8080/upload')
-        assert r.json() == {'message': 'Not supported for now but will be :).'}
+        files = {'upload_file': open('pytest_assets/Financial_Sample.xlsx', 'rb')}
+        r = requests.post('http://localhost:8080/upload', files=files)
+        assert r.json() == {'file': os.getcwd() + '/uploads/Financial_Sample.xlsx'}
