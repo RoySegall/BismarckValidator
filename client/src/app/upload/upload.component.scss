@@ -1,0 +1,15 @@
+@import "../../assets/sass/vars";
+
+#upload {
+  text-align: center;
+
+  button {
+    background-color: $header-background;
+    color: $header-text-color;
+    font-family: 'Alef', sans-serif;
+    border: white;
+    padding: .5em;
+    font-size: 1.5em;
+    margin-top: 5em;
+  }
+}
