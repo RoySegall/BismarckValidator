@@ -4,3 +4,4 @@ PyYAML
 pusher
 pytest
 HTTPretty
+flask-cors

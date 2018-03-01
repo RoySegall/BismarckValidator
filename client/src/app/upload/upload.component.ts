@@ -19,10 +19,11 @@ export class UploadComponent implements OnInit {
   }
 
   onUploadSuccess($event) {
-    this.files.push($event);
+    this.files.push($event[1].file);
   }
 
   submit() {
+    // Send it to the backend and start to wait for the pusher events.
     console.log(this.files);
   }
 
