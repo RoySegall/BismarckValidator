@@ -51,7 +51,9 @@ class ReportProcessor(BismarckReport):
         }
 
     """ 
+    
     private functions 
+     
     """
     def get_sheet_data(self, pandas_excel, sheet_name):
         pass
@@ -81,7 +83,6 @@ class ReportProcessor(BismarckReport):
             rows_to_skip_calculated += 1
 
         return rows_to_skip_calculated
-
 
     def read_sheet(self, xls_file, sheet_name):
         # Loop over all the sheets in the file
@@ -463,6 +464,5 @@ class ReportProcessor(BismarckReport):
                 print('instrument_sub_type', instrument_dict[sheet_name])
                 print('--------------------')
                 raise (ValueError)
-
 
         print('Finish with {sheet_name}'.format(sheet_name=sheet_name))
