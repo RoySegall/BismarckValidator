@@ -2,7 +2,7 @@ import os
 import glob
 import pandas as pd
 import dateutil.parser
-from ._BismarckReport import BismarckReport
+from .bismarck_report import BismarckReport
 
 
 class ReportProcessor(BismarckReport):
@@ -14,7 +14,7 @@ class ReportProcessor(BismarckReport):
         b_report = BismarckReport
         pandas_excel = pd.ExcelFile(report_file_name)
 
-        b_report.data['metadata'] = self.get_report_metadata(report_file_name, pandas_excel)
+        b_report_metadata = self.get_report_metadata(report_file_name, pandas_excel)
 
         # Loop over all the sheets in the file
         for sheet_name in pandas_excel.sheet_names:
@@ -51,7 +51,9 @@ class ReportProcessor(BismarckReport):
         }
 
     """ 
+    
     private functions 
+     
     """
 
     def get_sheet_data(self, pandas_excel, sheet_name):
