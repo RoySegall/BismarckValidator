@@ -50,17 +50,11 @@ class ReportProcessor(BismarckReport):
             'file_level_results': []
         }
 
-    """ 
-    
-    private functions 
-     
-    """
-
     def get_sheet_data(self, pandas_excel, sheet_name):
         pass
 
     def _calculate_rows_to_skip(self, xls_file, sheet_name):
-        """ ToDo - refactor the function for current class """
+        """ Todo - refactor the function for current class """
         rows_to_skip_calculated = 0
 
         while rows_to_skip_calculated < 10:
