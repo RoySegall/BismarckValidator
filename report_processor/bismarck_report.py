@@ -1,6 +1,3 @@
-import os
-
-
 class BismarckReport(object):
 
     # Hold the list of the sheets and their code.
@@ -86,40 +83,72 @@ class BismarckReport(object):
     #     ]
     # }
     errors_output = []
+
     meta_report = {}
 
     def __init__(self, pandas_excel):
+        """
+        Constructor.
+
+        :param pandas_excel:
+            The pandas object wrapping the excel file.
+        """
         self.pandas_excel = pandas_excel
 
     def process_book(self):
+        """
+        Processing the excel file.
+        :return:
+        """
         for sheet_name in self.pandas_excel.sheet_names:
             if sheet_name not in ('סכום נכסי הקרן'):
                 self.process_sheet(self.pandas_excel, sheet_name)
 
     def process_sheet(self, xsl_object, sheet_name):
+        """
+        Processing a specific sheet.
+
+        :param xsl_object:
+            The pandas object wrapping the excel file.
+        :param sheet_name:
+            The sheet name.
+        :return:
+        """
         sheet = xsl_object.parse(sheet_name, skiprows=7, index_col=1)
 
         context = self.get_sheet_context(sheet)
 
         for column in sheet.columns:
+
             if 'Unnamed' in column:
                 continue
+
             for index, row_value in enumerate(sheet[column]):
                 row_name = str(sheet.index[index])
                 self.process_cell(column, index, row_name, row_value, context[index])
 
     def process_cell(self, column, index, row_name, row_value, context):
-        # TODO add preperation actions before rosseta checks
-        rosseta = self.check_rosseta(column, index, row_name, row_value, context)
-        self.errors_output.append(rosseta)
+        """
+        Processing a file.
+
+        :param column:
+        :param index:
+        :param row_name:
+        :param row_value:
+        :param context:
+
+        """
+        # todo: Add preperation actions before rosseta checks.
+        self.errors_output.append(self.check_rosseta(column, index, row_name, row_value, context))
 
     def check_rosseta(self, *args, **kwargs):
-        # TODO implement connection to rosseta module
+        # todo implement connection to rosseta module.
         return ''
 
     def get_sheet_context(self, sheet):
-        # find context column
+        # Find context column.
         context_col = ''
+
         for col in sheet.columns:
             if col in [
                 'שם המנפיק/שם נייר ערך',
@@ -133,23 +162,22 @@ class BismarckReport(object):
                 context_col = col
                 break
 
-        # identify context for each row: Israel=IL, Abroad=ABR, Other=None
+        # Identify context for each row: Israel=IL, Abroad=ABR, Other=None.
         context = []
         is_israel = True
+
         for index, row_value in enumerate(sheet[context_col]):
-            # check if abroad section reached
+            # Check if abroad section reached.
             row_name = str(sheet.index[index])
             if 'במט"ח' in row_name or 'סה"כ בחו"ל' in row_name:
                 is_israel = False
 
-            # register context
+            # Register context.
             if not str(row_value) in 'nan' and row_name not in ['nan', '0'] and is_israel:
                 context.append('IL')
             elif not str(row_value) in 'nan' and row_name not in ['nan', '0'] and not is_israel:
                 context.append('ABR')
             else:
                 context.append(None)
-
-            # print('{};{};{};{}'.format(index, sheet.index[index], row_value, context[index]))
 
         return context

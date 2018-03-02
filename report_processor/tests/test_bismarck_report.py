@@ -7,6 +7,7 @@ from ..bismarck_report import BismarckReport
 
 
 class BismarckReportTest(TestCase):
+
     def setUp(self):
         # btest = BismarckReportTest()
         # btest.test_load_report()
