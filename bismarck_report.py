@@ -157,22 +157,14 @@ class BismarckReport(object):
 
         # Find context column.
         context_col = ''
+        cols = ['שם המנפיק/שם נייר ערך', 'שם נייר ערך', 'שם נ"ע', 'מספר הנייר', 'מספר נ"ע', 'אופי הנכס', 'מספר ני"ע']
 
         for col in sheet.columns:
-            if col in [
-                'שם המנפיק/שם נייר ערך',
-                'שם נייר ערך',
-                'שם נ"ע',
-                'מספר הנייר',
-                'מספר נ"ע',
-                'אופי הנכס',
-                'מספר ני"ע'
-            ]:
+            if col in cols:
                 context_col = col
                 break
 
         # Identify context for each row: Israel=IL, Abroad=ABR, Other=None.
-        context = []
         is_israel = True
 
         for index, row_value in enumerate(sheet[context_col]):
@@ -183,10 +175,8 @@ class BismarckReport(object):
 
             # Register context.
             if not str(row_value) in 'nan' and row_name not in ['nan', '0'] and is_israel:
-                context.append('IL')
+                return 'IL'
             elif not str(row_value) in 'nan' and row_name not in ['nan', '0'] and not is_israel:
-                context.append('ABR')
+                return 'ABR'
             else:
-                context.append(None)
-
-        return context
+                return None
