@@ -1,8 +1,10 @@
 import requests
 import os
+import unittest
+from unittest import TestCase
 
 
-class TestsFlask(object):
+class TestsFlask(TestCase):
     """
     Testing the flask integration.
     """
@@ -26,3 +28,7 @@ class TestsFlask(object):
         files = {'upload_file': open('pytest_assets/Financial_Sample.xlsx', 'rb')}
         r = requests.post('http://localhost:8080/upload', files=files)
         assert r.json() == {'file': os.getcwd() + '/uploads/Financial_Sample.xlsx'}
+
+
+if __name__ == "__main__":
+    unittest.main()

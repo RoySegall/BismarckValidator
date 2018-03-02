@@ -14,6 +14,7 @@ script:
   - FLASK_APP=app.py FLASK_DEBUG=1 flask run --port 8080 > /dev/null 2>&1 &
 
   # Running some tests.
+  - pytest TestsBismarkReport.py
   - pytest TestsFlask.py
   - pytest TestsPlugins.py
   - pytest TestsRosetta.py

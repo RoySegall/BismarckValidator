@@ -1,10 +1,11 @@
 import json
-
 from Rosetta import Rosetta
 import os
+import unittest
+from unittest import TestCase
 
 
-class TestsRosetta(object):
+class TestsRosetta(TestCase):
 
     def _get_rosetta(self):
         """
@@ -45,3 +46,7 @@ class TestsRosetta(object):
         assert {'result': True, 'value': '14/02/2016'} in instrument
         assert {'result': False, 'msg': 'Incorrect date format, should be DD/MM/YYYY', 'value': '02/14/1999'} in \
             instrument
+
+
+if __name__ == "__main__":
+    unittest.main()
