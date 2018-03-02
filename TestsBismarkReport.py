@@ -15,7 +15,10 @@ class TestsBismarkReport(TestCase):
         """
         Testing the file is being processed into an object correctly.
         """
-        report_file_name = glob.glob('{}/report_processor/fixtures/*.xlsx'.format(os.getcwd()))[0]
+        report_file_name = os.getcwd() + '/pytest_assets/513026484_gsum_0317.xlsx'
+        pandas_excel = pd.ExcelFile(report_file_name)
+        b_report = BismarckReport(pandas_excel)
+        b_report.process_book()
 
         # todo: Check the list of sheets are in the object.
         # todo: Check the list of fields are in the object.
@@ -25,9 +28,6 @@ class TestsBismarkReport(TestCase):
             print('File not found: {}'.format(report_file_name))
             return
 
-        pandas_excel = pd.ExcelFile(report_file_name)
-        b_report = BismarckReport(pandas_excel)
-        b_report.process_book()
 
 
 if __name__ == "__main__":

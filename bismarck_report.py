@@ -98,7 +98,6 @@ class BismarckReport(object):
     def process_book(self):
         """
         Processing the excel file.
-        :return:
         """
         for sheet_name in self.pandas_excel.sheet_names:
             if sheet_name not in ('סכום נכסי הקרן'):
@@ -115,7 +114,6 @@ class BismarckReport(object):
         :return:
         """
         sheet = xsl_object.parse(sheet_name, skiprows=7, index_col=1)
-
         context = self.get_sheet_context(sheet)
 
         for column in sheet.columns:
@@ -153,7 +151,6 @@ class BismarckReport(object):
 
     def get_sheet_context(self, sheet):
         """
-
         :param sheet:
         :return:
         """
