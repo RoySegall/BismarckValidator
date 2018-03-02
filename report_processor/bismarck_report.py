@@ -142,10 +142,22 @@ class BismarckReport(object):
         self.errors_output.append(self.check_rosseta(column, index, row_name, row_value, context))
 
     def check_rosseta(self, *args, **kwargs):
+        """
+
+        :param args:
+        :param kwargs:
+        :return:
+        """
         # todo implement connection to rosseta module.
         return ''
 
     def get_sheet_context(self, sheet):
+        """
+
+        :param sheet:
+        :return:
+        """
+
         # Find context column.
         context_col = ''
 
