@@ -7,17 +7,20 @@ from bismarck_report import BismarckReport
 
 
 class TestsBismarkReport(TestCase):
-
-    def setUp(self):
-        # btest = BismarckReportTest()
-        # btest.test_load_report()
-        pass
+    """
+    Testing the file processing.
+    """
 
     def test_load_report(self):
-        assert 1 == 1
-        return
+        """
+        Testing the file is being processed into an object correctly.
+        """
         report_file_name = glob.glob('{}/report_processor/fixtures/*.xlsx'.format(os.getcwd()))[0]
 
+        # todo: Check the list of sheets are in the object.
+        # todo: Check the list of fields are in the object.
+        # todo: Check we have values in the object.
+        return
         if not os.path.isfile(report_file_name):
             print('File not found: {}'.format(report_file_name))
             return
