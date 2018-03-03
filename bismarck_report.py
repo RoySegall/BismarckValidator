@@ -1,5 +1,8 @@
 class BismarckReport(object):
 
+    # Keep the number of rows to skip.
+    rows_to_skip = 7
+
     # Hold the list of the sheets and their code.
     instrument_dict = {
         'מזומנים': 'CASH',
@@ -112,8 +115,12 @@ class BismarckReport(object):
         :param sheet_name:
             The sheet name.
         """
-        sheet = xsl_object.parse(sheet_name, skiprows=7)
+        if sheet_name != 'מזומנים':
+            return
 
+        sheet = xsl_object.parse(sheet_name, skiprows=self.rows_to_skip)
+
+        # todo: move to the loop in 128.
         context_range = self.get_sheet_context_range(sheet)
 
         for column in sheet.columns:
@@ -121,15 +128,17 @@ class BismarckReport(object):
             if 'Unnamed' in column:
                 continue
 
-            for index, row_value in enumerate(sheet[column]):
-
-                if str(row_value) == 'nan' or index >= 5:
-                    continue
+            for index, row_value in sheet[column].iteritems():
 
                 context = self.get_context_from_context_range(context_range, index)
 
-                print([self.instrument_dict[sheet_name], self.field_list[column], context, row_value])
-                print([row_value, index, ])
+                if column not in self.field_list:
+                    column_name = 'empty'
+                    self.add_error(column + ' does not exists', index)
+                else:
+                    column_name = self.field_list[column]
+
+                print([self.instrument_dict[sheet_name], column_name, context, row_value, self.calculate_line(index)])
                 # row_name = str(sheet.index[index])
                 # self.process_cell(column, index, row_name, row_value, context[index])
 
@@ -156,6 +165,20 @@ class BismarckReport(object):
         """
         # todo implement connection to rosseta module.
         return ''
+
+    def calculate_line(self, index):
+        """
+        Get the real row form the index.
+
+        :param index:
+            The index of the line.
+        :return:
+        """
+        return self.rows_to_skip + index + 2
+
+    def add_error(self, error, line):
+        # todo: complete.
+        pass
 
     def get_sheet_context_range(self, sheet):
         """
