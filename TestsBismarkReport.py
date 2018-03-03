@@ -19,6 +19,9 @@ class TestsBismarkReport(TestCase):
         b_report = BismarckReport(pandas_excel)
         b_report.process_book()
 
+
+        assert False
+
         # todo: Check the list of sheets are in the object.
         # todo: Check the list of fields are in the object.
         # todo: Check we have values in the object.

@@ -1,4 +1,5 @@
 class BismarckReport(object):
+
     # Hold the list of the sheets and their code.
     instrument_dict = {
         'מזומנים': 'CASH',
@@ -110,10 +111,10 @@ class BismarckReport(object):
             The pandas object wrapping the excel file.
         :param sheet_name:
             The sheet name.
-        :return:
         """
-        sheet = xsl_object.parse(sheet_name, skiprows=7, index_col=1)
-        context = self.get_sheet_context(sheet)
+        sheet = xsl_object.parse(sheet_name, skiprows=7)
+
+        context_range = self.get_sheet_context_range(sheet)
 
         for column in sheet.columns:
 
@@ -121,8 +122,16 @@ class BismarckReport(object):
                 continue
 
             for index, row_value in enumerate(sheet[column]):
-                row_name = str(sheet.index[index])
-                self.process_cell(column, index, row_name, row_value, context[index])
+
+                if str(row_value) == 'nan' or index >= 5:
+                    continue
+
+                context = self.get_context_from_context_range(context_range, index)
+
+                print([self.instrument_dict[sheet_name], self.field_list[column], context, row_value])
+                print([row_value, index, ])
+                # row_name = str(sheet.index[index])
+                # self.process_cell(column, index, row_name, row_value, context[index])
 
     def process_cell(self, column, index, row_name, row_value, context):
         """
@@ -148,9 +157,11 @@ class BismarckReport(object):
         # todo implement connection to rosseta module.
         return ''
 
-    def get_sheet_context(self, sheet):
+    def get_sheet_context_range(self, sheet):
         """
-        Getting the context in the sheet.
+        Build the context range. Due to fact that when iterating the lines we cannot know for sure what is the
+        contexts we need to create a range dictionary; The dictionary will tell us when a context start and it's end
+        thus gives us the option to know what is the current context when iterating.
 
         :param sheet:
             The sheet object.
@@ -158,31 +169,40 @@ class BismarckReport(object):
         :return:
             List of contexts.
         """
-        # Find context column.
-        context_col = ''
-        cols = ['שם המנפיק/שם נייר ערך', 'שם נייר ערך', 'שם נ"ע', 'מספר הנייר', 'מספר נ"ע', 'אופי הנכס', 'מספר ני"ע']
+        range_dict = {}
+        for column in sheet.columns:
 
-        for col in sheet.columns:
-            if col in cols:
-                context_col = col
-                break
+            if 'Unnamed' in column:
+                continue
 
-        # Identify context for each row: Israel=IL, Abroad=ABR, Other=None.
-        context = []
-        is_israel = True
+            i = 1
+            for _, value in sheet[column].iteritems():
 
-        for index, row_value in enumerate(sheet[context_col]):
-            # Check if abroad section reached.
-            row_name = str(sheet.index[index])
-            if 'במט"ח' in row_name or 'סה"כ בחו"ל' in row_name:
-                is_israel = False
+                if value == 'סה"כ בישראל':
+                    range_dict['il'] = {
+                        'start': i
+                    }
 
-            # Register context.
-            if not str(row_value) in 'nan' and row_name not in ['nan', '0'] and is_israel:
-                context.append('IL')
-            elif not str(row_value) in 'nan' and row_name not in ['nan', '0'] and not is_israel:
-                context.append('ABR')
-            else:
-                context.append(None)
+                if value == 'סה"כ בחו"ל':
+                    range_dict['il']['end'] = i
+                    range_dict['not_il'] = {
+                        'start': i
+                    }
 
-        return context
+                i = i + 1
+        return range_dict
+
+    def get_context_from_context_range(self, context_range, index):
+        """
+        Get the context of the current line from the context range and line number.
+
+        :param context_range:
+            The context range dict.
+        :param index:
+            The index of the row.
+        :return:
+        """
+        if context_range['il']['start'] <= index <= context_range['il']['end']:
+            return 'il'
+        else:
+            return 'not_il'
