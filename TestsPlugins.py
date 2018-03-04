@@ -1,7 +1,9 @@
 from Validations import Validations
+import unittest
+from unittest import TestCase
 
 
-class TestsPlugins(object):
+class TestsPlugins(TestCase):
 
     def test_not_null(self):
         validators = Validations()
@@ -126,3 +128,7 @@ class TestsPlugins(object):
         # Negative value tests.
         assert validators.instrument_sub_type("Pizza").items() <= (
             {'result': False, 'msg': "unrecognized asset type"}).items()
+
+
+if __name__ == "__main__":
+    unittest.main()
