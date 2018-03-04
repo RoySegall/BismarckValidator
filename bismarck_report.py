@@ -138,7 +138,8 @@ class BismarckReport(object):
                 context = self.get_context_from_context_range(context_range, index)
                 line_number = self.calculate_line(index)
                 column_name = self.get_column_name(column, line_number)
-                self.check_rosseta(self.instrument_dict[sheet_name], column_name, context, row_value, line_number)
+                sheet_name = self.get_sheet_name(sheet_name)
+                self.check_rosseta(sheet_name, column_name, context, row_value, line_number)
 
     def check_rosseta(self, sheet_name, column_name, context, row_value, line):
         """
@@ -157,6 +158,13 @@ class BismarckReport(object):
         """
         # todo implement connection to rosseta module.
         self.add_error('foo', line)
+
+    def get_sheet_name(self, sheet_name):
+        if sheet_name not in self.instrument_dict:
+            self.add_error('sheet name ' + sheet_name + ' does not exists', 102)
+            return 'empty'
+
+        return self.instrument_dict[sheet_name]
 
     def get_column_name(self, column, index):
         """
@@ -205,7 +213,16 @@ class BismarckReport(object):
         :return:
             List of contexts.
         """
-        range_dict = {}
+        range_dict = {
+            'il': {
+                'start': 0,
+                'end': 0,
+            },
+            'no_il': {
+                'start': 0,
+                'end': 0,
+            }
+        }
         for column in sheet.columns:
 
             if 'Unnamed' in column:
