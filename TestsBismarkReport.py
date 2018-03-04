@@ -19,17 +19,7 @@ class TestsBismarkReport(TestCase):
         b_report = BismarckReport(pandas_excel)
         b_report.process_book()
 
-
-        assert False
-
-        # todo: Check the list of sheets are in the object.
-        # todo: Check the list of fields are in the object.
-        # todo: Check we have values in the object.
-        return
-        if not os.path.isfile(report_file_name):
-            print('File not found: {}'.format(report_file_name))
-            return
-
+        # todo: Run the validation on a known xsl file and validate the errors.
 
 
 if __name__ == "__main__":

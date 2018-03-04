@@ -115,9 +115,6 @@ class BismarckReport(object):
         :param sheet_name:
             The sheet name.
         """
-        if sheet_name != 'מזומנים':
-            return
-
         sheet = xsl_object.parse(sheet_name, skiprows=self.rows_to_skip)
 
         # todo: move to the loop in 128.
@@ -130,41 +127,57 @@ class BismarckReport(object):
 
             for index, row_value in sheet[column].iteritems():
 
+                if index < 4:
+                    continue
+
+                if type(row_value) == str:
+                    if 'סה"כ' in row_value:
+                        continue
+
+                # Calculate a couple of stuff.
                 context = self.get_context_from_context_range(context_range, index)
+                line_number = self.calculate_line(index)
+                column_name = self.get_column_name(column, line_number)
+                self.check_rosseta(self.instrument_dict[sheet_name], column_name, context, row_value, line_number)
 
-                if column not in self.field_list:
-                    column_name = 'empty'
-                    self.add_error(column + ' does not exists', index)
-                else:
-                    column_name = self.field_list[column]
-
-                print([self.instrument_dict[sheet_name], column_name, context, row_value, self.calculate_line(index)])
-                # row_name = str(sheet.index[index])
-                # self.process_cell(column, index, row_name, row_value, context[index])
-
-    def process_cell(self, column, index, row_name, row_value, context):
+    def check_rosseta(self, sheet_name, column_name, context, row_value, line):
         """
-        Processing a file.
+        Checking the value of the row against the rosetta.
 
-        :param column:
-        :param index:
-        :param row_name:
-        :param row_value:
+        :param sheet_name:
+            The sheet name.
+        :param column_name:
+            The column name.
         :param context:
-
-        """
-        # todo: Add preperation actions before rosseta checks.
-        self.errors_output.append(self.check_rosseta(column, index, row_name, row_value, context))
-
-    def check_rosseta(self, *args, **kwargs):
-        """
-
-        :param args:
-        :param kwargs:
-        :return:
+            The context of the row.
+        :param row_value:
+            The value of the cell.
+        :param line:
+            The line in excel. Need for errors.
         """
         # todo implement connection to rosseta module.
-        return ''
+        self.add_error('foo', line)
+
+    def get_column_name(self, column, index):
+        """
+        Get the column name. For some reason a couple of fileds are traceable.
+
+        todo: find out why.
+
+        :param column:
+            The column name.
+        :param index:
+            The row number.
+
+        :return:
+            The column name.
+        """
+        for hebrew_field, english_field in dict(self.field_list).items():
+            if column.strip() in hebrew_field:
+                return english_field
+
+        self.add_error(column + ' does not exists', index)
+        return 'empty'
 
     def calculate_line(self, index):
         """
