@@ -19,6 +19,8 @@ class TestsBismarkReport(TestCase):
         b_report = BismarckReport(pandas_excel)
         b_report.process_book()
 
+        self.assertIn("עו'ש- אקסלנס נשואה", b_report.sheet_object['CASH']['issuer_name']['in_israel'])
+
         # todo: Run the validation on a known xsl file and validate the errors.
 
 

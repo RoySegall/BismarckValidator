@@ -3,6 +3,9 @@ class BismarckReport(object):
     # Keep the number of rows to skip.
     rows_to_skip = 7
 
+    # An object which reflect the excel file.
+    sheet_object = {}
+
     # Hold the list of the sheets and their code.
     instrument_dict = {
         'מזומנים': 'CASH',
@@ -116,6 +119,8 @@ class BismarckReport(object):
             The sheet name.
         """
         sheet = xsl_object.parse(sheet_name, skiprows=self.rows_to_skip)
+        english_sheet_name = self.get_sheet_name(sheet_name)
+        self.sheet_object[english_sheet_name] = {}
 
         # todo: move to the loop in 128.
         context_range = self.get_sheet_context_range(sheet)
@@ -138,8 +143,17 @@ class BismarckReport(object):
                 context = self.get_context_from_context_range(context_range, index)
                 line_number = self.calculate_line(index)
                 column_name = self.get_column_name(column, line_number)
-                sheet_name = self.get_sheet_name(sheet_name)
-                self.check_rosseta(sheet_name, column_name, context, row_value, line_number)
+
+                # Preparing the sheet object which we need for tests.
+                if column_name not in self.sheet_object[english_sheet_name].keys():
+                    self.sheet_object[english_sheet_name][column_name] = {
+                        'in_israel': [],
+                        'not_in_israel': [],
+                    }
+
+                self.sheet_object[english_sheet_name][column_name][context].append(row_value)
+
+                self.check_rosseta(english_sheet_name, column_name, context, row_value, line_number)
 
     def check_rosseta(self, sheet_name, column_name, context, row_value, line):
         """
@@ -214,11 +228,11 @@ class BismarckReport(object):
             List of contexts.
         """
         range_dict = {
-            'il': {
+            'in_israel': {
                 'start': 0,
                 'end': 0,
             },
-            'no_il': {
+            'not_in_israel': {
                 'start': 0,
                 'end': 0,
             }
@@ -232,13 +246,13 @@ class BismarckReport(object):
             for _, value in sheet[column].iteritems():
 
                 if value == 'סה"כ בישראל':
-                    range_dict['il'] = {
+                    range_dict['in_israel'] = {
                         'start': i
                     }
 
                 if value == 'סה"כ בחו"ל':
-                    range_dict['il']['end'] = i
-                    range_dict['not_il'] = {
+                    range_dict['in_israel']['end'] = i
+                    range_dict['not_in_israel'] = {
                         'start': i
                     }
 
@@ -255,7 +269,7 @@ class BismarckReport(object):
             The index of the row.
         :return:
         """
-        if context_range['il']['start'] <= index <= context_range['il']['end']:
-            return 'il'
+        if context_range['in_israel']['start'] <= index <= context_range['in_israel']['end']:
+            return 'in_israel'
         else:
-            return 'not_il'
+            return 'not_in_israel'
