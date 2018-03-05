@@ -59,7 +59,7 @@ class TestsPlugins(TestCase):
 
     def test_is_numeric(self):
         validators = Validations()
-        assert validators.is_numeric(val=234).items() <= ({'result': True, 'msg': ''}).items()
+        assert validators.is_numeric(val="234").items() <= ({'result': True, 'msg': ''}).items()
         assert validators.is_numeric(val="pizza").items() <= (
             {'result': False, 'msg': 'The provided value is not an integer.'}).items()
 
