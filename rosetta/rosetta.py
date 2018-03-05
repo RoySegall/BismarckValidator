@@ -1,7 +1,7 @@
 import yaml
 import os
 
-from Validations import Validations
+from .validations import Validations
 
 
 class Rosetta(object):
@@ -18,9 +18,13 @@ class Rosetta(object):
     def __init__(self, folder, contexts=None):
         if contexts is None:
             contexts = ['in_israel', 'not_in_israel']
+        if folder:
+            self.folder = folder
 
-        self.folder = folder
-        self.contexts = contexts
+    def validate_object_test(self, *args, **kwargs):
+        if args:
+            print('{}|{}|{}|{}|{}'.format(args[0], args[1], args[2], args[3], args[4]))
+        return 'rosetta passed'
 
     def get_constraints(self):
         """

@@ -1,4 +1,4 @@
-from Validations import Validations
+from rosetta.validations import Validations
 
 
 class TestsPlugins(object):

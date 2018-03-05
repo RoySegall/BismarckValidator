@@ -1,7 +1,6 @@
-import json
-
-from Rosetta import Rosetta
 import os
+import json
+from ..rosetta import Rosetta
 
 
 class TestsRosetta(object):

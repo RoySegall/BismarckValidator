@@ -1,4 +1,5 @@
 import os
+from rosetta.rosetta import Rosetta
 
 
 class BismarckReport(object):
@@ -109,13 +110,14 @@ class BismarckReport(object):
                 self.process_cell(column, index, row_name, row_value, context[index])
 
     def process_cell(self, column, index, row_name, row_value, context):
-        # TODO add preperation actions before rosseta checks
-        rosseta = self.check_rosseta(column, index, row_name, row_value, context)
-        self.errors_output.append(rosseta)
+        if context:
+            rosetta_result = self.check_rosseta(column, index, row_name, row_value, context)
+            if rosetta_result:
+                self.errors_output.append(rosetta_result)
 
     def check_rosseta(self, *args, **kwargs):
-        # TODO implement connection to rosseta module
-        return ''
+        ros = Rosetta(None)
+        return ros.validate_object_test(*args, **kwargs)
 
     def get_sheet_context(self, sheet):
         # find context column
@@ -128,7 +130,9 @@ class BismarckReport(object):
                 'מספר הנייר',
                 'מספר נ"ע',
                 'אופי הנכס',
-                'מספר ני"ע'
+                'מספר ני"ע',
+                'מספר מנפיק',
+                'תאריך סיום ההתחייבות',
             ]:
                 context_col = col
                 break
@@ -136,6 +140,7 @@ class BismarckReport(object):
         # identify context for each row: Israel=IL, Abroad=ABR, Other=None
         context = []
         is_israel = True
+
         for index, row_value in enumerate(sheet[context_col]):
             # check if abroad section reached
             row_name = str(sheet.index[index])
