@@ -198,6 +198,9 @@ class Validations(object):
             The number.
         :return:
         """
+        if type(val) == int:
+            return {'result': True, 'msg': ''}
+
         if val.isdigit():
             return {'result': True, 'msg': ''}
         else:

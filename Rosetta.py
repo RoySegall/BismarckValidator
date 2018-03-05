@@ -82,6 +82,9 @@ class Rosetta(object):
                         if field not in errors.keys():
                             errors[field] = []
 
+                        if 'args' not in callback.keys():
+                            callback['args'] = {}
+
                         # Setting up the val in the callbacks and pass it to the callback function.
                         callback['args']['val'] = value
 
