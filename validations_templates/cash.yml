@@ -3,23 +3,36 @@ meta:
   tab: "מזומנים"
 
 fields:
-  # Field name.
 
-  instrument_id:
+  currency:
 
-    # Context.
     in_israel:
-
-      # Callbacks.
-      - func: "number_in_range"
-        args:
-          min_range: 1000
-          max_range: 9999990
-
-    # Context.
+      - func: "valid_currency"
     not_in_israel:
+      - func: "valid_currency"
 
-      - func: "date_format"
-        args:
-          format_to_validate: "%d/%m/%Y"
-          format_to_display: "DD/MM/YYYY"
+  intrest_Rate:
+
+    in_israel:
+      - func: "decimal_positive"
+    not_in_israel:
+      - func: "decimal_positive"
+
+  issuer_id:
+
+    in_israel:
+      - func: "is_numeric"
+    not_in_israel:
+      - func: "is_numeric"
+
+  rate_of_Fund:
+    in_israel:
+      - func: "decimal_positive"
+    not_in_israel:
+      - func: "decimal_positive"
+
+  rate_of_investment_channel:
+    in_israel:
+      - func: "decimal_positive"
+    not_in_israel:
+      - func: "decimal_positive"

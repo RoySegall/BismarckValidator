@@ -21,8 +21,6 @@ class TestsBismarkReport(TestCase):
 
         self.assertIn("עו'ש- אקסלנס נשואה", b_report.sheet_object['CASH']['issuer_name']['in_israel'])
 
-        # todo: Run the validation on a known xsl file and validate the errors.
-
 
 if __name__ == "__main__":
     unittest.main()
