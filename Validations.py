@@ -190,6 +190,19 @@ class Validations(object):
         except ValueError:
             return {'result': False, 'msg': "Not a float"}
 
+    def is_numeric(self, val):
+        """
+        Validate that the value is numeric.
+
+        :param val:
+            The number.
+        :return:
+        """
+        if val.isdigit():
+            return {'result': True, 'msg': ''}
+        else:
+            return {'result': False, 'msg': 'The provided value is not an integer.'}
+
     def valid_currency(self, val):
         """
         Validating currency from a list.

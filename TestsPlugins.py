@@ -57,6 +57,12 @@ class TestsPlugins(TestCase):
         assert validators.decimal_negative(val=None).items() <= (
             {'result': False, 'msg': "The value None not a decimal or not defined"}).items()
 
+    def test_is_numeric(self):
+        validators = Validations()
+        assert validators.is_numeric(val=234).items() <= ({'result': True, 'msg': ''}).items()
+        assert validators.is_numeric(val="pizza").items() <= (
+            {'result': False, 'msg': 'The provided value is not an integer.'}).items()
+
     def test_is_positive(self):
         validators = Validations()
         assert validators.is_positive(val=1).items() <= ({'result': True}).items()
