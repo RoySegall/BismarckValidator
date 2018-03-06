@@ -42,7 +42,7 @@ def process():
     if parsed_request['files'] is None:
         return flask_helpers.error('The files object is empty.')
 
-    reports = []
+    reports = {}
     for file in parsed_request['files']:
         if file == '':
             continue
@@ -50,6 +50,7 @@ def process():
         pandas_excel = pd.ExcelFile(file)
         b_report = BismarckReport(pandas_excel)
         b_report.process_book()
-        reports.append(b_report.general_errors)
+        file_split = file.split('/')
+        reports[file_split[-1]] = b_report.general_errors
 
-    return flask_helpers.response({'results': reports})
+    return flask_helpers.response(response={'results': reports})
