@@ -7,3 +7,4 @@ pusher
 pytest
 HTTPretty
 flask-cors
+rethinkdb
