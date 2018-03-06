@@ -4,6 +4,8 @@ from FlaskHelpers import FlaskHelpers
 from flask import Flask
 from flask import request
 from flask_cors import CORS
+import pandas as pd
+from bismarck_report import BismarckReport
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -27,6 +29,27 @@ def upload():
         return flask_helpers.response(response={'file': path})
 
 
-@app.route("/process_file", methods=['POST'])
+@app.route("/process_files", methods=['POST'])
 def process():
-    return flask_helpers.message('Wait for it')
+
+    parsed_request = dict(request.form)
+
+    print(parsed_request)
+
+    if 'files' not in parsed_request.keys():
+        return flask_helpers.error('The files property is empty.')
+
+    if parsed_request['files'] is None:
+        return flask_helpers.error('The files object is empty.')
+
+    reports = []
+    for file in parsed_request['files']:
+        if file == '':
+            continue
+
+        pandas_excel = pd.ExcelFile(file)
+        b_report = BismarckReport(pandas_excel)
+        b_report.process_book()
+        reports.append(b_report.general_errors)
+
+    return flask_helpers.response({'results': reports})

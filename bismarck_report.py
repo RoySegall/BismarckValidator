@@ -79,7 +79,19 @@ class BismarckReport(object):
         'תנאי ושיעור ריבית': 'condition_and_interest_rate',
     }
 
-    general_errors = {}
+    general_errors = {
+        'CASH': {
+            14: {
+                3: ['The field cannot be empty', 'The field is not in the right range'],
+            },
+            24: {
+                3: ['The field cannot be empty', 'The field is not in the right range'],
+            },
+            56: {
+                3: ['The field cannot be empty', 'The field is not in the right range'],
+            },
+        }
+    }
 
     # errors_output = {
     #     'CASH': [
