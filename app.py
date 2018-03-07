@@ -20,7 +20,7 @@ def before_request():
     try:
         g.rdb_conn = r.connect()
     except RqlRuntimeError:
-        abort(503, "Database connection could be established.")
+        print("Database connection could be established.")
 
 
 # close the connection after each request
