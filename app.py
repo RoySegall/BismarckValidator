@@ -36,6 +36,7 @@ def process():
 
     parsed_request = dict(request.form)
 
+    # A couple of validations.
     if 'files' not in parsed_request.keys():
         return flask_helpers.error('The files property is empty.')
 
@@ -45,16 +46,19 @@ def process():
     if parsed_request['files'] is None:
         return flask_helpers.error('The files object is empty.')
 
+    # Init variables.
     pusher = BismarkPusher(parsed_request['room'])
-
     reports = {}
+
     for file in parsed_request['files']:
         if file == '':
             continue
 
+        # Get the file name.
         file_split = file.split('/')
         file_name = file_split[-1]
 
+        # Notify the user we started to process.
         pusher.send_message(event='processing_file', message=file_name)
 
         pandas_excel = pd.ExcelFile(file)
@@ -67,6 +71,6 @@ def process():
     results = Results()
     document = results.insert({'results': reports})
 
+    # Done!
     pusher.send_message(event='done', message=document)
-
     return flask_helpers.response(response={'data': document})

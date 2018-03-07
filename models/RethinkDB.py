@@ -1,6 +1,5 @@
 import os
 import rethinkdb as r
-import time
 import yaml
 
 
