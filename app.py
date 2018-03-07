@@ -1,5 +1,6 @@
 import os
 from werkzeug.utils import secure_filename
+from BismarkPusher import BismarkPusher
 from FlaskHelpers import FlaskHelpers
 from flask import Flask
 from flask import request
@@ -36,27 +37,37 @@ def process():
 
     parsed_request = dict(request.form)
 
-    print(parsed_request)
-
     if 'files' not in parsed_request.keys():
         return flask_helpers.error('The files property is empty.')
 
+    if 'room' not in parsed_request.keys():
+        return flask_helpers.error('You need to provide the pusher room.')
+
     if parsed_request['files'] is None:
         return flask_helpers.error('The files object is empty.')
+
+    pusher = BismarkPusher(parsed_request['room'])
 
     reports = {}
     for file in parsed_request['files']:
         if file == '':
             continue
 
+        file_split = file.split('/')
+        file_name = file_split[-1]
+
+        pusher.send_message(event='processing_file', message=file_name)
+
         pandas_excel = pd.ExcelFile(file)
         b_report = BismarckReport(pandas_excel)
         b_report.process_book()
-        file_split = file.split('/')
-        reports[file_split[-1]] = b_report.general_errors
+
+        reports[file_name] = b_report.general_errors
 
     # Saving the results inside the DB.
     results = Results()
     document = results.insert({'results': reports})
+
+    pusher.send_message(event='done', message=document)
 
     return flask_helpers.response(response={'data': document})

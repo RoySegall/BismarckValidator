@@ -8,7 +8,10 @@ class BismarkPusher(object):
     # The pusher object.
     pusher = {}
 
-    def __init__(self):
+    # The channel name.
+    channel = ''
+
+    def __init__(self, channel):
         """
         Process the readme file.
 
@@ -24,13 +27,12 @@ class BismarkPusher(object):
             cluster=settings['pusher']['cluster'],
             ssl=settings['pusher']['ssl']
         )
+        self.channel = channel
 
-    def send_message(self, channel, event, message):
+    def send_message(self, event, message):
         """
         Sending a message to pusher.
 
-        :param channel:
-            The channel of the message.
         :param event:
             The event of the message.
         :param message:
@@ -38,4 +40,4 @@ class BismarkPusher(object):
 
         :return:
         """
-        self.pusher.trigger(channel, event, message)
+        self.pusher.trigger(self.channel, event, message)
