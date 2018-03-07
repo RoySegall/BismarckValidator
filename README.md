@@ -11,6 +11,8 @@ any).
 
 ```
 pip3 install -r requirements.txt
+rethinkdb --http-port 8090
+python3 install.py
 FLASK_APP=app.py FLASK_DEBUG=1 flask run --port 8080
 ```
 

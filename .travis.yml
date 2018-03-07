@@ -1,10 +1,18 @@
 language: python
+sudo: required
 python: 3.6
+addons:
+  rethinkdb: "2.3"
 
 install:
   - pip install pycodestyle flake8 isort
   - pip install -r requirements.txt
   - pip install -U pytest
+
+before_script:
+  - sudo service rethinkdb stop
+  - rethinkdb --http-port 8090 > /dev/null &
+  - python3 install.py
 
 script:
   # todo: use flake8

@@ -29,6 +29,30 @@ class TestsFlask(TestCase):
         r = requests.post('http://localhost:8080/upload', files=files)
         assert r.json() == {'file': os.getcwd() + '/uploads/Financial_Sample.xlsx'}
 
+    def test_process_files(self):
+        """
+        Testing file process.
+
+        :return:
+        """
+        files = {'upload_file': open('pytest_assets/513026484_gsum_0317.xlsx', 'rb')}
+        r = requests.post('http://localhost:8080/upload', files=files)
+        file_path = dict(r.json())['file']
+
+        # Testing errors.
+        self.assertEqual(requests.post('http://localhost:8080/process_files').json(),
+                         {'error': 'The files property is empty.'})
+
+        data = {'files': [file_path]}
+        self.assertEqual(requests.post('http://localhost:8080/process_files', data=data).json(),
+                         {'error': 'You need to provide the pusher room.'})
+
+        # Testing the results of the endpoint.
+        data['room'] = 'testing'
+        response = dict(requests.post('http://localhost:8080/process_files', data=data).json())['data']
+        self.assertTrue('id' in response.keys())
+        self.assertTrue('513026484_gsum_0317.xlsx' in response['results'].keys())
+
 
 if __name__ == "__main__":
     unittest.main()
