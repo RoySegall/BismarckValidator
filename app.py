@@ -6,30 +6,11 @@ from flask import request
 from flask_cors import CORS
 import pandas as pd
 from bismarck_report import BismarckReport
-import rethinkdb as r
-from rethinkdb.errors import RqlRuntimeError
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 flask_helpers = FlaskHelpers()
 g = None
-
-
-@app.before_request
-def before_request():
-    try:
-        g.rdb_conn = r.connect()
-    except RqlRuntimeError:
-        print("Database connection could be established.")
-
-
-# close the connection after each request
-@app.teardown_request
-def teardown_request(exception):
-    try:
-        g.rdb_conn.close()
-    except AttributeError:
-        pass
 
 
 @app.route("/")
