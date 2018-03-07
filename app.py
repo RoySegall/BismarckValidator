@@ -12,7 +12,6 @@ from models.Results import Results
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 flask_helpers = FlaskHelpers()
-g = None
 
 
 @app.route("/")
