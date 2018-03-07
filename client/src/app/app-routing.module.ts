@@ -5,7 +5,7 @@ import { ResultsComponent } from './results/results.component';
 
 const routes: Routes = [
   { path: '', component: UploadComponent, pathMatch: 'full' },
-  { path: 'results', component: ResultsComponent },
+  { path: 'results/:id', component: ResultsComponent },
 ];
 
 @NgModule({

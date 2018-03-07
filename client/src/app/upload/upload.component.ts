@@ -1,16 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'op-upload',
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.scss']
 })
+
+@Injectable()
 export class UploadComponent implements OnInit {
 
   config = {};
-  files = [];
 
-  constructor() { }
+  data = {
+    'files': [],
+    'room': Date.now()
+  };
+
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -19,12 +27,13 @@ export class UploadComponent implements OnInit {
   }
 
   onUploadSuccess($event) {
-    this.files.push($event[1].file);
+    this.data['files'].push($event[1].file);
   }
 
   submit() {
+    debugger;
     // Send it to the backend and start to wait for the pusher events.
-    console.log(this.files);
+    console.log(environment.backend + '/process_files');
   }
 
 }
