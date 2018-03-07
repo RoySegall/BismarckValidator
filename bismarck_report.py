@@ -81,14 +81,14 @@ class BismarckReport(object):
 
     general_errors = {
         'CASH': {
-            14: {
-                3: ['The field cannot be empty', 'The field is not in the right range'],
+            "14": {
+                "3": ['The field cannot be empty', 'The field is not in the right range'],
             },
-            24: {
-                3: ['The field cannot be empty', 'The field is not in the right range'],
+            "24": {
+                "3": ['The field cannot be empty', 'The field is not in the right range'],
             },
-            56: {
-                3: ['The field cannot be empty', 'The field is not in the right range'],
+            "56": {
+                "3": ['The field cannot be empty', 'The field is not in the right range'],
             },
         }
     }

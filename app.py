@@ -6,6 +6,7 @@ from flask import request
 from flask_cors import CORS
 import pandas as pd
 from bismarck_report import BismarckReport
+from models.Results import Results
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -54,4 +55,8 @@ def process():
         file_split = file.split('/')
         reports[file_split[-1]] = b_report.general_errors
 
-    return flask_helpers.response(response={'results': reports})
+    # Saving the results inside the DB.
+    results = Results()
+    document = results.insert({'results': reports})
+
+    return flask_helpers.response(response={'data': document})
