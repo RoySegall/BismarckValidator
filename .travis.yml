@@ -8,6 +8,10 @@ install:
   - pip install -r requirements.txt
   - pip install -U pytest
 
+before_script:
+  - service rethinkdb stop
+  - rethinkdb --http-port 8090
+
 script:
   # todo: use flake8
   - pycodestyle --show-source --max-line-length=120 --show-pep8 .
