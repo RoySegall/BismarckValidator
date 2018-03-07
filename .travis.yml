@@ -11,7 +11,7 @@ install:
 
 before_script:
   - sudo service rethinkdb stop
-  - rethinkdb --http-port 8090
+  - rethinkdb --http-port 8090 --daemon
 
 script:
   # todo: use flake8
