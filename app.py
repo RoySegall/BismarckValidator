@@ -14,12 +14,14 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 flask_helpers = FlaskHelpers()
 g = None
 
+
 @app.before_request
 def before_request():
     try:
         g.rdb_conn = r.connect()
     except RqlRuntimeError:
         abort(503, "Database connection could be established.")
+
 
 # close the connection after each request
 @app.teardown_request
@@ -28,6 +30,7 @@ def teardown_request(exception):
         g.rdb_conn.close()
     except AttributeError:
         pass
+
 
 @app.route("/")
 def index():
