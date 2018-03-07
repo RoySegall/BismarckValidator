@@ -1,18 +1,12 @@
 language: python
 python: 3.6
-
-before_install:
-  - add-apt-repository ppa:rethinkdb/ppa -y
-  - apt-get update -qq
-  - apt-get install rethinkdb -y
+addons:
+  rethinkdb: "2.3"
 
 install:
   - pip install pycodestyle flake8 isort
   - pip install -r requirements.txt
   - pip install -U pytest
-
-before_script:
-  - sudo rethinkdb -http-port 8090 --daemon
 
 script:
   # todo: use flake8
