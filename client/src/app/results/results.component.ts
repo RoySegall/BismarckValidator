@@ -12,6 +12,8 @@ export class ResultsComponent implements OnInit {
 
   results = [];
 
+  processing = false;
+
   constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -45,6 +47,9 @@ export class ResultsComponent implements OnInit {
 
           this.results.push(file_results);
         });
+      }
+      else {
+        this.processing = true;
       }
     });
   }
