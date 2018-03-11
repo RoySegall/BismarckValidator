@@ -72,10 +72,19 @@ def process():
     document = results.insert({'results': reports})
 
     # Done!
-    pusher.send_message(event='done', message=document)
     return flask_helpers.response(response={'data': document})
 
 
-@app.route("/results/<id>", methods=['GET'])
-def process(id):
-    return flask_helpers.message(id)
+@app.route("/process_files/<id>", methods=['GET'])
+def process_files_results(id):
+    """
+    Return the results for process files.
+
+    :param id:
+        The ID of the process.
+
+    :return:
+        The object in the DB.
+    """
+    results = Results()
+    return flask_helpers.response(results.load(id))
