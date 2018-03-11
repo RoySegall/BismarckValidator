@@ -35,7 +35,6 @@ def upload():
 def process():
 
     parsed_request = dict(request.form)
-    print(dict(parsed_request))
 
     # A couple of validations.
     if 'files' not in parsed_request.keys():
