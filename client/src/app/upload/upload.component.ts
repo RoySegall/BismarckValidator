@@ -4,7 +4,6 @@ import {environment} from '../../environments/environment';
 import {HttpHeaders} from '@angular/common/http';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'op-upload',
   templateUrl: './upload.component.html',
@@ -15,18 +14,14 @@ import { Router } from '@angular/router';
 export class UploadComponent implements OnInit {
 
   config = {};
-
-  data = {
-    'files': [],
-    'room': Date.now()
-  };
-
+  data = {};
   canUpload = false;
 
   constructor(private http: HttpClient, private router: Router) {
   }
 
   ngOnInit() {
+    this.data['room'] = Date.now();
   }
 
   onUploadError($event) {
@@ -50,7 +45,8 @@ export class UploadComponent implements OnInit {
     let router = this.router;
 
     // Send it to the backend and start to wait for the pusher events.
-    this.http.post(environment.backend + 'process_files', body.toString(), options).subscribe(data => {
+    this.http.post(environment.backend + 'process_files', body.toString(), options).subscribe((data: UploadResponse) => {
+
       router.navigate(["/results/" + data.data.id]);
     }, err => {
       console.log(err);
