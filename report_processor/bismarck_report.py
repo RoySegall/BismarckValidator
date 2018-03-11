@@ -42,15 +42,21 @@ class BismarckReport(object):
                                   row_value=row_value,
                                   context=context[index])
 
+        # if self.errors_output:
+        #     with open('post_rosetta.json', 'a', encoding='utf-8') as the_file:
+        #         the_file.write(str(self.errors_output))
+
     def process_cell(self, **kwargs):
         if kwargs.get('context'):
+            kwargs['field'] = kwargs.pop('column')
             rosetta_result = self.check_rosseta(**kwargs)
-            # TODO - aggregate validation results
+
+            # aggregate validation results
             if rosetta_result:
-                self.errors_output.append(rosetta_result)
+                self.errors_output.append(str(rosetta_result))
 
     def check_rosseta(self, *args, **kwargs):
-        return Rosetta().validate_object_test(*args, **kwargs)
+        return Rosetta().validate_proxy(*args, **kwargs)
 
     def get_sheet_context(self, sheet):
         # find context column

@@ -1,19 +1,20 @@
 # Listing the list of fields.
 meta:
-  tab: "cash"
+  sheet: "cash"
 
 fields:
-  # Field name.
-  instrument_id:
 
-    # Validation Callbacks.
-    - func: "number_in_range"
-      args:
-        min_range: 1000
-        max_range: 9999990
+  currency:
+    - func: "valid_currency"
+      args: {}
 
+  issuer_id:
+    - func: "is_numeric"
+      args: {}
 
-    - func: "date_format"
-      args:
-        format_to_validate: "%d/%m/%Y"
-        format_to_display: "DD/MM/YYYY"
+  rate_of_fund:
+    - func: "is_numeric"
+      args: {}
+    
+    - func: "decimal_positive"
+      args: {}
