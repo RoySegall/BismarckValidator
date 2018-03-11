@@ -1,0 +1,55 @@
+# Listing the list of fields.
+meta:
+  sheet: "eft"
+
+fields:
+  activity_industry:
+    - func: "not_null"
+      args: {}
+
+  currency:
+    - func: "valid_currency"
+      arg: {}
+
+  date_of_purchase:
+    - func: "date_format"
+      args:
+        format_to_validate: "%d/%m/%Y"
+        format_to_display: "DD/MM/YYYY"
+
+  instrument_id:
+    - func: "number_in_range"
+      args:
+        min_range: 1000000
+        max_range: 9999999
+
+  issuer_id:
+    - func: "is_numeric"
+      args: {}
+
+  market_cap:
+    - func: "is_numeric"
+      args: {}
+
+  par_value:
+    - func: "is_numeric"
+      args: {}
+    - func: "is_positive"
+      args: {}
+
+  rate_of_fund:
+    - func: "is_numeric"
+      args: {}
+    - func: "decimal_positive"
+      args: {}
+
+  rate_of_ipo:
+    - func: "is_numeric"
+      args: {}
+    - func: "decimal_positive"
+      args: {}
+
+  revenue_interest_receivable:
+  - func: "is_positive"
+    args: {}
+
