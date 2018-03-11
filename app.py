@@ -2,7 +2,7 @@ import os
 from werkzeug.utils import secure_filename
 from BismarkPusher import BismarkPusher
 from FlaskHelpers import FlaskHelpers
-from flask import Flask
+from flask import Flask, url_for
 from flask import request
 from flask_cors import CORS
 import pandas as pd
@@ -74,3 +74,8 @@ def process():
     # Done!
     pusher.send_message(event='done', message=document)
     return flask_helpers.response(response={'data': document})
+
+
+@app.route("/results/<id>", methods=['GET'])
+def process(id):
+    return flask_helpers.message(id)
