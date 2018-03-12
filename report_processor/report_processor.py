@@ -51,7 +51,7 @@ class ReportProcessor(BismarckReport):
         }
 
     """
-    private functions 
+    private functions
     """
     def get_sheet_data(self, pandas_excel, sheet_name):
         pass

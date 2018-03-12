@@ -134,4 +134,3 @@ class Rosetta(object, metaclass=Singleton):
                 result_list.append(e)
 
         return result_list
-

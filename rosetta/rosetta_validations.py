@@ -6,7 +6,7 @@ from .rosetta_config import RosettaConfig
 class Validations(object):
 
     currencies_list = RosettaConfig.CURRENCIES_LIST
-    instrument_sub_type = RosettaConfig.INSTRUMENT_SUB_TYPE
+    instrument_sub_type_list = RosettaConfig.INSTRUMENT_SUB_TYPE
 
     def not_null(self, val):
         """
@@ -131,6 +131,9 @@ class Validations(object):
         if type(val) == int:
             return {'result': True, 'msg': ''}
 
+        if type(val) == float:
+            return {'result': True, 'msg': ''}
+
         if val.isdigit():
             return {'result': True, 'msg': ''}
         else:
@@ -207,6 +210,9 @@ class Validations(object):
         """
         min_range_test = max_range_test = True
 
+        if not self.is_numeric(val)['result']:
+            return self.is_numeric(val)
+
         if min_range is not 0:
             min_range_test = val >= min_range
 
@@ -225,7 +231,7 @@ class Validations(object):
         :return:
         """
 
-        if val in self.instrument_sub_type:
+        if val in self.instrument_sub_type_list:
             return {'result': True}
 
         return {'result': False, 'msg': "unrecognized asset type"}
