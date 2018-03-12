@@ -24,15 +24,15 @@ class TestsRosetta(TestCase):
         constraints = self._get_rosetta().get_constraints()
         assert ['cash'] == list(constraints.keys())
 
-    def test_contexts(self):
-        """
-        Testing contexts issue methods.
-
-        :return:
-        """
-        tab = self._get_rosetta().get_tab('cash')
-        assert 'currency' in tab.keys()
-        assert list(tab['currency'].keys()) == self._get_rosetta().contexts
+    # def test_contexts(self):
+    #     """
+    #     Testing contexts issue methods.
+    #
+    #     :return:
+    #     """
+    #     tab = self._get_rosetta().get_tab('cash')
+    #     assert 'currency' in tab.keys()
+    #     assert list(tab['currency'].keys()) == self._get_rosetta().contexts
 
     def _test_validate_object(self):
         # todo: fix.
