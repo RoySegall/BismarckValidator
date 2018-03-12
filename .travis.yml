@@ -26,4 +26,3 @@ script:
   - pytest TestsFlask.py
   - pytest rosetta/tests/test_rosetta.py
   - pytest rosetta/tests/test_validations.py
-
