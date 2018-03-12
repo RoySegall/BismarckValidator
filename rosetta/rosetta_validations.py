@@ -124,6 +124,7 @@ class Validations(object):
     def is_numeric(self, val, **kwargs):
         """
         Validate that the value is numeric.
+
         :param val:
             The number.
         :return:

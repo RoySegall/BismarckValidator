@@ -32,3 +32,14 @@ class FlaskHelpers(object):
         :return:
         """
         return self.response({'message': message}, response_code)
+
+    def error(self, error):
+        """
+        Print an error.
+
+        :param error:
+            The error.
+
+        :return:
+        """
+        return self.response({'error': error}, 400)

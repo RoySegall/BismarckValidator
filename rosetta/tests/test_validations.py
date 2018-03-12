@@ -1,7 +1,9 @@
+import unittest
+from unittest import TestCase
 from rosetta.rosetta_validations import Validations
 
 
-class TestsPlugins(object):
+class TestsPlugins(TestCase):
 
     def test_not_null(self):
         validators = Validations()
@@ -54,6 +56,12 @@ class TestsPlugins(object):
             {'result': False, 'msg': "The value 1.11 must be negative decimal"}).items()
         assert validators.decimal_negative(val=None).items() <= (
             {'result': False, 'msg': "The value None not a decimal or not defined"}).items()
+
+    def test_is_numeric(self):
+        validators = Validations()
+        assert validators.is_numeric(val="234").items() <= ({'result': True, 'msg': ''}).items()
+        assert validators.is_numeric(val="pizza").items() <= (
+            {'result': False, 'msg': 'The provided value is not an integer.'}).items()
 
     def test_is_positive(self):
         validators = Validations()
@@ -126,3 +134,7 @@ class TestsPlugins(object):
         # Negative value tests.
         assert validators.instrument_sub_type("Pizza").items() <= (
             {'result': False, 'msg': "unrecognized asset type"}).items()
+
+
+if __name__ == "__main__":
+    unittest.main()

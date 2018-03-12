@@ -6,3 +6,5 @@ PyYAML==3.12
 pusher
 pytest
 HTTPretty
+flask-cors
+rethinkdb

@@ -1,0 +1,38 @@
+# Listing the list of fields.
+meta:
+  tab: "מזומנים"
+
+fields:
+
+  currency:
+
+    in_israel:
+      - func: "valid_currency"
+    not_in_israel:
+      - func: "valid_currency"
+
+  intrest_Rate:
+
+    in_israel:
+      - func: "decimal_positive"
+    not_in_israel:
+      - func: "decimal_positive"
+
+  issuer_id:
+
+    in_israel:
+      - func: "is_numeric"
+    not_in_israel:
+      - func: "is_numeric"
+
+  rate_of_Fund:
+    in_israel:
+      - func: "decimal_positive"
+    not_in_israel:
+      - func: "decimal_positive"
+
+  rate_of_investment_channel:
+    in_israel:
+      - func: "decimal_positive"
+    not_in_israel:
+      - func: "decimal_positive"
