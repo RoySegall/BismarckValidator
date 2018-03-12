@@ -2,7 +2,7 @@ import {Component, OnInit, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {HttpHeaders} from '@angular/common/http';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'op-upload',

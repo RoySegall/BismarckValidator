@@ -1,6 +1,3 @@
 interface UploadResponse {
-  data: {
-    id: string,
-    results: string,
-  }
+  data: ProcessResponse
 }
