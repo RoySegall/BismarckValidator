@@ -2,7 +2,7 @@ import os
 from werkzeug.utils import secure_filename
 from BismarkPusher import BismarkPusher
 from FlaskHelpers import FlaskHelpers
-from flask import Flask
+from flask import Flask, url_for
 from flask import request
 from flask_cors import CORS
 import pandas as pd
@@ -74,3 +74,18 @@ def process():
     # Done!
     pusher.send_message(event='done', message=document)
     return flask_helpers.response(response={'data': document})
+
+
+@app.route("/process_files/<id>", methods=['GET'])
+def process_files_results(id):
+    """
+    Return the results for process files.
+
+    :param id:
+        The ID of the process.
+
+    :return:
+        The object in the DB.
+    """
+    results = Results()
+    return flask_helpers.response(results.load(id))

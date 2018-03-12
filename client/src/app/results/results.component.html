@@ -1,3 +1,5 @@
-<p>
-  results works!
-</p>
+<i class="fa fa-spinner fa-spin" *ngIf="this.processing == true"></i>
+
+<div *ngFor="let data of this.results">
+  <div [innerHTML]="data"></div>
+</div>
