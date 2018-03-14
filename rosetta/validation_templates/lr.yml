@@ -1,0 +1,15 @@
+meta:
+  sheet: "lr"
+
+fields:
+    currency:
+      - func: "valid_currency"
+      - args: {}
+
+    date_of_purchase:
+      - func: "date_format"
+      - args: {
+          format_to_validate: "%d/%m/%Y",
+          format_to_display: "DD/MM/YYYY"
+          }
+
