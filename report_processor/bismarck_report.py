@@ -30,6 +30,10 @@ class BismarckReport(object):
         self.is_ready = True
 
         if self.flat_report:
+            with open('flat_report.json', 'a', encoding='utf-8') as the_file:
+                the_file.write(self.flat_report)
+
+        if self.flat_report:
             self.get_compact()
             with open('compact_report.json', 'a', encoding='utf-8') as the_file:
                 the_file.write(str(json.dumps(
@@ -38,7 +42,6 @@ class BismarckReport(object):
                     skipkeys=True,
                     indent=2,
                     allow_nan=True)))
-
 
     def process_sheet(self, xsl_object, sheet_name):
         sheet = xsl_object.parse(sheet_name, skiprows=self.__SKIP_ROWS, index_col=1)
