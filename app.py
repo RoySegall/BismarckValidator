@@ -6,7 +6,7 @@ from flask import Flask, url_for
 from flask import request
 from flask_cors import CORS
 import pandas as pd
-from bismarck_report import BismarckReport
+from report_processor.bismarck_report import BismarckReport
 from models.Results import Results
 
 app = Flask(__name__)
@@ -61,11 +61,10 @@ def process():
         # Notify the user we started to process.
         pusher.send_message(event='processing_file', message=file_name)
 
-        pandas_excel = pd.ExcelFile(file)
-        b_report = BismarckReport(pandas_excel)
+        # Check out the new api to bismark report
+        b_report = BismarckReport(report_file_name=file)
         b_report.process_book()
-
-        reports[file_name] = b_report.general_errors
+        reports[file_name] = b_report.get_compact()
 
     # Saving the results inside the DB.
     results = Results()

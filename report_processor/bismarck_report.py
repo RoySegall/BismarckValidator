@@ -1,31 +1,47 @@
 import os
+import json
+import pandas as pd
 from rosetta.rosetta import Rosetta
 
 
 class BismarckReport(object):
+    __SKIP_ROWS = 7
+    __SKIP_ROWS_PADDING = 9
+    __MUTED_SHEET_NAME = 'סכום נכסי הקרן'
 
-    general_errors = {}
-
-    # errors_output = {
-    #     'CASH': [
-    #         14: [
-    #             3: ['The field cannot be empty', 'The field is not in the right range']
-    #         ]
-    #     ]
-    # }
-    errors_output = []
     meta_report = {}
+    compact_report = {}
+    flat_report = []
 
-    def __init__(self, pandas_excel):
+    def __init__(self, report_file_name=None, pandas_excel=None):
+        self.is_ready = False
+        if not report_file_name and not pandas_excel:
+            raise ValueError('Expected either report_file_name or pandas_excel args')
+        if not pandas_excel:
+            pandas_excel = pd.ExcelFile(report_file_name)
         self.pandas_excel = pandas_excel
+        self.rosetta = Rosetta()
 
     def process_book(self):
         for sheet_name in self.pandas_excel.sheet_names:
-            if sheet_name not in ('סכום נכסי הקרן'):
+            if sheet_name not in self.__MUTED_SHEET_NAME:
                 self.process_sheet(self.pandas_excel, sheet_name)
 
+        self.is_ready = True
+
+        if self.flat_report:
+            self.get_compact()
+            with open('compact_report.json', 'a', encoding='utf-8') as the_file:
+                the_file.write(str(json.dumps(
+                    self.compact_report,
+                    ensure_ascii=False,
+                    skipkeys=True,
+                    indent=2,
+                    allow_nan=True)))
+
+
     def process_sheet(self, xsl_object, sheet_name):
-        sheet = xsl_object.parse(sheet_name, skiprows=7, index_col=1)
+        sheet = xsl_object.parse(sheet_name, skiprows=self.__SKIP_ROWS, index_col=1)
 
         context = self.get_sheet_context(sheet)
 
@@ -38,25 +54,28 @@ class BismarckReport(object):
                 self.process_cell(sheet_name=sheet_name,
                                   column=column,
                                   index=index,
+                                  context=context[index],
                                   row_name=row_name,
-                                  row_value=row_value,
-                                  context=context[index])
-
-        # if self.errors_output:
-        #     with open('post_rosetta.json', 'a', encoding='utf-8') as the_file:
-        #         the_file.write(str(self.errors_output))
+                                  row_value=row_value)
 
     def process_cell(self, **kwargs):
         if kwargs.get('context'):
             kwargs['field'] = kwargs.pop('column')
-            rosetta_result = self.check_rosseta(**kwargs)
+            rosetta_result = self.check_rosetta(**kwargs)
 
             # aggregate validation results
             if rosetta_result:
-                self.errors_output.append(str(rosetta_result))
+                result_dict = {'sheet_code': '', 'field_code': ''}
+                result_dict.update(kwargs)
 
-    def check_rosseta(self, *args, **kwargs):
-        return Rosetta().validate_proxy(*args, **kwargs)
+                result_dict['sheet_code'] = self.rosetta.get_sheet(result_dict['sheet_name'])
+                result_dict['field_code'] = self.rosetta.get_field(result_dict['field'])
+                result_dict['results'] = '{}'.format(str(rosetta_result).replace('"', '').replace("'", ""))
+                result_dict['index'] = kwargs['index'] + self.__SKIP_ROWS_PADDING
+                self.flat_report.append(result_dict)
+
+    def check_rosetta(self, *args, **kwargs):
+        return self.rosetta.validate(*args, **kwargs)
 
     def get_sheet_context(self, sheet):
         # find context column
@@ -97,3 +116,23 @@ class BismarckReport(object):
             # print('{};{};{};{}'.format(index, sheet.index[index], row_value, context[index]))
 
         return context
+
+    def is_ready(self):
+        return self.is_ready
+
+    def get_flat(self):
+        return self.flat_report
+
+    def get_compact(self):
+        compact_report = {}
+        for row in self.flat_report:
+            if not row['sheet_code'] in compact_report:
+                compact_report[row['sheet_code']] = {}
+                compact_report[row['sheet_code']][row['field_code']] = {}
+            elif not row['field_code'] in compact_report[row['sheet_code']]:
+                compact_report[row['sheet_code']][row['field_code']] = {}
+
+            compact_report[row['sheet_code']][row['field_code']][row['index']] = row['results']
+
+        self.compact_report = compact_report
+        return compact_report

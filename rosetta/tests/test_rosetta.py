@@ -13,7 +13,7 @@ class TestsRosetta(TestCase):
 
         :return:
         """
-        return Rosetta(os.getcwd() + "/validations_templates")
+        return Rosetta()
 
     def test_list_of_files(self):
         """
@@ -22,7 +22,8 @@ class TestsRosetta(TestCase):
         :return:
         """
         constraints = self._get_rosetta().get_constraints()
-        assert ['cash'] == list(constraints.keys())
+        rosetta = Rosetta()
+        assert 'cash' in list(rosetta.rosetta.keys())
 
     # def test_contexts(self):
     #     """

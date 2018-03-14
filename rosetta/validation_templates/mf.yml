@@ -5,11 +5,11 @@ meta:
 fields:
   instrument_id:
     - func: "not_null"
-      arg: {}
+      args: {}
 
   currency:
     - func: "valid_currency"
-      arg: {}
+      args: {}
 
   date_of_purchase:
     - func: "date_format"
