@@ -27,4 +27,3 @@ script:
   - pytest report_processor/tests/test_processor.py
   - pytest rosetta/tests/test_rosetta.py
   - pytest rosetta/tests/test_validations.py
-
