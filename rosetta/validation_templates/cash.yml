@@ -1,20 +1,20 @@
-# Listing the list of fields.
 meta:
   sheet: "cash"
 
 fields:
+    currency:
+      - func: "valid_currency"
+        args: {}
 
-  currency:
-    - func: "valid_currency"
-      args: {}
+    intrest_rate:
+      - func: "decimal_positive"
+        args: {}
 
-  issuer_id:
-    - func: "is_numeric"
-      args: {}
+    issuer_id:
+      - func: "is_numeric"
+        args: {}
 
-  rate_of_fund:
-    - func: "is_numeric"
-      args: {}
-    
-    - func: "decimal_positive"
-      args: {}
+    rate_of_fund:
+      - func: "decimal_positive"
+        args: {}
+

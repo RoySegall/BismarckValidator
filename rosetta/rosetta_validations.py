@@ -215,10 +215,10 @@ class Validations(object):
             return self.is_numeric(val)
 
         if min_range is not 0:
-            min_range_test = int(val) >= min_range
+            min_range_test = int(val) >= int(min_range)
 
         if max_range is not 0:
-            max_range_test = int(val) <= max_range
+            max_range_test = int(val) <= int(max_range)
 
         if max_range_test & min_range_test:
             return {'result': True}

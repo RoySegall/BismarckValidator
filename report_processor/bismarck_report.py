@@ -31,7 +31,7 @@ class BismarckReport(object):
 
         if self.flat_report:
             with open('flat_report.json', 'a', encoding='utf-8') as the_file:
-                the_file.write(self.flat_report)
+                the_file.write(str(self.flat_report))
 
         if self.flat_report:
             self.get_compact()
