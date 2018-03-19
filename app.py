@@ -71,7 +71,7 @@ def process():
     document = results.insert({'results': reports})
 
     # Done!
-    pusher.send_message(event='done', message=document)
+    # pusher.send_message(event='done', message=document)
     return flask_helpers.response(response={'data': document})
 
 

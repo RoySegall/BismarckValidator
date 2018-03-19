@@ -135,7 +135,7 @@ class BismarckReport(object):
             elif not row['field_code'] in compact_report[row['sheet_code']]:
                 compact_report[row['sheet_code']][row['field_code']] = {}
 
-            compact_report[row['sheet_code']][row['field_code']][row['index']] = row['results']
+            compact_report[row['sheet_code']][row['field_code']][str(row['index'])] = row['results']
 
         self.compact_report = compact_report
         return compact_report
