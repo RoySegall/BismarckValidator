@@ -2,7 +2,7 @@
 .cache
 __pycache__
 client/node_modules/
-uploads/
-rethinkdb_data
-compact_report.json
-flat_report.json
+server/uploads/
+server/rethinkdb_data
+server/compact_report.json
+server/flat_report.json

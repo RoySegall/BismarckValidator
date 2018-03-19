@@ -10,6 +10,7 @@ any).
 ### Backend
 
 ```
+cd server
 pip3 install -r requirements.txt
 rethinkdb --http-port 8090
 python3 install.py
