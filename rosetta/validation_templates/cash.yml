@@ -1,0 +1,20 @@
+meta:
+  sheet: "cash"
+
+fields:
+    currency:
+      - func: "valid_currency"
+        args: {}
+
+    intrest_rate:
+      - func: "decimal_positive"
+        args: {}
+
+    issuer_id:
+      - func: "is_numeric"
+        args: {}
+
+    rate_of_fund:
+      - func: "decimal_positive"
+        args: {}
+

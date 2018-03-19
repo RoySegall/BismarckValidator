@@ -1,8 +1,8 @@
-import json
-from Rosetta import Rosetta
 import os
+import json
 import unittest
 from unittest import TestCase
+from ..rosetta import Rosetta
 
 
 class TestsRosetta(TestCase):
@@ -13,7 +13,7 @@ class TestsRosetta(TestCase):
 
         :return:
         """
-        return Rosetta(os.getcwd() + "/validations_templates")
+        return Rosetta()
 
     def test_list_of_files(self):
         """
@@ -22,17 +22,18 @@ class TestsRosetta(TestCase):
         :return:
         """
         constraints = self._get_rosetta().get_constraints()
-        assert ['cash'] == list(constraints.keys())
+        rosetta = Rosetta()
+        assert 'cash' in list(rosetta.rosetta.keys())
 
-    def test_contexts(self):
-        """
-        Testing contexts issue methods.
-
-        :return:
-        """
-        tab = self._get_rosetta().get_tab('cash')
-        assert 'currency' in tab.keys()
-        assert list(tab['currency'].keys()) == self._get_rosetta().contexts
+    # def test_contexts(self):
+    #     """
+    #     Testing contexts issue methods.
+    #
+    #     :return:
+    #     """
+    #     tab = self._get_rosetta().get_tab('cash')
+    #     assert 'currency' in tab.keys()
+    #     assert list(tab['currency'].keys()) == self._get_rosetta().contexts
 
     def _test_validate_object(self):
         # todo: fix.

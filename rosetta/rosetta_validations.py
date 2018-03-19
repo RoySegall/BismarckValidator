@@ -1,81 +1,12 @@
 from decimal import Decimal, DecimalException
 import datetime
+from .rosetta_config import RosettaConfig
 
 
 class Validations(object):
 
-    # The header size.
-    header_size = 0
-
-    # The columns.
-    columns_count = 0
-
-    # The number of rows.
-    rows_count = 0
-
-    # The instrument name.
-    instrument = ''
-
-    # Field name.
-    field = ''
-
-    # Define if the current value is context or not.
-    is_context = False
-
-    # The context name.
-    context_name = ''
-
-    # The name of sub spreadsheet.
-    instrument_dict_validations = {
-        'cash': 'מזומנים',
-    }
-
-    # Keep list of currency.
-    currencies_list = [
-        'דולר אוסטרליה',
-        'ריאל ברזילאי',
-        'דולר קנדי',
-        'פרנק שוויצרי',
-        'פסו ציליאני',
-        'יואן סיני',
-        'כתר דני',
-        'אירו',
-        'ליש"ט',
-        'דולר הונג קונג',
-        'פורינט הונגרי',
-        'רופי הודי',
-        'יין יפני',
-        'פזו מכסיקני',
-        'שקל חדש ישראלי',
-        'כתר נורווגי',
-        'ניו זילנד דולר',
-        'זלוטי פולני',
-        'רובל רוסי',
-        'כתר שוודי',
-        'דולר סינגפורי',
-        'לירה טורקית',
-        'דולר טיוואני',
-        'דולר ארהב',
-        'רנד דרא"פ',
-        'UNKNOWN',
-    ]
-
-    _instrument_sub_type = [
-        "תעודות התחייבות ממשלתיות",
-        "תעודות חוב מסחריות",
-        'אג"ח קונצרני'
-        "מניות",
-        "תעודות סל",
-        "קרנות נאמנות",
-        "קרנות מחקות",
-        "כתבי אופציה",
-        "אופציות",
-        "חוזים עתידים",
-        "מוצרים מובנים"
-    ]
-
-    # List of errors.
-    errors = []
+    currencies_list = RosettaConfig.CURRENCIES_LIST
+    instrument_sub_type_list = RosettaConfig.INSTRUMENT_SUB_TYPE
 
     def not_null(self, val):
         """
@@ -190,7 +121,7 @@ class Validations(object):
         except ValueError:
             return {'result': False, 'msg': "Not a float"}
 
-    def is_numeric(self, val):
+    def is_numeric(self, val, **kwargs):
         """
         Validate that the value is numeric.
 
@@ -201,12 +132,15 @@ class Validations(object):
         if type(val) == int:
             return {'result': True, 'msg': ''}
 
+        if type(val) == float:
+            return {'result': True, 'msg': ''}
+
         if val.isdigit():
             return {'result': True, 'msg': ''}
         else:
             return {'result': False, 'msg': 'The provided value is not an integer.'}
 
-    def valid_currency(self, val):
+    def valid_currency(self, val, *args):
         """
         Validating currency from a list.
 
@@ -277,11 +211,14 @@ class Validations(object):
         """
         min_range_test = max_range_test = True
 
+        if not self.is_numeric(val)['result']:
+            return self.is_numeric(val)
+
         if min_range is not 0:
-            min_range_test = val >= min_range
+            min_range_test = int(val) >= int(min_range)
 
         if max_range is not 0:
-            max_range_test = val <= max_range
+            max_range_test = int(val) <= int(max_range)
 
         if max_range_test & min_range_test:
             return {'result': True}
@@ -295,7 +232,7 @@ class Validations(object):
         :return:
         """
 
-        if val in self._instrument_sub_type:
+        if val in self.instrument_sub_type_list:
             return {'result': True}
 
         return {'result': False, 'msg': "unrecognized asset type"}

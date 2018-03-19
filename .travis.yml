@@ -22,7 +22,7 @@ script:
   - FLASK_APP=app.py FLASK_DEBUG=1 flask run --port 8080 > /dev/null 2>&1 &
 
   # Running some tests.
-  - pytest TestsBismarkReport.py
   - pytest TestsFlask.py
-  - pytest TestsPlugins.py
-  - pytest TestsRosetta.py
+  - pytest report_processor/tests/test_bismarck_report.py
+  - pytest rosetta/tests/test_rosetta.py
+  - pytest rosetta/tests/test_validations.py

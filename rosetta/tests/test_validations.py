@@ -1,6 +1,6 @@
-from Validations import Validations
 import unittest
 from unittest import TestCase
+from rosetta.rosetta_validations import Validations
 
 
 class TestsPlugins(TestCase):
