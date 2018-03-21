@@ -26,7 +26,7 @@ export class ResultsComponent implements OnInit {
       let results = window.localStorage.getItem(item_id);
 
       if (results != null) {
-        this.processData(JSON.parse(results));
+        this.results = JSON.parse(results);
       }
       else {
         this.processing = true;
@@ -54,26 +54,10 @@ export class ResultsComponent implements OnInit {
   protected processData(results) {
     let parsed_results = results;
 
+    console.log(Object.keys(parsed_results['513026484_gsum_0317.xlsx']['cash'])[0]);
+
     Object.keys(parsed_results).forEach(file => {
       let file_results = '<b>' + file + '</b>:';
-
-      Object.keys(parsed_results[file]).forEach(tab => {
-        file_results += '<div><b>' + tab + '</b><div>';
-
-        Object.keys(parsed_results[file][tab]).forEach(line => {
-          file_results += line + '<ul>';
-
-          Object.keys(parsed_results[file][tab][line]).forEach(item => {
-            Object.keys(parsed_results[file][tab][line][item]).forEach(error => {
-              file_results += '<li>' + parsed_results[file][tab][line][item][error] + '</li>';
-            });
-          });
-
-          file_results += '</ul>';
-        });
-
-        file_results += '</div></div>';
-      });
 
       this.results.push(file_results);
     });

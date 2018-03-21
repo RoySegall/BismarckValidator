@@ -1,5 +1,6 @@
 <i class="fa fa-spinner fa-spin" *ngIf="this.processing == true"></i>
 
-<div *ngFor="let data of this.results">
-  <div [innerHTML]="data"></div>
+<div *ngFor="let filename of this.results | keys">
+  <div class="file_header">{{filename}}</div>
 </div>
+
