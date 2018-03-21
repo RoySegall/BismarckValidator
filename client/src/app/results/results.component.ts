@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {HttpClient} from '@angular/common/http';
 import {environment} from "../../environments/environment";
 
+
 @Component({
   selector: 'op-results',
   templateUrl: './results.component.html',
@@ -16,6 +17,8 @@ export class ResultsComponent implements OnInit {
 
   processing = false;
 
+  activeClass = '';
+
   constructor(private route: ActivatedRoute, private http: HttpClient) {
   }
 
@@ -26,7 +29,7 @@ export class ResultsComponent implements OnInit {
       let results = window.localStorage.getItem(item_id);
 
       if (results != null) {
-        this.results = JSON.parse(results);
+        this.results = this.processData(results);
       }
       else {
         this.processing = true;
@@ -53,14 +56,13 @@ export class ResultsComponent implements OnInit {
    */
   protected processData(results) {
     let parsed_results = results;
+    this.activeClass = 'cash';
 
-    console.log(Object.keys(parsed_results['513026484_gsum_0317.xlsx']['cash'])[0]);
+    return JSON.parse(results);
+  }
 
-    Object.keys(parsed_results).forEach(file => {
-      let file_results = '<b>' + file + '</b>:';
-
-      this.results.push(file_results);
-    });
+  public setTab(tab) {
+    this.activeClass = tab;
   }
 
 }

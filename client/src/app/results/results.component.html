@@ -1,6 +1,67 @@
 <i class="fa fa-spinner fa-spin" *ngIf="this.processing == true"></i>
 
-<div *ngFor="let filename of this.results | keys">
-  <div class="file_header">{{filename}}</div>
+<div class="file" *ngFor="let filename of this.results | keys">
+  <div class="file-header">
+    <div class="actions">
+      <i class="fa fa-floppy-o" aria-hidden="true"></i>
+    </div>
+
+    <div class="filename">
+      {{filename}}
+    </div>
+
+    <div class="actions-second">
+      <i class="fa fa-window-minimize" aria-hidden="true"></i>
+      <i class="fa fa-window-maximize" aria-hidden="true"></i>
+      <i class="fa fa-window-close-o" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  asdasasdasd
+  asdasdasdas
+  asdasd
+  <br />
+
+    asdasasdasd
+  asdasdasdas
+  asdasd
+  <br />
+    asdasasdasd
+  asdasdasdas
+  asdasd
+  <br />
+    asdasasdasd
+  asdasdasdas
+  asdasd
+  <br />
+    asdasasdasd
+  asdasdasdas
+  asdasd
+  <br />
+    asdasasdasd
+  asdasdasdas
+  asdasd
+  <br />
+    asdasasdasd
+  asdasdasdas
+  asdasd
+  <br />
+    asdasasdasd
+  asdasdasdas
+  asdasd
+  <br />
+
+
+    asdasasdasd
+  asdasdasdas
+  asdasd
+  <br />
+
+  <div class="tabs">
+    <ul>
+      <li *ngFor="let tab of this.results[filename] | keys" [ngClass]="{'active': tab == this.activeClass}"><a (click)="setTab(tab)">{{tab}}</a></li>
+    </ul>
+  </div>
+
 </div>
 
