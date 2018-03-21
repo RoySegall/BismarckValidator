@@ -27,15 +27,21 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let line of this.tabs_maximum[filename][this.activeClass]"><td>{{line}}</td></tr>
-
+        <tr *ngFor="let line of this.tabs_maximum[filename][this.activeClass]">
+          <td>{{line}}</td>
+          <Td *ngFor="let column of this.results[filename][this.activeClass] | keys">{{this.results[filename][this
+            .activeClass][column][line]}}</Td>
+        </tr>
       </tbody>
     </table>
   </div>
 
   <div class="tabs">
     <ul>
-      <li *ngFor="let tab of this.results[filename] | keys" [ngClass]="{'active': tab == this.activeClass}"><a (click)="setTab(tab)">{{tab}}</a></li>
+      <li
+        *ngFor="let tab of this.results[filename] | keys; let i = index; let j = count"
+          [ngClass]="{'active': tab == this.activeClass, 'first': i == 0, 'last': i == (j - 1)}"><a
+        (click)="setTab(tab)">{{tab}}</a></li>
     </ul>
   </div>
 

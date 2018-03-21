@@ -34,7 +34,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     FooterComponent,
     UploadComponent,
     ResultsComponent,
-    KeysPipe
+    KeysPipe,
   ],
   imports: [
     DropzoneModule,
