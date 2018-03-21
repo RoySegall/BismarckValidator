@@ -8,3 +8,4 @@ pytest
 HTTPretty
 flask-cors
 rethinkdb
+openpyxl==2.5.1

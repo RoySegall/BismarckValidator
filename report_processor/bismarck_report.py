@@ -48,6 +48,12 @@ class BismarckReport(object):
 
         context = self.get_sheet_context(sheet)
 
+        # append calculated column for rating validation
+        if 'שם מדרג' in sheet.columns:
+            sheet = self.gen_rating_merged(sheet, 'שם מדרג', 'דירוג')
+        elif 'שם המדרג' in sheet.columns:
+            sheet = self.gen_rating_merged(sheet, 'שם המדרג', 'דירוג')
+
         for column in sheet.columns:
             if 'Unnamed' in column:
                 continue
@@ -120,6 +126,12 @@ class BismarckReport(object):
 
         return context
 
+    def gen_rating_merged(self, sheet, *args):
+        # df = pd.DataFrame({'Year': ['2014', '2015'], 'quarter': ['q1', 'q2']})
+        # df['period'] = df[['Year', 'quarter']].apply(lambda x: ''.join(x), axis=1)
+        sheet['agencyplusrating'] = sheet[args[0]] + sheet[args[1]]
+        return sheet
+
     def is_ready(self):
         return self.is_ready
 
@@ -135,7 +147,14 @@ class BismarckReport(object):
             elif not row['field_code'] in compact_report[row['sheet_code']]:
                 compact_report[row['sheet_code']][row['field_code']] = {}
 
-            compact_report[row['sheet_code']][row['field_code']][row['index']] = row['results']
+            compact_report[row['sheet_code']][row['field_code']][str(row['index'])] = row['results']
 
         self.compact_report = compact_report
         return compact_report
+
+    def get_xsl(self, path):
+        # report_file_name
+        writer = pd.ExcelWriter(path)
+        df1 = pd.DataFrame(self.flat_report)
+        df1.to_excel(writer, 'Sheet1')
+        writer.save()
