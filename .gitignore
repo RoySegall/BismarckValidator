@@ -4,3 +4,5 @@ __pycache__
 client/node_modules/
 uploads/
 rethinkdb_data
+compact_report.json
+flat_report.json

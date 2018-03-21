@@ -24,6 +24,5 @@ script:
   # Running some tests.
   - pytest TestsFlask.py
   - pytest report_processor/tests/test_bismarck_report.py
-  - pytest report_processor/tests/test_processor.py
   - pytest rosetta/tests/test_rosetta.py
   - pytest rosetta/tests/test_validations.py
