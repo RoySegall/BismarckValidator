@@ -19,6 +19,8 @@ export class ResultsComponent implements OnInit {
 
   activeClass = '';
 
+  tabs_maximum = [];
+
   constructor(private route: ActivatedRoute, private http: HttpClient) {
   }
 
@@ -55,10 +57,26 @@ export class ResultsComponent implements OnInit {
    *   The response, could be from the local storage or from an HTTP request in case it does not exists there.
    */
   protected processData(results) {
-    let parsed_results = results;
     this.activeClass = 'cash';
+    let parsed_data = JSON.parse(results);
+    let self = this;
 
-    return JSON.parse(results);
+    Object.keys(parsed_data).forEach(file => {
+      self.tabs_maximum[file] = {};
+
+      Object.keys(parsed_data[file]).forEach(tab => {
+
+        Object.keys(parsed_data[file][tab]).forEach(column => {
+
+          self.tabs_maximum[file][tab] = Object.keys(parsed_data[file][tab][column]).map(key => {
+            return parseInt(key);
+          })
+        })
+      })
+    });
+
+    console.log(parsed_data)
+    return parsed_data;
   }
 
   public setTab(tab) {

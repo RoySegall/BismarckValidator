@@ -17,45 +17,21 @@
     </div>
   </div>
 
-  asdasasdasd
-  asdasdasdas
-  asdasd
-  <br />
+  <div class="results">
+    <table>
+      <thead>
+        <tr>
+          <td><br /></td>
+          <td *ngFor="let column of this.results[filename][this.activeClass] | keys">{{column}}</td>
+        </tr>
+      </thead>
 
-    asdasasdasd
-  asdasdasdas
-  asdasd
-  <br />
-    asdasasdasd
-  asdasdasdas
-  asdasd
-  <br />
-    asdasasdasd
-  asdasdasdas
-  asdasd
-  <br />
-    asdasasdasd
-  asdasdasdas
-  asdasd
-  <br />
-    asdasasdasd
-  asdasdasdas
-  asdasd
-  <br />
-    asdasasdasd
-  asdasdasdas
-  asdasd
-  <br />
-    asdasasdasd
-  asdasdasdas
-  asdasd
-  <br />
+      <tbody>
+        <tr *ngFor="let line of this.tabs_maximum[filename][this.activeClass]"><td>{{line}}</td></tr>
 
-
-    asdasasdasd
-  asdasdasdas
-  asdasd
-  <br />
+      </tbody>
+    </table>
+  </div>
 
   <div class="tabs">
     <ul>
