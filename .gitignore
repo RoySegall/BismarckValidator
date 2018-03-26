@@ -6,3 +6,4 @@ uploads/
 rethinkdb_data
 compact_report.json
 flat_report.json
+report_processor/fixtures/batch

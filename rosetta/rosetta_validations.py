@@ -7,6 +7,8 @@ class Validations(object):
 
     currencies_list = RosettaConfig.CURRENCIES_LIST
     instrument_sub_type_list = RosettaConfig.INSTRUMENT_SUB_TYPE
+    rating_agencies_list = RosettaConfig.RATING_AGENCIES
+    rating_hash = RosettaConfig.RATING_HASH
 
     def not_null(self, val):
         """
@@ -236,3 +238,29 @@ class Validations(object):
             return {'result': True}
 
         return {'result': False, 'msg': "unrecognized asset type"}
+
+    def valid_rating_agency(self, val, *args):
+        """
+        Validating rating agency from a list.
+        :param val:
+            Agency to validate.
+        :return:
+        """
+
+        if val in self.rating_agencies_list:
+            return {'result': True}
+
+        return {'result': False, 'msg': "rating agency %s not recognized" % val}
+
+    def valid_rating(self, val, *args):
+        """
+        Validating rating from a dict.
+        :param val:
+            The currency to validate.
+        :return:
+        """
+
+        if val in self.currencies_list:
+            return {'result': True}
+
+        return {'result': False, 'msg': "currency %s not recognized" % val}

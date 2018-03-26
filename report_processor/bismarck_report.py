@@ -12,12 +12,14 @@ class BismarckReport(object):
     meta_report = {}
     compact_report = {}
     flat_report = []
+    report_file_name = ''
 
     def __init__(self, report_file_name=None, pandas_excel=None):
         self.is_ready = False
         if not report_file_name and not pandas_excel:
             raise ValueError('Expected either report_file_name or pandas_excel args')
         if not pandas_excel:
+            self.report_file_name = os.path.basename(report_file_name)
             pandas_excel = pd.ExcelFile(report_file_name)
         self.pandas_excel = pandas_excel
         self.rosetta = Rosetta()
@@ -47,6 +49,12 @@ class BismarckReport(object):
         sheet = xsl_object.parse(sheet_name, skiprows=self.__SKIP_ROWS, index_col=1)
 
         context = self.get_sheet_context(sheet)
+
+        # append calculated column for rating validation
+        if 'שם מדרג' in sheet.columns:
+            sheet = self.gen_rating_merged(sheet, 'שם מדרג', 'דירוג')
+        elif 'שם המדרג' in sheet.columns:
+            sheet = self.gen_rating_merged(sheet, 'שם המדרג', 'דירוג')
 
         for column in sheet.columns:
             if 'Unnamed' in column:
@@ -120,6 +128,12 @@ class BismarckReport(object):
 
         return context
 
+    def gen_rating_merged(self, sheet, *args):
+        # df = pd.DataFrame({'Year': ['2014', '2015'], 'quarter': ['q1', 'q2']})
+        # df['period'] = df[['Year', 'quarter']].apply(lambda x: ''.join(x), axis=1)
+        sheet['agencyplusrating'] = sheet[args[0]] + sheet[args[1]]
+        return sheet
+
     def is_ready(self):
         return self.is_ready
 
@@ -139,3 +153,11 @@ class BismarckReport(object):
 
         self.compact_report = compact_report
         return compact_report
+
+    def get_xlsx(self, path):
+        new_file_name = os.path.join(path, '{}_result.xlsx'.format(os.path.splitext(self.report_file_name)[0]))
+        writer = pd.ExcelWriter(new_file_name, engine='xlsxwriter')
+        df1 = pd.DataFrame(self.flat_report)
+        df1.to_excel(writer, 'Sheet1')
+        writer.save()
+        return path
