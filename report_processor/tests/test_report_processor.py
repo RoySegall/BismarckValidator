@@ -16,5 +16,6 @@ class ReportProcessorTest(TestCase):
         reports = ReportProcessor()
         reports.process_folder(report_files)
 
+
 if __name__ == "__main__":
     unittest.main()
