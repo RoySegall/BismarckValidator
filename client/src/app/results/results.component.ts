@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {HttpClient} from '@angular/common/http';
 import {environment} from "../../environments/environment";
 
+
 @Component({
   selector: 'op-results',
   templateUrl: './results.component.html',
@@ -16,6 +17,10 @@ export class ResultsComponent implements OnInit {
 
   processing = false;
 
+  activeClass = '';
+
+  tabs_maximum = [];
+
   constructor(private route: ActivatedRoute, private http: HttpClient) {
   }
 
@@ -26,7 +31,7 @@ export class ResultsComponent implements OnInit {
       let results = window.localStorage.getItem(item_id);
 
       if (results != null) {
-        this.processData(JSON.parse(results));
+        this.results = this.processData(results);
       }
       else {
         this.processing = true;
@@ -52,31 +57,30 @@ export class ResultsComponent implements OnInit {
    *   The response, could be from the local storage or from an HTTP request in case it does not exists there.
    */
   protected processData(results) {
-    let parsed_results = results;
+    this.activeClass = 'cash';
+    let parsed_data = JSON.parse(results);
+    let self = this;
 
-    Object.keys(parsed_results).forEach(file => {
-      let file_results = '<b>' + file + '</b>:';
+    Object.keys(parsed_data).forEach(file => {
+      self.tabs_maximum[file] = {};
 
-      Object.keys(parsed_results[file]).forEach(tab => {
-        file_results += '<div><b>' + tab + '</b><div>';
+      Object.keys(parsed_data[file]).forEach(tab => {
 
-        Object.keys(parsed_results[file][tab]).forEach(line => {
-          file_results += line + '<ul>';
+        Object.keys(parsed_data[file][tab]).forEach(column => {
 
-          Object.keys(parsed_results[file][tab][line]).forEach(item => {
-            Object.keys(parsed_results[file][tab][line][item]).forEach(error => {
-              file_results += '<li>' + parsed_results[file][tab][line][item][error] + '</li>';
-            });
-          });
-
-          file_results += '</ul>';
-        });
-
-        file_results += '</div></div>';
-      });
-
-      this.results.push(file_results);
+          self.tabs_maximum[file][tab] = Object.keys(parsed_data[file][tab][column]).map(key => {
+            return parseInt(key);
+          })
+        })
+      })
     });
+
+    console.log(parsed_data)
+    return parsed_data;
+  }
+
+  public setTab(tab) {
+    this.activeClass = tab;
   }
 
 }

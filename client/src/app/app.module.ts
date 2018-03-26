@@ -15,6 +15,7 @@ import {FooterComponent} from './footer/footer.component';
 import {DropzoneModule} from 'ngx-dropzone-wrapper';
 import {DROPZONE_CONFIG} from 'ngx-dropzone-wrapper';
 import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
+import {KeysPipe} from "./KeysPipe.pipe";
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -33,6 +34,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     FooterComponent,
     UploadComponent,
     ResultsComponent,
+    KeysPipe,
   ],
   imports: [
     DropzoneModule,
@@ -42,7 +44,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     FormsModule,
     AppRoutingModule,
     FlexLayoutModule,
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [{
     provide: DROPZONE_CONFIG,

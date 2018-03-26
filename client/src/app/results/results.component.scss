@@ -2,3 +2,105 @@
   margin-top: 3em;
   font-size: 3em;
 }
+
+$border: #397614;
+
+.file {
+  border: solid 1px #397614;
+  margin-top: 10px;
+
+  .file-header {
+    text-align: center;
+    background-color: #277647;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    .actions {
+      display: inline;
+      text-align: right;
+      float: right;
+      padding-right: 10px;
+    }
+
+    .filename {
+      display: inline;
+    }
+
+    .actions-second {
+      display: inline;
+      float: left;
+      padding-left: 10px;
+    }
+  }
+
+  .results {
+    overflow-y: scroll;
+    height: 35em;
+
+    table {
+      border-collapse: collapse;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      margin-right: 5px;
+      width: 99%;
+
+      thead {
+
+        tr {
+
+          td {
+            border: solid 1px $border;
+            background: #c5c5c5;
+            color: #397614;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          td {
+            border: solid 1px $border;
+          }
+        }
+      }
+    }
+  }
+
+  .tabs {
+    padding: 0;
+    margin: 5px 0 0;
+
+    ul {
+      padding-right: 5px;
+      margin: 0;
+
+      li {
+        list-style-type: none;
+        display: inline;
+        padding: 0 5px;
+        border: solid 1px $border;
+        border-bottom: none;
+        border-left: none;
+
+        a {
+          cursor: pointer;
+        }
+
+        &.active {
+          border-color: $border;
+          background: #277647;
+          color: white;
+        }
+
+        &.first {
+          border-left: solid 1px $border;
+        }
+
+        &.last {
+          border-left: none;
+        }
+      }
+    }
+  }
+}

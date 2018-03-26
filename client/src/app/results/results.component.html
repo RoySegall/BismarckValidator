@@ -1,5 +1,49 @@
 <i class="fa fa-spinner fa-spin" *ngIf="this.processing == true"></i>
 
-<div *ngFor="let data of this.results">
-  <div [innerHTML]="data"></div>
+<div class="file" *ngFor="let filename of this.results | keys">
+  <div class="file-header">
+    <div class="actions">
+      <i class="fa fa-floppy-o" aria-hidden="true"></i>
+    </div>
+
+    <div class="filename">
+      {{filename}}
+    </div>
+
+    <div class="actions-second">
+      <i class="fa fa-window-minimize" aria-hidden="true"></i>
+      <i class="fa fa-window-maximize" aria-hidden="true"></i>
+      <i class="fa fa-window-close-o" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="results">
+    <table>
+      <thead>
+        <tr>
+          <td><br /></td>
+          <td *ngFor="let column of this.results[filename][this.activeClass] | keys">{{column}}</td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let line of this.tabs_maximum[filename][this.activeClass]">
+          <td>{{line}}</td>
+          <Td *ngFor="let column of this.results[filename][this.activeClass] | keys">{{this.results[filename][this
+            .activeClass][column][line]}}</Td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tabs">
+    <ul>
+      <li
+        *ngFor="let tab of this.results[filename] | keys; let i = index; let j = count"
+          [ngClass]="{'active': tab == this.activeClass, 'first': i == 0, 'last': i == (j - 1)}"><a
+        (click)="setTab(tab)">{{tab}}</a></li>
+    </ul>
+  </div>
+
 </div>
+
