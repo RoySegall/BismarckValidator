@@ -43,3 +43,18 @@ class FlaskHelpers(object):
         :return:
         """
         return self.response({'error': error}, 400)
+
+    def flip_dict(self, dict):
+        """
+        Flipping dict keys and values.
+
+        :param dict:
+            The dictionary we need to flip.
+        :return:
+        """
+        new_dict = {}
+
+        for key, value in dict.items():
+            new_dict[value] = key
+
+        return new_dict

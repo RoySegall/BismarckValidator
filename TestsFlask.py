@@ -3,6 +3,9 @@ import os
 import unittest
 from unittest import TestCase
 
+from FlaskHelpers import FlaskHelpers
+from rosetta.rosetta_config import RosettaConfig
+
 
 class TestsFlask(TestCase):
     """
@@ -74,6 +77,14 @@ class TestsFlask(TestCase):
         # Making sure the data are the same.
         get_response = dict(requests.get('http://localhost:8080/process_files/' + response['id']).json())
         self.assertEqual(get_response['results'], response['results'])
+
+    def test_metadata(self):
+        rosetta = RosettaConfig()
+        flask_helpers = FlaskHelpers()
+
+        response = dict(requests.post('http://localhost:8080/metadata').json())
+        self.assertEqual(response['fields'], flask_helpers.flip_dict(rosetta.FIELDS_LIST))
+        self.assertEqual(response['instruments'], flask_helpers.flip_dict(rosetta.INSTRUMENT_DICT))
 
 
 if __name__ == "__main__":
