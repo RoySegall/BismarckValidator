@@ -82,7 +82,7 @@ class TestsFlask(TestCase):
         rosetta = RosettaConfig()
         flask_helpers = FlaskHelpers()
 
-        response = dict(requests.post('http://localhost:8080/metadata').json())
+        response = dict(requests.get('http://localhost:8080/metadata').json())
         self.assertEqual(response['fields'], flask_helpers.flip_dict(rosetta.FIELDS_LIST))
         self.assertEqual(response['instruments'], flask_helpers.flip_dict(rosetta.INSTRUMENT_DICT))
 
