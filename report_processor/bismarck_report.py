@@ -12,12 +12,14 @@ class BismarckReport(object):
     meta_report = {}
     compact_report = {}
     flat_report = []
+    report_file_name = ''
 
     def __init__(self, report_file_name=None, pandas_excel=None):
         self.is_ready = False
         if not report_file_name and not pandas_excel:
             raise ValueError('Expected either report_file_name or pandas_excel args')
         if not pandas_excel:
+            self.report_file_name = os.path.basename(report_file_name)
             pandas_excel = pd.ExcelFile(report_file_name)
         self.pandas_excel = pandas_excel
         self.rosetta = Rosetta()
@@ -152,9 +154,10 @@ class BismarckReport(object):
         self.compact_report = compact_report
         return compact_report
 
-    def get_xsl(self, path):
-        # report_file_name
-        writer = pd.ExcelWriter(path)
+    def get_xlsx(self, path):
+        new_file_name = os.path.join(path, '{}_result.xlsx'.format(os.path.splitext(self.report_file_name)[0]))
+        writer = pd.ExcelWriter(new_file_name, engine='xlsxwriter')
         df1 = pd.DataFrame(self.flat_report)
         df1.to_excel(writer, 'Sheet1')
         writer.save()
+        return path
