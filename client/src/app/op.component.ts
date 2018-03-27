@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
   `,
   styles: [`
     #app-wrapper {
-      width: 90%;
+      width: 98%;
       margin: auto;
     }
   `],
