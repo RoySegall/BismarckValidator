@@ -8,6 +8,7 @@ from flask_cors import CORS
 import pandas as pd
 from report_processor.bismarck_report import BismarckReport
 from models.Results import Results
+from rosetta.rosetta_config import RosettaConfig
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -88,3 +89,12 @@ def process_files_results(id):
     """
     results = Results()
     return flask_helpers.response(results.load(id))
+
+
+@app.route("/metadata", methods=['GET'])
+def metadata():
+    rosetta = RosettaConfig()
+    return flask_helpers.response({
+        'fields': flask_helpers.flip_dict(rosetta.FIELDS_LIST),
+        'instruments': flask_helpers.flip_dict(rosetta.INSTRUMENT_DICT)
+    })

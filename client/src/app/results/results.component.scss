@@ -8,6 +8,7 @@ $border: #397614;
 .file {
   border: solid 1px #397614;
   margin-top: 10px;
+  height: 80vh;
 
   .file-header {
     text-align: center;
@@ -36,7 +37,7 @@ $border: #397614;
 
   .results {
     overflow-y: scroll;
-    height: 35em;
+    height: 87%;
 
     table {
       border-collapse: collapse;
@@ -68,20 +69,16 @@ $border: #397614;
   }
 
   .tabs {
-    padding: 0;
-    margin: 5px 0 0;
+    white-space:nowrap;
+    overflow-x:auto;
 
-    ul {
-      padding-right: 5px;
-      margin: 0;
-
-      li {
+      div {
         list-style-type: none;
-        display: inline;
-        padding: 0 5px;
+        padding: 5px 10px;
         border: solid 1px $border;
         border-bottom: none;
         border-left: none;
+        display: table-cell;
 
         a {
           cursor: pointer;
@@ -94,13 +91,12 @@ $border: #397614;
         }
 
         &.first {
-          border-left: solid 1px $border;
+          border-right: none;
         }
 
         &.last {
           border-left: none;
         }
-      }
     }
   }
 }

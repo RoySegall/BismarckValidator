@@ -20,29 +20,28 @@
   <div class="results">
     <table>
       <thead>
-        <tr>
-          <td><br /></td>
-          <td *ngFor="let column of this.results[filename][this.activeClass] | keys">{{column}}</td>
-        </tr>
+      <tr>
+        <td><br/></td>
+        <td *ngFor="let column of this.results[filename][this.activeClass] | keys">{{this.meta['fields'][column]}}</td>
+      </tr>
       </thead>
 
       <tbody>
-        <tr *ngFor="let line of this.tabs_maximum[filename][this.activeClass]">
-          <td>{{line}}</td>
-          <Td *ngFor="let column of this.results[filename][this.activeClass] | keys">{{this.results[filename][this
-            .activeClass][column][line]}}</Td>
-        </tr>
+      <tr *ngFor="let line of this.tabs_maximum[filename][this.activeClass]">
+        <td>{{line}}</td>
+        <Td *ngFor="let column of this.results[filename][this.activeClass] | keys">{{this.results[filename][this
+          .activeClass][column][line]}}
+        </Td>
+      </tr>
       </tbody>
     </table>
   </div>
 
   <div class="tabs">
-    <ul>
-      <li
-        *ngFor="let tab of this.results[filename] | keys; let i = index; let j = count"
-          [ngClass]="{'active': tab == this.activeClass, 'first': i == 0, 'last': i == (j - 1)}"><a
-        (click)="setTab(tab)">{{tab}}</a></li>
-    </ul>
+    <div
+      *ngFor="let tab of this.results[filename] | keys; let i = index; let j = count"
+      [ngClass]="{'active': tab == this.activeClass, 'first': i == 0, 'last': i == (j - 1)}"><a
+      (click)="setTab(tab)">{{this.meta['instruments'][tab]}}</a></div>
   </div>
 
 </div>

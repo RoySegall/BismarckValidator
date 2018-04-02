@@ -2,6 +2,7 @@ import {Component, OnInit, Injectable} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {HttpClient} from '@angular/common/http';
 import {environment} from "../../environments/environment";
+import {MetadataService} from "../metadata.service";
 
 
 @Component({
@@ -21,7 +22,9 @@ export class ResultsComponent implements OnInit {
 
   tabs_maximum = [];
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {
+  meta = {}
+
+  constructor(private route: ActivatedRoute, private http: HttpClient, private metadata: MetadataService) {
   }
 
   ngOnInit() {
@@ -29,6 +32,8 @@ export class ResultsComponent implements OnInit {
       let item_id = 'results_' + params.id;
 
       let results = window.localStorage.getItem(item_id);
+
+      this.metadata.getMetadata().subscribe(data => this.meta = data)
 
       if (results != null) {
         this.results = this.processData(results);
@@ -75,7 +80,6 @@ export class ResultsComponent implements OnInit {
       })
     });
 
-    console.log(parsed_data)
     return parsed_data;
   }
 
