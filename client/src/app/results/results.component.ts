@@ -13,6 +13,7 @@ import {MetadataService} from "../metadata.service";
 @Injectable()
 export class ResultsComponent implements OnInit {
 
+  results = [];
   id = '';
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private metadata: MetadataService) {
@@ -21,7 +22,7 @@ export class ResultsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params.id;
+      this.results = JSON.parse(window.localStorage.getItem('results_' + params.id));
     });
   }
-
 }
