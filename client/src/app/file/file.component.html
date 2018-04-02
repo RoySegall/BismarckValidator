@@ -1,0 +1,44 @@
+<div class="file">
+  <div class="file-header">
+    <div class="actions">
+      <i class="fa fa-floppy-o" aria-hidden="true"></i>
+    </div>
+
+    <div class="filename">
+      {{filename}}
+    </div>
+
+    <div class="actions-second">
+      <i class="fa fa-window-minimize" aria-hidden="true"></i>
+      <i class="fa fa-window-maximize" aria-hidden="true"></i>
+      <i class="fa fa-window-close-o" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="results">
+    <table>
+      <thead>
+      <tr>
+        <td><br/></td>
+        <td *ngFor="let column of this.results[this.activeClass] | keys">{{meta['fields'][column]}}</td>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let line of tabs_maximum[activeClass]">
+        <td>{{line}}</td>
+        <td *ngFor="let column of results[activeClass] | keys">
+          {{results[activeClass][column][line]}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tabs">
+    <div
+      *ngFor="let tab of results | keys; let i = index; let j = count"
+      [ngClass]="{'active': tab == activeClass, 'first': i == 0, 'last': i == (j - 1)}"><a
+      (click)="setTab(tab)">{{meta['instruments'][tab]}}</a></div>
+  </div>
+</div>
