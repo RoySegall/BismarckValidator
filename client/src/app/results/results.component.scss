@@ -8,6 +8,7 @@ $border: #397614;
 .file {
   border: solid 1px #397614;
   margin-top: 10px;
+  height: 80vh;
 
   .file-header {
     text-align: center;
@@ -36,7 +37,7 @@ $border: #397614;
 
   .results {
     overflow-y: scroll;
-    height: 35em;
+    height: 87%;
 
     table {
       border-collapse: collapse;

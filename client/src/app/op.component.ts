@@ -13,6 +13,7 @@ import { Component } from '@angular/core';
     #app-wrapper {
       width: 98%;
       margin: auto;
+      height: 79vh;
     }
   `],
 })
