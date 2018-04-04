@@ -2,3 +2,52 @@
   margin-top: 3em;
   font-size: 3em;
 }
+
+.folder-view {
+  background: #eeeeee;
+  margin: 2em;
+  width: 95%;
+  padding: 1em;
+
+  .header {
+    height: 2em;
+
+    .search {
+      float: right;
+    }
+
+    .actions {
+      float: left;
+      height: 3em;
+    }
+  }
+
+  .body {
+    display: flex;
+    background: white;
+
+    .stats {
+      width: 25%;
+    }
+
+    .files {
+      width: 75%;
+
+      .file {
+        max-width: 25%;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        i {
+          font-size: 30px;
+        }
+
+        a {
+          color: black;
+        }
+      }
+    }
+  }
+
+}
