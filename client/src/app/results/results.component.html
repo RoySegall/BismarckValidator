@@ -4,7 +4,7 @@
 
   <div class="header">
     <div class="search">
-      <input type="text" placeholder="Search"/> <i class="fa fa-search"></i>
+      <i class="fa fa-search"></i> <input type="text" placeholder="חפש קבצים"/>
     </div>
     <div class="actions">
       <i class="fa fa-window-minimize" aria-hidden="true"></i>
@@ -19,7 +19,8 @@
     </div>
     <div class="files">
       <div *ngFor="let filename of this.results | keys" class="file">
-        <div><i class="fa fa-file-excel-o" aria-hidden="true"></i></div>
+        <div><a href="" [routerLink]="[ '/results/' + this.id + '/' + filename]"><i class="fa fa-file-excel-o"
+                                                                                    aria-hidden="true"></i></a></div>
         <a href="" [routerLink]="[ '/results/' + this.id + '/' + filename]">
           {{filename}}
         </a>

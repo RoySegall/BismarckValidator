@@ -1,9 +1,14 @@
 $border: #397614;
 
+.back {
+  display: inline-block;
+  margin-top: 0.5em;
+}
+
 .file {
   border: solid 1px #397614;
   margin-top: 10px;
-  height: 80vh;
+  height: 75vh;
 
   .file-header {
     text-align: center;

@@ -1,4 +1,7 @@
-<div class="file">
+<a href="" class="back" [routerLink]="[ '/results/' + this.id]"><i class="fa fa-chevron-right"
+                                                                   aria-hidden="true"></i> חזור אחורה</a>
+
+<div class="file" *ngIf="processing == false">
   <div class="file-header">
     <div class="actions">
       <i class="fa fa-floppy-o" aria-hidden="true"></i>

@@ -5,8 +5,8 @@
 
 .folder-view {
   border: green solid 1px;
-  margin: 2em;
-  width: 95%;
+  margin-top: 1em;
+  width: 98%;
   padding: 1em;
   height: 75vh;
 
@@ -16,10 +16,13 @@
     padding-bottom: 1em;
     border-bottom: 1px solid #32b130;
 
+    .fa.fa-search {
+      padding-left: 0.5em;
+    }
+
     .search {
       float: right;
       border-bottom: solid 1px #32b130;
-      padding-left: .3em;
 
       input {
         color: #0f7f0c;

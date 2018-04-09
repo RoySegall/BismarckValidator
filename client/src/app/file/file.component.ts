@@ -11,6 +11,7 @@ import {environment} from "../../environments/environment";
 })
 export class FileComponent implements OnInit {
 
+  id = '';
   results = [];
   processing = false;
   activeClass = '';
@@ -25,13 +26,17 @@ export class FileComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      let item_id = 'results_' + params.id;
+      this.id = params.id;
       this.filename = params.file;
+      this.metadata.getMetadata().subscribe(data => this.meta = data);
+
+      let item_id = 'results_' + params.id;
       let results = window.localStorage.getItem(item_id);
-      this.metadata.getMetadata().subscribe(data => this.meta = data)
 
       if (results != null) {
+        this.processing = true;
         this.results = this.processData(results, this.filename);
+        this.processing = false;
       }
       else {
         this.processing = true;
