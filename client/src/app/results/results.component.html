@@ -15,7 +15,14 @@
 
   <div class="body">
     <div class="stats">
-      Stats
+      <div class="stats-header"><i class="fa fa-bar-chart" aria-hidden="true"></i> סטטיסטיקות </div>
+
+      <div class="stats-content">
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-11">{{this.stats | json}}</div>
+        </div>
+      </div>
     </div>
     <div class="files">
       <div *ngFor="let filename of this.results | keys" class="file">

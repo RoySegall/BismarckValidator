@@ -81,10 +81,16 @@
 
     .stats {
       width: 25%;
-      text-align: center;
+      text-align: right;
       border-left: solid 1px #227f20;
       height: 67vh;
       margin-left: 3em;
+
+      .stats-header {
+        border-bottom: solid 1px #227f20;
+        width: 95%;
+        padding-bottom: 0.5em;
+      }
     }
 
     .files {
