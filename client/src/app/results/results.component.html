@@ -1,48 +1,48 @@
 <i class="fa fa-spinner fa-spin" *ngIf="this.processing == true"></i>
 
-<div class="file" *ngFor="let filename of this.results | keys">
-  <div class="file-header">
+<div class="folder-view">
+
+  <div class="header">
+    <div class="search">
+      <i class="fa fa-search"></i> <input type="text" placeholder="חפש קבצים"/>
+    </div>
     <div class="actions">
-      <i class="fa fa-floppy-o" aria-hidden="true"></i>
-    </div>
-
-    <div class="filename">
-      {{filename}}
-    </div>
-
-    <div class="actions-second">
       <i class="fa fa-window-minimize" aria-hidden="true"></i>
       <i class="fa fa-window-maximize" aria-hidden="true"></i>
-      <i class="fa fa-window-close-o" aria-hidden="true"></i>
+      <i class="fa fa-times" aria-hidden="true"></i>
     </div>
   </div>
 
-  <div class="results">
-    <table>
-      <thead>
-      <tr>
-        <td><br/></td>
-        <td *ngFor="let column of this.results[filename][this.activeClass] | keys">{{this.meta['fields'][column]}}</td>
-      </tr>
-      </thead>
+  <div class="body">
+    <div class="stats">
+      <div class="stats-header"><i class="fa fa-bar-chart" aria-hidden="true"></i> סטטיסטיקות</div>
 
-      <tbody>
-      <tr *ngFor="let line of this.tabs_maximum[filename][this.activeClass]">
-        <td>{{line}}</td>
-        <Td *ngFor="let column of this.results[filename][this.activeClass] | keys">{{this.results[filename][this
-          .activeClass][column][line]}}
-        </Td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+      <div class="stats-content">
+        <div class="row">
+          <div fxFlex="7"><i class="fa fa-percent" aria-hidden="true"></i></div>
+          <div fxFlex="93">מדד תקינות: 7</div>
+        </div>
 
-  <div class="tabs">
-    <div
-      *ngFor="let tab of this.results[filename] | keys; let i = index; let j = count"
-      [ngClass]="{'active': tab == this.activeClass, 'first': i == 0, 'last': i == (j - 1)}"><a
-      (click)="setTab(tab)">{{this.meta['instruments'][tab]}}</a></div>
+        <div class="row">
+          <div fxFlex="7"><i class="fa fa-files-o" aria-hidden="true"></i></div>
+          <div fxFlex="93">מספר קבצים: {{stats.filesCount}}</div>
+        </div>
+
+        <div class="row" *ngFor="let error of stats.errors">
+          <div fxFlex="7"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></div>
+          <div fxFlex="93">{{error.text}}: {{error.times}} פעמים</div>
+        </div>
+      </div>
+    </div>
+    <div class="files">
+      <div *ngFor="let filename of this.results | keys" class="file">
+        <div><a href="" [routerLink]="[ '/results/' + this.id + '/' + filename]"><i class="fa fa-file-excel-o"
+                                                                                    aria-hidden="true"></i></a></div>
+        <a href="" [routerLink]="[ '/results/' + this.id + '/' + filename]">
+          {{filename}}
+        </a>
+      </div>
+    </div>
   </div>
 
 </div>
-

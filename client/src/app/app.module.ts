@@ -16,7 +16,8 @@ import {DropzoneModule} from 'ngx-dropzone-wrapper';
 import {DROPZONE_CONFIG} from 'ngx-dropzone-wrapper';
 import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
 import {KeysPipe} from "./KeysPipe.pipe";
-import {MetadataService} from './metadata.service'
+import {MetadataService} from './metadata.service';
+import { FileComponent } from './file/file.component'
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -35,6 +36,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     FooterComponent,
     UploadComponent,
     ResultsComponent,
+    FileComponent,
     KeysPipe
   ],
   imports: [
