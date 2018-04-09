@@ -15,7 +15,7 @@ export class ResultsComponent implements OnInit {
 
   results = [];
   id = '';
-  stats = {}
+  stats = {};
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private metadata: MetadataService) {
   }
@@ -26,9 +26,14 @@ export class ResultsComponent implements OnInit {
 
       // Todo: handle if not found.
       this.results = JSON.parse(window.localStorage.getItem('results_' + params.id));
-
       this.stats = {
-        'filesCount': this.results.length,
+        'filesCount': Object.keys(this.results).length,
+        'errors': [
+          {'text': 'מטבע לא מזוהה - שקל חדש', 'times': 5},
+          {'text': 'מטבע לא מזוהה - כתר שבדי', 'times': 10},
+          {'text': 'אחרי 0 צריכים להיות 2 מספרים', 'times': 9},
+          {'text': 'DD/MM/YYYY הוא לא פורמט תקין', 'times': 30},
+        ],
       };
     });
   }

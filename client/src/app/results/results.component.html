@@ -15,12 +15,22 @@
 
   <div class="body">
     <div class="stats">
-      <div class="stats-header"><i class="fa fa-bar-chart" aria-hidden="true"></i> סטטיסטיקות </div>
+      <div class="stats-header"><i class="fa fa-bar-chart" aria-hidden="true"></i> סטטיסטיקות</div>
 
       <div class="stats-content">
         <div class="row">
-          <div class="col-md-1"></div>
-          <div class="col-md-11">{{this.stats | json}}</div>
+          <div fxFlex="7"><i class="fa fa-percent" aria-hidden="true"></i></div>
+          <div fxFlex="93">מדד תקינות: 7</div>
+        </div>
+
+        <div class="row">
+          <div fxFlex="7"><i class="fa fa-files-o" aria-hidden="true"></i></div>
+          <div fxFlex="93">מספר קבצים: {{stats.filesCount}}</div>
+        </div>
+
+        <div class="row" *ngFor="let error of stats.errors">
+          <div fxFlex="7"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></div>
+          <div fxFlex="93">{{error.text}}: {{error.times}} פעמים</div>
         </div>
       </div>
     </div>
