@@ -51,7 +51,7 @@ def process():
     pusher = BismarkPusher(parsed_request['room'])
     reports = {}
 
-    for file in parsed_request['files']:
+    for file in parsed_request['files'][0].split(","):
         if file == '':
             continue
 
