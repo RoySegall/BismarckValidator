@@ -16,6 +16,8 @@ export class ResultsComponent implements OnInit {
   results = [];
   id = '';
   stats = {};
+  originalResults = [];
+  showEmptyResults = false;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private metadata: MetadataService) {
   }
@@ -25,7 +27,8 @@ export class ResultsComponent implements OnInit {
       this.id = params.id;
 
       // Todo: handle if not found.
-      this.results = JSON.parse(window.localStorage.getItem('results_' + params.id));
+      this.results = Object.keys(JSON.parse(window.localStorage.getItem('results_' + params.id)));
+      this.originalResults = this.results;
       this.stats = {
         'filesCount': Object.keys(this.results).length,
         'errors': [
@@ -37,4 +40,22 @@ export class ResultsComponent implements OnInit {
       };
     });
   }
+
+  filterFiles(event: any) {
+    let text = event.target.value;
+    this.results = this.originalResults;
+    this.showEmptyResults = false;
+
+    if (text == '') {
+      this.results = this.originalResults;
+      return;
+    }
+
+    this.results = this.results.filter(item => item.indexOf(text) != -1);
+
+    if (this.results.length == 0) {
+      this.showEmptyResults = true;
+    }
+  }
+
 }
