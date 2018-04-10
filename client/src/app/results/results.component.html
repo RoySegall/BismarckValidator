@@ -35,13 +35,15 @@
       </div>
     </div>
     <div class="files">
-      <div *ngFor="let filename of this.results | keys" class="file">
-        <div><a href="" [routerLink]="[ '/results/' + this.id + '/' + filename]"><i class="fa fa-file-excel-o"
+      <ul>
+        <li *ngFor="let filename of this.results | keys" class="file">
+          <div><a href="" [routerLink]="[ '/results/' + this.id + '/' + filename]"><i class="fa fa-file-excel-o"
                                                                                     aria-hidden="true"></i></a></div>
         <a href="" [routerLink]="[ '/results/' + this.id + '/' + filename]">
           {{filename}}
         </a>
-      </div>
+        </li>
+      </ul>
     </div>
   </div>
 

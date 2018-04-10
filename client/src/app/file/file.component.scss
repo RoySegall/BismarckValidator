@@ -72,31 +72,31 @@ $border: #397614;
     white-space: nowrap;
     overflow-x: auto;
 
-      div {
-        list-style-type: none;
-        padding: 5px 10px;
-        border: solid 1px $border;
-        border-bottom: none;
+    div {
+      list-style-type: none;
+      padding: 5px 10px;
+      border: solid 1px $border;
+      border-bottom: none;
+      border-left: none;
+      display: table-cell;
+
+      a {
+        cursor: pointer;
+      }
+
+      &.active {
+        border-color: $border;
+        background: #277647;
+        color: white;
+      }
+
+      &.first {
+        border-right: none;
+      }
+
+      &.last {
         border-left: none;
-        display: table-cell;
-
-        a {
-          cursor: pointer;
-        }
-
-        &.active {
-          border-color: $border;
-          background: #277647;
-          color: white;
-        }
-
-        &.first {
-          border-right: none;
-        }
-
-        &.last {
-          border-left: none;
-        }
+      }
     }
   }
 }

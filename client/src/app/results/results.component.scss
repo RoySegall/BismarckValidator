@@ -119,21 +119,28 @@
     .files {
       width: 70%;
 
-      .file {
-        max-width: 25%;
-        text-align: center;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        font-size: 1.2em;
+      ul {
+        padding: 0;
+        margin: 0;
 
-        i {
-          font-size: 2em;
-        }
+        .file {
+          text-align: center;
+          padding: 1em;
+          padding-bottom: 1.5em;
+          font-size: 1em;
+          display: inline-table;
+          width: 25%;
 
-        a {
-          color: black;
+          i {
+            font-size: 2em;
+          }
+
+          a {
+            color: black;
+          }
         }
       }
+
     }
   }
 
