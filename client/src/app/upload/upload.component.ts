@@ -50,12 +50,6 @@ export class UploadComponent implements OnInit {
 
     // Send it to the backend and start to wait for the pusher events.
     this.http.post(environment.backend + 'process_files', body.toString(), options).subscribe((data: UploadResponse) => {
-
-      let localStorage = window.localStorage;
-
-      if (localStorage.getItem('results_' + data.data.id) == null) {
-        localStorage.setItem('results_' + data.data.id, JSON.stringify(data.data.results));
-      }
       router.navigate(["/results/" + data.data.id]);
     }, err => {
       console.log(err);

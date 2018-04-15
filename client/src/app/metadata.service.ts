@@ -7,7 +7,7 @@ export class MetadataService {
 
   constructor(private http: HttpClient) { }
 
-  metadata = {}
+  metadata = {};
 
   getMetadata() {
     return this.http.get(environment.backend + 'metadata');
