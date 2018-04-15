@@ -126,7 +126,7 @@ class RosettaConfig(object):
         'מעלות',
         'Fitch',
         'פנימי',
-        'מעלות\מדרוג',
+        "מעלות/מדרוג",
     ]
 
     RATING_HASH = {
