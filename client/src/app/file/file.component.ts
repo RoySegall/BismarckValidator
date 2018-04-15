@@ -3,6 +3,8 @@ import {ActivatedRoute} from "@angular/router";
 import {MetadataService} from "../metadata.service";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {ResultsService} from "../results.service";
+import {ResultsInterface} from "../ResultsInterface";
 
 @Component({
   selector: 'op-file',
@@ -21,37 +23,38 @@ export class FileComponent implements OnInit {
 
   @Input() name: string;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private metadata: MetadataService) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private metadata: MetadataService, private resultsService: ResultsService) {
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params.id;
       this.filename = params.file;
-      this.metadata.getMetadata().subscribe(data => this.meta = data);
+      this.metadata.getMetadata().subscribe(data => {
+        this.meta = data;
 
-      let item_id = 'results_' + params.id;
-      let results = window.localStorage.getItem(item_id);
+        this.resultsService.getResults(params.id).subscribe((response: ResultsInterface) => {
 
-      if (results != null) {
-        this.processing = true;
-        this.results = this.processData(results, this.filename);
-        this.processing = false;
-      }
-      else {
-        this.processing = true;
+          let results = response.results;
 
-        this.http.get(environment.backend + 'process_files/' + params.id).subscribe((data: ProcessResponse) => {
-          // Process the results.
-          this.processData(data.results, this.filename);
-          this.processing = false;
+          if (results != null) {
+            this.processing = true;
+            this.results = this.processData(results, this.filename);
+            this.processing = false;
+          }
+          else {
+            this.processing = true;
 
-          // Save the data for later.
-          window.localStorage.setItem(item_id, JSON.stringify(data.results));
-        }, err => {
-          console.log(err);
-        })
-      }
+            this.http.get(environment.backend + 'process_files/' + params.id).subscribe((data: ProcessResponse) => {
+              // Process the results.
+              this.processData(data.results, this.filename);
+              this.processing = false;
+            }, err => {
+              console.log(err);
+            })
+          }
+        });
+      });
     });
   }
 
@@ -65,22 +68,21 @@ export class FileComponent implements OnInit {
    */
   protected processData(results, file) {
     this.activeClass = 'cash';
-    let parsed_data = JSON.parse(results);
     let self = this;
 
     self.tabs_maximum[file] = {};
 
-    Object.keys(parsed_data[file]).forEach(tab => {
+    Object.keys(results[file]).forEach(tab => {
 
-      Object.keys(parsed_data[file][tab]).forEach(column => {
+      Object.keys(results[file][tab]).forEach(column => {
 
-        self.tabs_maximum[tab] = Object.keys(parsed_data[file][tab][column]).map(key => {
+        self.tabs_maximum[tab] = Object.keys(results[file][tab][column]).map(key => {
           return parseInt(key);
         })
       })
     });
 
-    return parsed_data[file];
+    return results[file];
   }
 
   public setTab(tab) {

@@ -1,7 +1,6 @@
 import {Component, OnInit, Injectable} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {HttpClient} from '@angular/common/http';
-import {MetadataService} from "../metadata.service";
 import {ResultsService} from "../results.service";
 import {ResultsInterface} from "../ResultsInterface";
 
@@ -15,13 +14,13 @@ import {ResultsInterface} from "../ResultsInterface";
 @Injectable()
 export class ResultsComponent implements OnInit {
 
-  results = [];
+  results: any;
   id = '';
   stats = {};
-  originalResults = [];
+  originalResults: any;
   showEmptyResults = false;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private metadata: MetadataService, private resultsService: ResultsService) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private resultsService: ResultsService) {
   }
 
   ngOnInit() {
@@ -30,8 +29,7 @@ export class ResultsComponent implements OnInit {
 
       // Todo: handle if not found.
       this.resultsService.getResults(params.id).subscribe( (response: ResultsInterface) => {
-        console.log(response);
-        this.results = response;
+        this.results = Object.keys(response.results);
         this.originalResults = this.results;
         this.stats = {
         'filesCount': Object.keys(this.results).length,
