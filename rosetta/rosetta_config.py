@@ -126,6 +126,7 @@ class RosettaConfig(object):
         'מעלות',
         'Fitch',
         'פנימי',
+        # todo: tell to dniel.
         "מעלות/מדרוג",
     ]
 
