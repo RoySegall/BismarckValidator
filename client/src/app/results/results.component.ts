@@ -2,6 +2,8 @@ import {Component, OnInit, Injectable} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {HttpClient} from '@angular/common/http';
 import {MetadataService} from "../metadata.service";
+import {ResultsService} from "../results.service";
+import {ResultsInterface} from "../ResultsInterface";
 
 
 @Component({
@@ -19,7 +21,7 @@ export class ResultsComponent implements OnInit {
   originalResults = [];
   showEmptyResults = false;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private metadata: MetadataService) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private metadata: MetadataService, private resultsService: ResultsService) {
   }
 
   ngOnInit() {
@@ -27,9 +29,11 @@ export class ResultsComponent implements OnInit {
       this.id = params.id;
 
       // Todo: handle if not found.
-      this.results = Object.keys(JSON.parse(window.localStorage.getItem('results_' + params.id)));
-      this.originalResults = this.results;
-      this.stats = {
+      this.resultsService.getResults(params.id).subscribe( (response: ResultsInterface) => {
+        console.log(response);
+        this.results = response;
+        this.originalResults = this.results;
+        this.stats = {
         'filesCount': Object.keys(this.results).length,
         'errors': [
           {'text': 'מטבע לא מזוהה - שקל חדש', 'times': 5},
@@ -38,6 +42,7 @@ export class ResultsComponent implements OnInit {
           {'text': 'DD/MM/YYYY הוא לא פורמט תקין', 'times': 30},
         ],
       };
+      });
     });
   }
 
