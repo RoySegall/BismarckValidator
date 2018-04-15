@@ -1,7 +1,4 @@
-
-
 class RosettaConfig(object):
-
     # Keep the list of fields and their english representation.
 
     FIELDS_LIST = {
@@ -121,15 +118,15 @@ class RosettaConfig(object):
     ]
 
     RATING_AGENCIES = [
-        'Moodys',
-        'Moodys/מדרוג',
-        'מדרוג',
-        'S&P',
-        'S&P/מעלות',
-        'מעלות',
-        'Fitch',
-        'פנימי',
-        'מעלות\מדרוג'
+        "Moodys",
+        "Moodys/מדרוג",
+        "מדרוג",
+        "S&P",
+        "S&P/מעלות",
+        "מעלות",
+        "Fitch",
+        "פנימי",
+        "מעלות\מדרוג"
     ]
 
     RATING_HASH = {
