@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve --open",
     "build": "ng build --prod --aot --build-optimizer",
-    "test": "ng test --single-run --code-coverage",
+    "test": "./node_modules/jest/bin/jest.js",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

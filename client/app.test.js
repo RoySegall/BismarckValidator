@@ -1,12 +1,5 @@
-import puppeteer from 'puppeteer'
-
+const puppeteer = require('puppeteer');
 const appUrlBase = 'http://localhost:4200/';
-const routes = {
-  admin: {
-    templates: `${appUrlBase}/templates`,
-  }
-};
-
 let browser;
 let page;
 beforeAll(async () => {
@@ -24,7 +17,13 @@ beforeAll(async () => {
 
 describe('private routes', () => {
   test('redirects to login route when logged out', async () => {
-    await page.goto(routes.private.events)
+    await page.goto(appUrlBase);
     await page.waitForSelector('[data-testid="userLoginForm"]')
   })
+});
+
+afterAll(() => {
+  if (!process.env.DEBUG) {
+    browser.close();
+  }
 });
