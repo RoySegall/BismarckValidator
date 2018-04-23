@@ -4,6 +4,11 @@ python: 3.6
 addons:
   rethinkdb: "2.3"
 
+cache:
+  directories:
+    - $HOME/.cache/pip
+    - /home/travis/build/RoySegall/BismarckValidator/client/node_modules
+
 install:
   - pip install pycodestyle flake8 isort
   - pip install -r requirements.txt
@@ -13,6 +18,7 @@ before_script:
   - sudo service rethinkdb stop
   - rethinkdb --http-port 8090 > /dev/null &
   - python3 install.py
+  - npm install forever -g
 
 script:
   # todo: use flake8
@@ -30,6 +36,6 @@ script:
   # Running frontend tests.
   - cd client
   - npm install
-  - npm run start
-  - sleep 10
+  - forever start node_modules/@angular/cli/bin/ng serve
+  - sleep 20
   - npm run test
