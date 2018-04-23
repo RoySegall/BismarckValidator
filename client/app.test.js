@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const appUrlBase = 'http://localhost:4200/';
+const appUrlBase = 'http://127.0.0.1:4200';
 let browser;
 let page;
 beforeAll(async () => {
