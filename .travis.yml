@@ -26,3 +26,9 @@ script:
   - pytest report_processor/tests/test_bismarck_report.py
   - pytest rosetta/tests/test_rosetta.py
   - pytest rosetta/tests/test_validations.py
+
+  # Running frontend tests.
+  - cd client
+  - npm install
+  - npm run start > /dev/null &
+  - npm run test
