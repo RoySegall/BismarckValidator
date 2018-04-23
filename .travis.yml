@@ -31,4 +31,5 @@ script:
   - cd client
   - npm install
   - npm run start > /dev/null &
+  - sleep 10
   - npm run test
