@@ -6,6 +6,7 @@
     "ng": "ng",
     "start": "ng serve --open",
     "build": "ng build --prod --aot --build-optimizer",
+    "build_travis": "ng build --environment=travis --aot --build-optimizer",
     "test": "./node_modules/jest/bin/jest.js",
     "lint": "ng lint",
     "e2e": "ng e2e"

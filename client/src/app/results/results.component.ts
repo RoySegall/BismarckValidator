@@ -16,9 +16,13 @@ export class ResultsComponent implements OnInit {
 
   results: any;
   id = '';
-  stats = {};
+  stats = {
+    filesCount: 0,
+    errors: [],
+  };
   originalResults: any;
   showEmptyResults = false;
+  processing: boolean;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private resultsService: ResultsService) {
   }

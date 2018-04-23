@@ -6,7 +6,7 @@ addons:
 
 cache:
   directories:
-    - $HOME/.cache/pip
+    - /home/travis/.cache/pip
     - /home/travis/build/RoySegall/BismarckValidator/client/node_modules
 
 install:
@@ -19,6 +19,7 @@ before_script:
   - rethinkdb --http-port 8090 > /dev/null &
   - python3 install.py
   - npm install forever -g
+  - npm install -g local-web-server
 
 script:
   # todo: use flake8
@@ -36,6 +37,6 @@ script:
   # Running frontend tests.
   - cd client
   - npm install
-  - forever start node_modules/@angular/cli/bin/ng serve
-  - sleep 20
+  - npm run build_travis
+  - cd dist && ws --port 4200 &
   - npm run test
