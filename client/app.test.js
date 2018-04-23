@@ -20,7 +20,7 @@ describe('Uploads', () => {
     await page.goto(appUrlBase);
     await page.waitForSelector('form#upload');
     let dropZoneInput = await page.$('.dz-hidden-input');
-    dropZoneInput.uploadFile('/Applications/MAMP/htdocs/BismarckValidator/pytest_assets/513026484_gs.xlsx');
+    dropZoneInput.uploadFile(process.cwd() + '/../pytest_assets/513026484_gs.xlsx');
     await page.waitForSelector('#checkFiles');
     await page.click('#checkFiles');
     await page.waitForSelector('.folder-view');
