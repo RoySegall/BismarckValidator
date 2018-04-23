@@ -18,7 +18,6 @@ before_script:
   - sudo service rethinkdb stop
   - rethinkdb --http-port 8090 > /dev/null &
   - python3 install.py
-  - npm install forever -g
   - npm install -g local-web-server
 
 script:
