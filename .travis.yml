@@ -30,6 +30,6 @@ script:
   # Running frontend tests.
   - cd client
   - npm install
-  - npm run start > /dev/null &
+  - npm run start
   - sleep 10
   - npm run test
