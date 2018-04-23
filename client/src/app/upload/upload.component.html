@@ -1,6 +1,6 @@
 <form id="upload" (ngSubmit)="submit()">
   <dropzone class="testing" [config]="config" [message]="'לחץ פה או גרור קבצים על מנת להעלות'" (error)="onUploadError($event)" (success)="onUploadSuccess($event)"></dropzone>
 
-  <button *ngIf="this.canVerify == true">בדוק את הקבצים</button>
+  <button *ngIf="this.canVerify == true" id="checkFiles">בדוק את הקבצים</button>
   <i class="fa fa-spinner fa-spin" *ngIf="this.processing == true"></i>
 </form>

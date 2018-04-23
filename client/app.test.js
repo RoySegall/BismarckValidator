@@ -15,11 +15,20 @@ beforeAll(async () => {
   page = await browser.newPage()
 });
 
-describe('private routes', () => {
-  test('redirects to login route when logged out', async () => {
+describe('Uploads', () => {
+  test('Testing the upload process.', async () => {
     await page.goto(appUrlBase);
-    await page.waitForSelector('[data-testid="userLoginForm"]')
-  })
+    await page.waitForSelector('form#upload');
+    let dropZoneInput = await page.$('.dz-hidden-input');
+    dropZoneInput.uploadFile('/Applications/MAMP/htdocs/BismarckValidator/pytest_assets/513026484_gs.xlsx');
+    await page.waitForSelector('#checkFiles');
+    await page.click('#checkFiles');
+    await page.waitForSelector('.folder-view');
+  });
+
+  test('Testing the folder view', async () => {
+    await page.waitForSelector('.folder-view');
+  });
 });
 
 afterAll(() => {
