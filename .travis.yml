@@ -4,6 +4,11 @@ python: 3.6
 addons:
   rethinkdb: "2.3"
 
+cache:
+  directories:
+    - /home/travis/.cache/pip
+    - /home/travis/build/RoySegall/BismarckValidator/client/node_modules
+
 install:
   - pip install pycodestyle flake8 isort
   - pip install -r requirements.txt
@@ -13,10 +18,11 @@ before_script:
   - sudo service rethinkdb stop
   - rethinkdb --http-port 8090 > /dev/null &
   - python3 install.py
+  - npm install -g local-web-server
 
 script:
   # todo: use flake8
-  - pycodestyle --show-source --max-line-length=120 --show-pep8 .
+  - pycodestyle --show-source --max-line-length=120 --show-pep8 . --exclude=client/node_modules/
 
   # Running flask in the background.
   - FLASK_APP=app.py FLASK_DEBUG=1 flask run --port 8080 > /dev/null 2>&1 &
@@ -26,3 +32,10 @@ script:
   - pytest report_processor/tests/test_bismarck_report.py
   - pytest rosetta/tests/test_rosetta.py
   - pytest rosetta/tests/test_validations.py
+
+  # Running frontend tests.
+  - cd client
+  - npm install
+  - npm run build_travis
+  - cd dist && ws --port 4200 &
+  - npm run test
