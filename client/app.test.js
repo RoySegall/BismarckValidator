@@ -28,6 +28,9 @@ describe('Uploads', () => {
 
   test('Testing the folder view', async () => {
     await page.waitForSelector('.folder-view');
+
+    // Making sure the file exists.
+    await page.waitForSelector('.files .file');
   });
 });
 
