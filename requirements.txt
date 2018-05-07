@@ -1,4 +1,5 @@
-pandas==0.22.0
+bottle
+pandas
 xlrd==1.1.0
 requests==2.18.4
 Flask==0.12.2
