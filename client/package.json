@@ -33,6 +33,7 @@
     "core-js": "^2.4.1",
     "dropzone": "^5.3.0",
     "font-awesome": "^4.7.0",
+    "intro.js": "^2.9.3",
     "ngx-dropzone-wrapper": "^5.3.3",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.20"

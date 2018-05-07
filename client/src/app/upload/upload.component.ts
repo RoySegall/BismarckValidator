@@ -4,6 +4,8 @@ import {environment} from '../../environments/environment';
 import {HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 
+declare const introJs: any;
+
 @Component({
   selector: 'op-upload',
   templateUrl: './upload.component.html',
@@ -17,8 +19,10 @@ export class UploadComponent implements OnInit {
   data = {};
   canVerify = false;
   processing = false;
+  intro: any;
 
   constructor(private http: HttpClient, private router: Router) {
+
   }
 
   ngOnInit() {
