@@ -16,6 +16,7 @@ while True:
         print("...")
         foo = r.connect(settings['db']['host'], settings['db']['port'])
     except r.ReqlDriverError:
+        print(r.ReqlDriverError)
         time.sleep(1)
         continue
     break
@@ -24,6 +25,11 @@ print("RethinkDB exists.")
 
 print("----------")
 print("Installing DB")
+print("""
+db_name:{}
+db_host:{}
+db_port:{}
+""".format(settings['db']['name'], settings['db']['host'], settings['db']['port']))
 try:
     r.db_create(settings['db']['name']).run(r.connect(settings['db']['host'], settings['db']['port']))
 except r.ReqlOpFailedError:

@@ -12,9 +12,10 @@ RUN apk add --no-cache --update --virtual .build-deps \
 RUN pip3 install --no-cache-dir -r requirements.txt \
     && apk del .build-deps
 
+RUN npm install /opt/webapp/client/
 
 RUN ["chmod", "+x", "/opt/webapp/entrypoint.sh"]
-EXPOSE 8080
+EXPOSE 8080 8000
 ENV FLASK_APP app.py
 ENV FLASK_DEBUG 1
 ENTRYPOINT ["/opt/webapp/entrypoint.sh"]

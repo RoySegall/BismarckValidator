@@ -1,21 +1,21 @@
-version: '3.1'
+version: '3'
 services:
   rethinkdb:
     image: rethinkdb
-    build: /rethinkdb
     ports:
-      - "28015"
+      - 8080:8080
+
     volumes:
-      - /data:/data
-    command: rethinkdb --bind all --data /data
+      - ./database:/data
+    command: rethinkdb --bind all -d /data
 
   bismark:
-    image: danielp16/bismark
-    build: /bismark
+    image: bismark:1.2
     volumes:
-      - ~/projects/BismarckValidator/settings.yml:/opt/webapp/settings.yml
+      - ./settings.yml:/opt/webapp/settings.yml
 
     depends_on:
       - rethinkdb
+
     ports:
-      - 8080:80
+      - 8000:8000
