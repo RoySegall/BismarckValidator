@@ -2,7 +2,7 @@ import os
 from werkzeug.utils import secure_filename
 from BismarkPusher import BismarkPusher
 from FlaskHelpers import FlaskHelpers
-from flask import Flask, url_for
+from flask import Flask, url_for, render_template
 from flask import request
 from flask_cors import CORS
 import pandas as pd
@@ -10,15 +10,15 @@ from report_processor.bismarck_report import BismarckReport
 from models.Results import Results
 from rosetta.rosetta_config import RosettaConfig
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/dist')
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 flask_helpers = FlaskHelpers()
 
 
 @app.route("/")
 def index():
-    return flask_helpers.message('woops... It seems that you got the wrong place', 404)
-
+#  return flask_helpers.message('woops... It seems that you got the wrong place', 404)
+   return render_template("/index.html")
 
 @app.route("/upload", methods=['POST'])
 def upload():

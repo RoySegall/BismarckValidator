@@ -5,6 +5,7 @@ RUN apk add --no-cache --update python3 py-pip bash curl nodejs
 # RUN pip install --upgrade pip
 
 COPY . /opt/webapp
+COPY ./client/dist /opt/webapp/dist
 WORKDIR /opt/webapp
 RUN apk add --no-cache --update --virtual .build-deps \
     gcc python3-dev musl-dev coreutils build-base py-numpy g++ libffi-dev openssl-dev \
