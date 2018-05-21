@@ -1,0 +1,22 @@
+version: '3'
+services:
+  rethinkdb:
+    image: rethinkdb
+    ports:
+      - 8080:8080
+
+    volumes:
+      - ./database:/data
+    command: rethinkdb --bind all -d /data
+
+  bismark:
+    image: bismark:1.3
+    volumes:
+      - ./settings.yml:/opt/webapp/settings.yml
+      - ./client/dist:/opt/webapp/dist
+
+    depends_on:
+      - rethinkdb
+
+    ports:
+      - 8000:8000
