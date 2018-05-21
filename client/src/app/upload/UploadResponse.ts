@@ -1,3 +1,0 @@
-interface UploadResponse {
-  data: ProcessResponse
-}
