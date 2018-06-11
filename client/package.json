@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve --open",
     "build": "ng build --prod --aot --build-optimizer",
-    "gh-pages": "ng build --prod --environment=ghpages --base-href \"https://roysegall.github.io/BismarckValidator/\" && ngh",
+    "gh-pages": "ng build --prod --environment=ghpages --base-href \"http://moshe.openpension.org.il/\" && ngh",
     "build_travis": "ng build --environment=travis --aot --build-optimizer",
     "test": "./node_modules/jest/bin/jest.js",
     "lint": "ng lint",

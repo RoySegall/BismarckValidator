@@ -5,6 +5,6 @@ pusher:
   cluster: 'eu'
   ssl: true
 db:
-  host: rethinkdb
+  host: localhost
   port: 28015
   name: "bismark"
