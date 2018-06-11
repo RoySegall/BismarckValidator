@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  backend: 'http://46.101.163.153/api/',
+  backend: 'http://moshe.openpension.org.il/api/',
 };
