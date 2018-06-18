@@ -5,24 +5,48 @@ from FlaskHelpers import FlaskHelpers
 from flask import Flask, url_for, render_template
 from flask import request
 from flask_cors import CORS
-import pandas as pd
 from report_processor.bismarck_report import BismarckReport
 from models.Results import Results
 from rosetta.rosetta_config import RosettaConfig
+import rollbar
+import rollbar.contrib.flask
+from flask import got_request_exception
+import yaml
 
 app = Flask(__name__, static_url_path='/dist')
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 flask_helpers = FlaskHelpers()
 
+@app.before_first_request
+def init_rollbar():
+    print('a')
+
+    stream = open(os.getcwd() + "/rollbar.yml")
+    rollbar_settings = yaml.load(stream)
+
+    print(rollbar_settings)
+    """init rollbar module"""
+    rollbar.init(
+        # access token for the demo app: https://rollbar.com/demo
+        rollbar_settings['key'],
+        # environment name
+        rollbar_settings['env'],
+        # server root directory, makes tracebacks prettier
+        root=os.path.dirname(os.path.realpath(__file__)),
+        # flask already sets up logging
+        allow_logging_basic_config=False)
+
+    # send exceptions from `app` to rollbar, using flask's signal system.
+    got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+
 
 @app.route("/")
 def index():
-#  return flask_helpers.message('woops... It seems that you got the wrong place', 404)
-   return render_template("/index.html")
+     return flask_helpers.message('woops... It seems that you got the wrong place', 404)
+
 
 @app.route("/upload", methods=['POST'])
 def upload():
-
     for file in dict(request.files):
         current_file = request.files[file]
 
@@ -34,7 +58,6 @@ def upload():
 
 @app.route("/process_files", methods=['POST'])
 def process():
-
     parsed_request = dict(request.form)
 
     # A couple of validations.

@@ -8,3 +8,8 @@ compact_report.json
 flat_report.json
 report_processor/fixtures/batch
 /database
+rollbar.yml
+venv
+.DS_STORE
+client/dist
+.publish
